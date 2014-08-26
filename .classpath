@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry excluding="src/" kind="src" path=""/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/Users/swatters/GoogleDrive/Dev/SOFIA_Aladin_8/SOFIA_Aladin_8/dist/SOFIA_Aladin8.jar"/>
+	<classpathentry kind="lib" path="/utils/bin"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
