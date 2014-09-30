@@ -1159,9 +1159,9 @@ public class Aladin extends JApplet
                {"?"+MSOFIAIMAGERS+"|"+alt+" F"},
 //               {MSOFIAFOV,
 //            	   	"?"+MSOFIAIMAGERS,MSOFIAWFI,MSOFIAFFI,MSOFIAFPI},
-               {MSOFIASETROF+"|"+alt+" R"},
-               // TODO put string in string file and replace here with field 
-               {MSOFIAMOPSREVIEW, "Initial Target Check..."},
+//               {MSOFIASETROF+"|"+alt+" R"},
+//               // TODO put string in string file and replace here with field 
+//               {MSOFIAMOPSREVIEW, "Initial Target Check..."},
 //               {}, 
 //               {MSOFIASETTINGS}
              },
