@@ -66,7 +66,7 @@ public final class Calque extends JPanel implements Runnable {
    ScrollbarStack scroll;		 // La scrollbar verticale si necessaire
    protected int reticleMode;    //  1-normal, 2-large
    
-   // @SOFIA-extension instance variables
+   // @SOFIA_Aladin-extension instance variables
    private int SOFIAImagerMode;	// 0-none, 1-all
    
    protected boolean flagOverlay;// True si l'echelle doit etre affichee
@@ -92,10 +92,10 @@ public final class Calque extends JPanel implements Runnable {
    static final private int TARGET  = 64;
    static final private int PIXEL = 128;
    static final private int HPXGRID = 256;
-   // @SOFIA-extension instance variables
+   // @SOFIA_Aladin-extension instance variables
    static final private int SOFIAIMAGERS = 512;
 
-   // @SOFIA-extension instance variables included
+   // @SOFIA_Aladin-extension instance variables included
    static final private String [] OVERLAYFLAG = { "scale","label","size","grid","NE","reticle","target","pixel","HPXgrid", "SOFIAIMAGERS"};
    static final private int [] OVERLAYFLAGVAL = { SCALE,  LABEL,  SIZE,  GRID,  NE,  RETICLE,  TARGET,  PIXEL,  HPXGRID, SOFIAIMAGERS };
    
@@ -537,7 +537,7 @@ public final class Calque extends JPanel implements Runnable {
       setOverlayFlag("reticle", mode>0);
    }
 
-   // @SOFIA-extension method
+   // @SOFIA_Aladin-extension method
    protected void toggleSOFIAImagers() { 
       SOFIAImagerMode=(hasSOFIAImagers()) ? 0 : 1;
       setOverlayFlag("sofiaimagers", SOFIAImagerMode>0);

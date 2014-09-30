@@ -18,7 +18,7 @@ import java.awt.Dimension;
 
 /**
  * @author shannon.watters@gmail.com
- * @SOFIA-extension class
+ * @SOFIA_Aladin-extension class
  */
 final class CatalogPanel extends JPanel {
 
