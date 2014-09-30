@@ -13,17 +13,11 @@
     <delete dir="${dist.dir}"/>
     <delete dir="${build.dir}"/>
   </target>
-
-  <!-- Create the build and distribution directories -->
-  <target name="makedir">
-    <mkdir dir="${dist.dir}"/>
-    <mkdir dir="${build.dir}"/>
-  </target> 
 	
 	<!-- Compile the source files -->
 	<target name="compile">
   		<echo message="Source file directory:  ${src.dir}"/>
-  		<echo message="Binary directory:  ${build.dir}"/>
+    <mkdir dir="${build.dir}"/>
 		<javac srcdir="${src.dir}" destdir="${build.dir}" encoding="Cp1252" 
 			source="1.7" target="1.7" deprecation="off" includeantruntime="false">
 
@@ -31,7 +25,6 @@
 			<!-- <compilerarg value="-Xlint"/> -->
 			
 			<classpath>
-  	 			<pathelement path="${java.class.path}/"/>
     			<pathelement path="${src.dir}/jsamp.jar"/>
     			<pathelement path="${src.dir}/microhub.jar"/>
     			<pathelement path="${src.dir}/Moc.jar"/>
@@ -46,17 +39,11 @@
     			<pathelement path="${src.dir}/kxml2-2.3.0.jar"/>
 	  		</classpath> 
 	 	</javac>
-
-		<!-- TODO: Figure out a better way to handle this - Copy non-java files 
-		in src.dir to build.dir so Eclipse can run the project during development -->
-    <copy todir="${build.dir}">
-      <fileset dir="${src.dir}" excludes="**/*.java, **/*.jar, .DS_Store"/>
-    </copy>
-
 	</target>
 		
   <!-- Create a runnable jar file  -->
   <target name="jar" depends="compile">
+    <mkdir dir="${dist.dir}"/>
     <jar destfile="${dist.dir}/${dist.file}" basedir="${build.dir}">
   	    <zipfileset src="${src.dir}/jsamp.jar"/>
   			<zipfileset src="${src.dir}/microhub.jar"/>
@@ -71,7 +58,7 @@
     		<zipfileset src="${src.dir}/cds.savot.writer.jar"/>
     		<zipfileset src="${src.dir}/kxml2-2.3.0.jar"/>
       <fileset dir="${src.dir}" includes="*.gif,*.jpg, Ala*.*" 
-          excludes="**/*.java, AladinSrc*.jar, .DS_Store"/> 
+        excludes="**/*.java, AladinSrc*.jar, .DS_Store"/> 
       <manifest>
         <attribute name="Main-Class" value="cds.aladin.SOFIA_Aladin"/>
       </manifest>
@@ -79,9 +66,15 @@
   </target>
 
 	<!-- Compiles and creates a runnable jar file -->
-  <target name="main" depends="jar">
+  <target name="main" depends="clean, compile, jar">
     <description>Main target</description>
-  		<echo message="Runnable jar:  ${dist.dir}/${dist.file}"/>
+
+  	<!-- TODO: Figure out a better way to handle this - Copy non-java files 
+    in src.dir to build.dir so Eclipse can run the project during development -->
+    <copy todir="${build.dir}">
+      <fileset dir="${src.dir}" excludes="**/*.java, **/*.jar, .DS_Store"/>
+    </copy>
+  	
   </target>
 	
 </project>
