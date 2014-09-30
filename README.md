@@ -3,9 +3,10 @@ SOFIA Aladin
 
 ######CDS Aladin Sky Atlas extended to help with SOFIA flight preparation
 
-[SOFIA_Aladin Executables](../../releases)
 
-### Build From Source
+####[SOFIA_Aladin Executables](../../releases)
+
+####Build From Source
 * Requires JDK 1.7 or greater
 
 * Download and unzip [`SOFIA_Aladin-master.zip`](https://github.com/svvatters/SOFIA_Aladin/archive/master.zip)
