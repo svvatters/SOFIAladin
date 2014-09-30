@@ -10,7 +10,7 @@ SOFIA Aladin
 
 * To build with [Apache Ant](http://ant.apache.org/) 
  * Unzip and `cd` to the new directory `SOFIA_Aladin-master/`
- * Run `build.xml` with Ant
- 
+ * Run `build.xml`:
+
    `$ ant`
-    * This will do a clean compile and create the executable `SOFIA_Aladin.jar` in a new directory `dist/`
+  * It should do a clean compile and create the executable `SOFIA_Aladin.jar` in a new directory `dist/`
