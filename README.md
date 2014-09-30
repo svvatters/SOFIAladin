@@ -1,4 +1,4 @@
 SOFIA Aladin
 ============
 
-Extensions to CDS' Aladin for use with SOFIA flight prep
+CDS Aladin Sky Atlas extended to help with SOFIA flight preparation
