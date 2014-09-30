@@ -45,7 +45,7 @@ import cds.savot.pull.SavotPullParser;
 /**
  * Dialog window that saves catalog planes as mccs .pos files.
  * @author shannon.watters@gmail.com
- *
+ * @SOFIA-extension class
  */
 final class ExportPosDialog extends JDialog {
 	

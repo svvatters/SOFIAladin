@@ -33,7 +33,7 @@ import sofia.Vizier;
 
 /**
  * @author shannon.watters@gmail.com
- *
+ * @SOFIA-extension class
  */
 public abstract class SOFIA_Aladin {
     
