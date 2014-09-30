@@ -7,10 +7,8 @@ SOFIA Aladin
 
 ### Build From Source
 * Requires JDK 1.7 or greater
-
+* Download and unzip [`SOFIA_Aladin-master.zip`](https://github.com/svvatters/SOFIA_Aladin/archive/master.zip)
 * To build with [Apache Ant](http://ant.apache.org/) 
- * Download and unzip `SOFIA_Aladin-master.zip`
-  
  * `cd` to the new directory `SOFIA_Aladin-master/`
  * Run `build.xml` using Ant:
 
