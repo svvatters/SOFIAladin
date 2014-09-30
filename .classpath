@@ -1,9 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry excluding="src/" kind="src" path=""/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="/Users/swatters/GoogleDrive/Dev/SOFIA_Aladin_8/SOFIA_Aladin_8/dist/SOFIA_Aladin8.jar"/>
-	<classpathentry kind="lib" path="/utils/bin"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7">
+		<attributes>
+			<attribute name="owner.project.facets" value="java"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="src/cds.astro.jar"/>
+	<classpathentry kind="lib" path="src/cds.savot.common.jar"/>
+	<classpathentry kind="lib" path="src/cds.savot.model.jar"/>
+	<classpathentry kind="lib" path="src/cds.savot.pull.jar"/>
+	<classpathentry kind="lib" path="src/cds.savot.sax.jar"/>
+	<classpathentry kind="lib" path="src/cds.savot.writer.jar"/>
+	<classpathentry kind="lib" path="src/jhealpixSmall.jar"/>
+	<classpathentry kind="lib" path="src/jsamp.jar"/>
+	<classpathentry kind="lib" path="src/kxml2-2.3.0.jar"/>
+	<classpathentry kind="lib" path="src/microhub.jar"/>
+	<classpathentry kind="lib" path="src/Moc.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/utils"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
