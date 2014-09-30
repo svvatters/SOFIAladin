@@ -4,15 +4,25 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.text.ParseException;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
+import java.util.Scanner;
+import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import cds.aladin.Aladin;
@@ -23,10 +33,7 @@ import cds.aladin.ViewSimple;
 import cds.astro.Astrocoo;
 import sofia.Imager;
 import sofia.Vizier;
-//import sofia.dcs.Pointing;
-import swatters.SwattersUtils;
-import swatters.swing.SwingUtils;
-import swatters.swing.UserCanceledException;
+
 
 /**
  * @author shannon.watters@gmail.com
@@ -407,7 +414,7 @@ public abstract class SOFIA_Aladin {
         // Prompt the user for a new SOFIA ROF value
         double userInput;
         try {
-            userInput = SwingUtils.showNumInputDialog(
+            userInput = SOFIA_Aladin.showNumInputDialog(
                                             viewSimple.aladin.f,
                                             0.0, 
                                             360.0, 
@@ -832,6 +839,111 @@ public abstract class SOFIA_Aladin {
 //    private static boolean inFPI(double skySep_degs) {
 //        return (skySep_degs <= Imager.FPI.getFOVRadius());        
 //    }
+
+    /**
+     * Removes duplicates from a Collection and preserves it's order
+     * @param c
+     * @return
+     */
+    public static <E> Set<E> removeDups(Collection<E> c) {
+        return new LinkedHashSet<E>(c);
+    }
+
+    /**
+     * Turns the contents of a File into a single String
+     * @param f
+     * @return
+     * @throws FileNotFoundException
+     */
+    public static String streamToString(InputStream s) throws FileNotFoundException {
+        
+        // TODO: Use some kind of buffer for larger files
+        
+        Scanner scan = new Scanner(s);
+        String string = scan.useDelimiter("\\Z").next();
+        scan.close();
+        return string;
+    }
+
+    /**
+     * @param s
+     * @param f
+     * @throws IOException
+     */
+    public static void stringToFile(String s, File f) throws IOException {
+        f.createNewFile();
+        BufferedWriter outWriter = new BufferedWriter(new FileWriter(f));
+        outWriter.write(s);
+        outWriter.flush();
+        outWriter.close();     
+    }
+
+    /**
+     * @param parent
+     * @param minimum
+     * @param maximum
+     * @param promptString
+     * @param title
+     * @param seedValue
+     * @return
+     * @throws UserCanceledException 
+     */
+    public static double showNumInputDialog(JFrame parent, 
+                                            double minimum, 
+                                            double maximum, 
+                                            String promptString, 
+                                            String title,
+                                            String seed) 
+                                        throws UserCanceledException {
+        // Construct the prompt message using the promptString,
+        // minimum, and maximum values
+        String promptMessage = (promptString + 
+                                "  (" + minimum + " - " + maximum + "):");
+        //
+        while (true) {
+
+            //
+            Object userInput = JOptionPane.showInputDialog(
+                                            parent, 
+                                            promptMessage, 
+                                            title, 
+                                            JOptionPane.QUESTION_MESSAGE, 
+                                            null, 
+                                            null, 
+                                            seed);      
+            // If "Cancel" was clicked throw an Exception
+            if (userInput == null) {throw new UserCanceledException();}
+                
+            // Check the validity of the user input
+            try {
+                // If the string isn't a valid double parseDouble()
+                // will throw a NumberFormatException
+                double userValue = Double.parseDouble(
+                                            userInput.toString());
+                
+                // If the double isn't in the range minimum - maximum
+                // throw a NumberFormatException
+                if ((userValue < minimum) || (userValue > maximum)) {
+                    throw new NumberFormatException();                      
+                }
+                // Return the valid user input value
+                return userValue;           
+                
+            } catch (NumberFormatException e) {
+                //
+                String infoMessage = ("Input value ('" + 
+                                    userInput.toString() + 
+                                    "') is invalid.\n" +
+                                    "Valid range:  " +
+                                    minimum + 
+                                    " - " + 
+                                    maximum + "\n" + 
+                                    "Please try again");
+                //
+                JOptionPane.showMessageDialog(null, infoMessage);
+            }
+        }
+    }
 
     public static void main(String[] args) {
          Aladin a = Aladin.launch("");
