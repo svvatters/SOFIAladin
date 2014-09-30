@@ -66,16 +66,16 @@ public final class Calque extends JPanel implements Runnable {
    ScrollbarStack scroll;		 // La scrollbar verticale si necessaire
    protected int reticleMode;    //  1-normal, 2-large
    
-   // SOFIA-extension
+   // @SOFIA-extension instance variables
    private int SOFIAImagerMode;	// 0-none, 1-all
    
    protected boolean flagOverlay;// True si l'echelle doit etre affichee
    protected boolean flagHpxPolar;// True si la polarisation HEALPix doit etre affichee
-   protected boolean flagAutoDist; // True si l'outil de mesure automatique des distances est activé
-   protected boolean flagSimbad; // True si la résolution quickSimbad est lancé
-   protected boolean flagVizierSED;  // True si la résolution SED est lancé
-   protected boolean flagTip;    // True si les tooptips s'affichent sur les sources pointées
-//   protected boolean flagSyncView=false; // True si le zoom est synchronisé entre les vues
+   protected boolean flagAutoDist; // True si l'outil de mesure automatique des distances est activï¿½
+   protected boolean flagSimbad; // True si la rï¿½solution quickSimbad est lancï¿½
+   protected boolean flagVizierSED;  // True si la rï¿½solution SED est lancï¿½
+   protected boolean flagTip;    // True si les tooptips s'affichent sur les sources pointï¿½es
+//   protected boolean flagSyncView=false; // True si le zoom est synchronisï¿½ entre les vues
 
    protected Fov[] curFov; // FOVs pour le noeud courant
    Projection fovProj; // pour forcer la projection de curFov
@@ -92,14 +92,14 @@ public final class Calque extends JPanel implements Runnable {
    static final private int TARGET  = 64;
    static final private int PIXEL = 128;
    static final private int HPXGRID = 256;
-   // SOFIA-extension
+   // @SOFIA-extension instance variables
    static final private int SOFIAIMAGERS = 512;
 
-   // SOFIA-extension included
+   // @SOFIA-extension instance variables included
    static final private String [] OVERLAYFLAG = { "scale","label","size","grid","NE","reticle","target","pixel","HPXgrid", "SOFIAIMAGERS"};
    static final private int [] OVERLAYFLAGVAL = { SCALE,  LABEL,  SIZE,  GRID,  NE,  RETICLE,  TARGET,  PIXEL,  HPXGRID, SOFIAIMAGERS };
    
-   /** Retourne le champ de bits qui contrôle les overlays */
+   /** Retourne le champ de bits qui contrï¿½le les overlays */
    public int getOverlayFlag() { return overlayFlag; }
    
    /** Indique les flags d'overlays actifs */
@@ -116,8 +116,8 @@ public final class Calque extends JPanel implements Runnable {
 
    /** Positionnement d'un flag d'overlay - ex: setOverlayFlag("grid",true);
     * @param name le nom de la fonction d'overlay
-    * @param flag true pour l'activation, false pour la désactivation
-    * @return false si problème
+    * @param flag true pour l'activation, false pour la dï¿½sactivation
+    * @return false si problï¿½me
     */
    public boolean setOverlayFlag(String name,boolean flag) {
       int i = Util.indexInArrayOf(name, OVERLAYFLAG, true);
@@ -127,8 +127,8 @@ public final class Calque extends JPanel implements Runnable {
       return true;
    }
    
-   /** Mise à jour des flags d'overlays (les noms séparés par une simple virgule).
-    * Si la liste commence par '+' ou '-', il s'agit d'une mise à jour */
+   /** Mise ï¿½ jour des flags d'overlays (les noms sï¿½parï¿½s par une simple virgule).
+    * Si la liste commence par '+' ou '-', il s'agit d'une mise ï¿½ jour */
    public void setOverlayList(String names) {
       int mode = 0;
       if( names.length()>1 ) {
@@ -148,7 +148,7 @@ public final class Calque extends JPanel implements Runnable {
       else overlayFlag &= ~mask;
    }
    
-   /** Retourne sous la forme d'une chaine de caractères, tous les overlays actifs 
+   /** Retourne sous la forme d'une chaine de caractï¿½res, tous les overlays actifs 
     * ex : grid,scale,NE */
    public String getOverlayList() {
       StringBuffer s = new StringBuffer();
@@ -165,8 +165,8 @@ public final class Calque extends JPanel implements Runnable {
 
    }
    
-//   protected Source sourceToShow; // source à montrer (thomas, votech)
-//   protected Source osourceToShow; // ancienne source à montrer (thomas, votech)
+//   protected Source sourceToShow; // source ï¿½ montrer (thomas, votech)
+//   protected Source osourceToShow; // ancienne source ï¿½ montrer (thomas, votech)
 
    /** Creation de l'objet calque */
    protected Calque(Aladin aladin) {
@@ -193,8 +193,8 @@ public final class Calque extends JPanel implements Runnable {
       add(zoom,BorderLayout.SOUTH);
    }
    
-   /** Insère ou enlève la scrollbar verticale de la pile si nécessaire
-    * @return true s'il y a eu un changement d'état
+   /** Insï¿½re ou enlï¿½ve la scrollbar verticale de la pile si nï¿½cessaire
+    * @return true s'il y a eu un changement d'ï¿½tat
     */
    protected boolean scrollAdjustement() {
       int lastPlan = scroll.getLastVisiblePlan();
@@ -212,7 +212,7 @@ public final class Calque extends JPanel implements Runnable {
 //      return new Dimension(select.getPreferredSize().width- (Aladin.NEWLOOK_V7 && scroll.isShowing()?scroll.getPreferredSize().width:0),200);
    }
 
-   /** Verrou d'accès à plan[] */
+   /** Verrou d'accï¿½s ï¿½ plan[] */
    volatile protected Object pile = new Object();
 
    /** Retourne la taille de la pile */
@@ -228,7 +228,7 @@ public final class Calque extends JPanel implements Runnable {
       return null;
    }
 
-   /** Retourne un plan repéré par son indice dans la pile */
+   /** Retourne un plan repï¿½rï¿½ par son indice dans la pile */
    public Plan getPlan(int index) {
       try {
          return plan[index];
@@ -251,7 +251,7 @@ public final class Calque extends JPanel implements Runnable {
    /** Retourne le premier Plan Folder qui limite le scope du plan, null si aucun */
    private Plan getMyScopeFolder(Plan p) { return getMyScopeFolder(plan,p); }
    protected Plan getMyScopeFolder(Plan [] allPlan,Plan p) {
-      int nivCherche = p.folder-1;   // Niveau folder à chercher
+      int nivCherche = p.folder-1;   // Niveau folder ï¿½ chercher
 
       for( int i=getIndex(p)-1; nivCherche>=0 && i>=0; i-- ) {
          if( allPlan[i].type==Plan.FOLDER ) {
@@ -276,7 +276,7 @@ public final class Calque extends JPanel implements Runnable {
 
    /** Retourne les plans d'un folder
     * @param f le plan (de type FOLDER)
-    * @param all true tous les plans contenus (récursivité)
+    * @param all true tous les plans contenus (rï¿½cursivitï¿½)
     * @return le tableau des plans contenus dans le folder f
     */
    protected Plan[] getFolderPlan(Plan f) { return getFolderPlan(f,true); }
@@ -390,7 +390,7 @@ public final class Calque extends JPanel implements Runnable {
       taggedSrc=false;
    }
 
-  /** Retourne le nombre de plans actuellement sélectionnés */
+  /** Retourne le nombre de plans actuellement sï¿½lectionnï¿½s */
    protected int getNbSelectedPlans() {
       int n=0;
       Plan [] plan = getPlans();
@@ -456,7 +456,7 @@ public final class Calque extends JPanel implements Runnable {
        return n;
     }
 
-   /** Retourne le nombre d'images (non BG) sélectionnées */
+   /** Retourne le nombre d'images (non BG) sï¿½lectionnï¿½es */
    protected int getNbPlanImgSelected() {
       int n=0;
       Plan [] plan = getPlans();
@@ -478,7 +478,7 @@ public final class Calque extends JPanel implements Runnable {
       return n;
    }
 
-   /** Retourne le nombre de plans Catalog et assimilés actuellement utilises */
+   /** Retourne le nombre de plans Catalog et assimilï¿½s actuellement utilises */
    protected int getNbPlanCat() {
       int n=0;
       Plan [] plan = getPlans();
@@ -489,7 +489,7 @@ public final class Calque extends JPanel implements Runnable {
    }
    
    /** Retourne true s'l y a au-moins un plan actif dont les objets 
-    * sont sélectionnables */
+    * sont sï¿½lectionnables */
    protected boolean hasSelectableObjects() {
       Plan [] plan = getPlans();
       for( int i=0; i<plan.length; i++ ) {
@@ -521,7 +521,7 @@ public final class Calque extends JPanel implements Runnable {
       return n;
    }
 
-   /** Retourne le nombre de sources chargées dans l'ensemble des plans */
+   /** Retourne le nombre de sources chargï¿½es dans l'ensemble des plans */
    protected long getNbSrc() {
       long n=0;
       Plan [] plan = getPlans();
@@ -531,15 +531,13 @@ public final class Calque extends JPanel implements Runnable {
       return n;
    }
 
-   /** Positionnement du mode du réticule 0-sans, 1-normal, 2-large */
+   /** Positionnement du mode du rï¿½ticule 0-sans, 1-normal, 2-large */
    protected void setReticle(int mode) { 
       reticleMode=mode;
       setOverlayFlag("reticle", mode>0);
    }
 
-   /** SOFIA-extension
-    * 
-    */
+   // @SOFIA-extension method
    protected void toggleSOFIAImagers() { 
       SOFIAImagerMode=(hasSOFIAImagers()) ? 0 : 1;
       setOverlayFlag("sofiaimagers", SOFIAImagerMode>0);
@@ -550,7 +548,7 @@ public final class Calque extends JPanel implements Runnable {
       if( flag==!hasGrid() ) switchGrid(verbose);
    }
 
-   /** Active/Désactive la grille */
+   /** Active/Dï¿½sactive la grille */
    protected void switchGrid(boolean verbose) {
       if( !hasGrid() ) {
          setOverlayFlag("grid", true);
@@ -565,7 +563,7 @@ public final class Calque extends JPanel implements Runnable {
       repaintAll();
    }
 
-//   /** Active/Désactive le background */
+//   /** Active/Dï¿½sactive le background */
 //   protected void switchPlanBG() {
 //      if( planBG.survey==null ) return;
 //      ViewSimple v = aladin.view.getCurrentView();
@@ -607,7 +605,7 @@ public final class Calque extends JPanel implements Runnable {
       flagVizierSED=flag;
    }
 
-   /** Retourne le premier plan image qui contient la coordonnée, sinon null */
+   /** Retourne le premier plan image qui contient la coordonnï¿½e, sinon null */
    protected Plan contains(Coord coo) {
       Plan [] plan = getPlans();
       for( int i=0; i<plan.length; i++ ) {
@@ -638,7 +636,7 @@ public final class Calque extends JPanel implements Runnable {
       return false;
    }
 
-   /** Retourne vrai si la pile est vide à part le plan passé en paramètre
+   /** Retourne vrai si la pile est vide ï¿½ part le plan passï¿½ en paramï¿½tre
     * ou s'il y a une vue libre */
     protected boolean isFreeX(Plan p) {
 //       View view = aladin.view;
@@ -660,7 +658,7 @@ public final class Calque extends JPanel implements Runnable {
     }
 
     /** Retourne vrai si la pile contient au moins une image (ne prend pas en compte
-     * le plan passé en paramètre */
+     * le plan passï¿½ en paramï¿½tre */
     protected boolean hasImage(Plan p) {
        Plan [] plan = getPlans();
        for( int i=0; i<plan.length; i++ ) {
@@ -685,7 +683,7 @@ public final class Calque extends JPanel implements Runnable {
       return n;
    }
 
-    /** Retourne La liste des noms de plans en cours de traitement (séparés par ,) */
+    /** Retourne La liste des noms de plans en cours de traitement (sï¿½parï¿½s par ,) */
     protected String getBlinkingInfo() {
        StringBuffer s = new StringBuffer();
        Plan [] plan = getPlans();
@@ -736,7 +734,7 @@ public final class Calque extends JPanel implements Runnable {
       Free(n);
    }
 
-   /**  Libère le plan passé en paramètre */
+   /**  Libï¿½re le plan passï¿½ en paramï¿½tre */
    protected void Free(Plan p) { Free( getIndex(p)); }
 
   /** Libere le plan indique
@@ -779,10 +777,10 @@ public final class Calque extends JPanel implements Runnable {
       Aladin.makeCursor(this,Aladin.DEFAULTCURSOR);
    }
 
-   /** Active/Désactive tous les plans sélectionnés */
+   /** Active/Dï¿½sactive tous les plans sï¿½lectionnï¿½s */
    protected void setActivatedSet(boolean flagShow) {
 
-      // Décompte du nombre d'images pour éventuellement passer en mode multiview
+      // Dï¿½compte du nombre d'images pour ï¿½ventuellement passer en mode multiview
       if( flagShow ) {
          int nb=0;
          for( int i=0; i<plan.length; i++ ) {
@@ -805,16 +803,16 @@ public final class Calque extends JPanel implements Runnable {
       }
    }
 
-   /** Libère tous les plans en erreur ou n'ayant aucun objet catalog */
+   /** Libï¿½re tous les plans en erreur ou n'ayant aucun objet catalog */
    protected void FreeEmpty() {
       int i,j;
 
       synchronized( pile ) {
 
-         // Suppression effective (par décalage)
+         // Suppression effective (par dï¿½calage)
          for( i=plan.length-1; i>=0; i-- ) {
             if( plan[i].isEmpty() ) {
-               if( !plan[i].Free() ) continue;  // Le plan n'est pas libérable
+               if( !plan[i].Free() ) continue;  // Le plan n'est pas libï¿½rable
                scroll.rm(i);
                Plan ptmp = plan[i];
                for( j=i; j>1; j-- ) plan[j]=plan[j-1];
@@ -830,12 +828,12 @@ public final class Calque extends JPanel implements Runnable {
 
 
 
-   /** Libère tous les plans du groupe en cours en les decalant vers le bas */
+   /** Libï¿½re tous les plans du groupe en cours en les decalant vers le bas */
    protected void FreeSet(boolean verbose) {
       int i,j;
 
       synchronized( pile ) {
-         // Gestion des folders (sélection de tous les plans qui s'y trouvent)
+         // Gestion des folders (sï¿½lection de tous les plans qui s'y trouvent)
          for( i=plan.length-1; i>=0; i-- ) {
             if( plan[i].selected && plan[i].type==Plan.FOLDER ) {
                Plan p[] = getFolderPlan(plan[i]);
@@ -843,12 +841,12 @@ public final class Calque extends JPanel implements Runnable {
             }
          }
 
-         // Suppression effective (par décalage)
+         // Suppression effective (par dï¿½calage)
          for( i=plan.length-1; i>=0; i-- ) {
             if( plan[i].selected ) {
                if( plan[i].type==Plan.NO) continue; // on ne supprime pas un plan vide
                if( verbose ) aladin.console.printCommand("rm "+Tok.quote(plan[i].label));
-               if( !plan[i].Free() ) continue;  // Le plan n'est pas libérable
+               if( !plan[i].Free() ) continue;  // Le plan n'est pas libï¿½rable
                scroll.rm(i);
 //               Plan ptmp = plan[i];
                for( j=i; j>1; j-- ) plan[j]=plan[j-1];
@@ -864,10 +862,10 @@ public final class Calque extends JPanel implements Runnable {
       repaintAll();
    }
 
-   // Juste pour accélérer un peu
+   // Juste pour accï¿½lï¿½rer un peu
    protected boolean taggedSrc=false;
 
-   /** Retourne true s'il y a au-moins un objet tagué dans la lsite des plans sélectionnés */
+   /** Retourne true s'il y a au-moins un objet taguï¿½ dans la lsite des plans sï¿½lectionnï¿½s */
    protected boolean hasTaggedSrc() {
       if( !taggedSrc ) return false;
 
@@ -889,9 +887,9 @@ public final class Calque extends JPanel implements Runnable {
    protected void selectAllObjectInPlans() {
       selectAllObject(1);
    }
-   /** Sélection de tous les objets des plans activés
-    * @param mode 0-dans tous les plans, 1-dans les plans sélectionnés, 2-les objets tagués
-    * @param all true => tous les plans, sinon seulement ceux sélectionnés
+   /** Sï¿½lection de tous les objets des plans activï¿½s
+    * @param mode 0-dans tous les plans, 1-dans les plans sï¿½lectionnï¿½s, 2-les objets taguï¿½s
+    * @param all true => tous les plans, sinon seulement ceux sï¿½lectionnï¿½s
     */
    protected void selectAllObject(int mode) {
       aladin.view.deSelect();
@@ -901,8 +899,8 @@ public final class Calque extends JPanel implements Runnable {
             aladin.view.selectAllInPlanWithoutFree(plan[i],mode==2?1:0);
          }
       }
-      // TODO : l'envoi d'un tel message doit il se faire automatiquement ? à réfléchir
-      // envoi d'un message PLASTIC de sélection des objets
+      // TODO : l'envoi d'un tel message doit il se faire automatiquement ? ï¿½ rï¿½flï¿½chir
+      // envoi d'un message PLASTIC de sï¿½lection des objets
       if( Aladin.PLASTIC_SUPPORT && aladin.getMessagingMgr().isRegistered() ) {
          try {
       	 	aladin.getMessagingMgr().sendSelectObjectsMsg();
@@ -913,7 +911,7 @@ public final class Calque extends JPanel implements Runnable {
       aladin.mesure.mcanvas.repaint();
    }
 
-   /** Enlève tous les tags sur les sources */
+   /** Enlï¿½ve tous les tags sur les sources */
    protected void untag() {
       for( int i=0; i<plan.length; i++ ) {
          if( !plan[i].isCatalog() || !plan[i].flagOk ) continue;
@@ -946,7 +944,7 @@ public final class Calque extends JPanel implements Runnable {
          if( !plan[i].active || !plan[i].hasObj()  ) continue;
          if( plan[i].type==Plan.APERTURE ) continue;
 
-         // Pas le même scope
+         // Pas le mï¿½me scope
          if( folder!=getMyScopeFolder(plan[i]) ) continue;
 
          Enumeration<Obj> e = plan[i].setMultiSelect(v,r).elements();
@@ -1024,7 +1022,7 @@ public final class Calque extends JPanel implements Runnable {
       return s;
    }
 
-  /** Traitement à  faire suite à un changement de frame */
+  /** Traitement ï¿½  faire suite ï¿½ un changement de frame */
    protected void resumeFrame() {
       
       int frame = aladin.localisation.getFrame();
@@ -1045,12 +1043,12 @@ public final class Calque extends JPanel implements Runnable {
          }
       }
       
-      // Réaffichage éventuel du formulaire courant pour convertir
-      // la position par défaut
+      // Rï¿½affichage ï¿½ventuel du formulaire courant pour convertir
+      // la position par dï¿½faut
 //      if( aladin.dialog.isVisible() ){
          Server srv = aladin.dialog.server[aladin.dialog.current];
 
-         // on le vide juste avant en cas de formulaire avec tree, sinon impossible à modifier le target
+         // on le vide juste avant en cas de formulaire avec tree, sinon impossible ï¿½ modifier le target
          if( srv.target!=null && srv.tree!=null ) srv.target.setText("");
 
 //      }
@@ -1060,11 +1058,11 @@ public final class Calque extends JPanel implements Runnable {
       // Conversion de la position d'un cut out pour le frameInfo courant (s'il y a lieu)
       if( aladin.frameInfo!=null ) aladin.frameInfo.initTarget();
 
-      // Invalidation des grilles de coordonnées
+      // Invalidation des grilles de coordonnï¿½es
       aladin.view.grilAgain();
       aladin.view.repaintAll();
 
-      // Nécessaire dans le cas de plan Healpix
+      // Nï¿½cessaire dans le cas de plan Healpix
 //      for( int i=0; i<aladin.view.modeView; i++ ) {
 //         ViewSimple v = aladin.view.viewSimple[i];
 //         if( v.isFree() ) continue;
@@ -1089,7 +1087,7 @@ public final class Calque extends JPanel implements Runnable {
    */
    private Obj oNewobj=null;
    protected void setObjet(Obj newobj) {
-      if( newobj==oNewobj ) return;   // Déjà inséré juste avant
+      if( newobj==oNewobj ) return;   // Dï¿½jï¿½ insï¿½rï¿½ juste avant
       Plan pc = selectPlanTool();
       pc.pcat.setObjet(newobj);
       oNewobj=newobj;
@@ -1105,12 +1103,12 @@ public final class Calque extends JPanel implements Runnable {
       return p.pcat.delObjet(obj);
    }
 
-   /** Mise à jour des flag des plans:
-    *  1) Met à jour les flags ref de tous les plans de la pile
+   /** Mise ï¿½ jour des flag des plans:
+    *  1) Met ï¿½ jour les flags ref de tous les plans de la pile
     *  en fonction du nombre de vues qui utilisent ces plans.
     *  Si au-moins une vue utilise un plan particulier, son flag
-    *  ref est positionné à true sinon false
-    *  2) On redemande l'activation/desactivation souhaité par l'utilisateur
+    *  ref est positionnï¿½ ï¿½ true sinon false
+    *  2) On redemande l'activation/desactivation souhaitï¿½ par l'utilisateur
     */
    protected void majPlanFlag() {
 
@@ -1127,10 +1125,10 @@ public final class Calque extends JPanel implements Runnable {
       }
    }
 
-   /** Met dans le cache et libère le tableau sur les pixels d'origine
+   /** Met dans le cache et libï¿½re le tableau sur les pixels d'origine
     * pour tous les plans images qui ne sont pas visible, ou pour tous les plans
-    * images dans le cas où le mode Pixel courant est 8 bits.
-    * @return true s'il y a eu une libération effective, sinon false
+    * images dans le cas oï¿½ le mode Pixel courant est 8 bits.
+    * @return true s'il y a eu une libï¿½ration effective, sinon false
     */
    protected boolean freeUnusedPixelsOrigin() {
       boolean rep=false;
@@ -1146,12 +1144,12 @@ public final class Calque extends JPanel implements Runnable {
 
 
    /** Retourne vrai si le plan peut etre de reference
-   * @param p le plan à tester
+   * @param p le plan ï¿½ tester
    */
    protected boolean canBeRef(Plan p) {
       if( p==null ) return false;
       if( p.hasXYorig ) return true;
-   	  // ajout thomas : PlanFov peut être un plan de référence
+   	  // ajout thomas : PlanFov peut ï¿½tre un plan de rï¿½fï¿½rence
       return (p.isImage() || p.type==Plan.ALLSKYIMG || p.isPlanBGOverlay()
               || p.isCatalog()
               || p.isTool() );
@@ -1175,28 +1173,28 @@ public final class Calque extends JPanel implements Runnable {
       p.ref=true;
 
       // On fait tout ce qu'il faut pour que la vue soit proprement
-      // sélectionnée comme si on avait cliqué sur le logo du plan
+      // sï¿½lectionnï¿½e comme si on avait cliquï¿½ sur le logo du plan
       aladin.view.setSelect(nview);
 
-      // On affecte le plan de référence à sa vue
+      // On affecte le plan de rï¿½fï¿½rence ï¿½ sa vue
       aladin.view.setPlanRef(nview,p);
 
-      // On sélectionne le plan dans la pile
+      // On sï¿½lectionne le plan dans la pile
       selectPlan(p);
       
       return true;
    }
    
-   /** Positionne le plan BG comme étant de référence. Si la vue que l'on va utilisée
-    * est déjà un plan BG, centre automatiquement la nouvelle vue sur le même champ
-    * Si pas possible, garde la position par défaut
+   /** Positionne le plan BG comme ï¿½tant de rï¿½fï¿½rence. Si la vue que l'on va utilisï¿½e
+    * est dï¿½jï¿½ un plan BG, centre automatiquement la nouvelle vue sur le mï¿½me champ
+    * Si pas possible, garde la position par dï¿½faut
     */
    protected boolean setPlanRefOnSameTarget(PlanBG p) {
       int nview = aladin.view.getLastNumView(p);
       if( nview<0 || !canBeRef(p) )  return false;
       ViewSimple v = aladin.view.viewSimple[nview];
       
-      if( v.isFree() || !Projection.isOk(v.pref.projd) ) return setPlanRef(p,nview);  // pas possible de se mettre à la même position
+      if( v.isFree() || !Projection.isOk(v.pref.projd) ) return setPlanRef(p,nview);  // pas possible de se mettre ï¿½ la mï¿½me position
       Coord c = v.getProj().getProjCenter();
       aladin.trace(4,"Calque.setPlanRefOnSameTarget() sur "+c);
       double z = v.zoom;
@@ -1220,7 +1218,7 @@ public final class Calque extends JPanel implements Runnable {
       return setPlanRef(getPlan(n),nview);
    }
 
-   /** Sélection d'un plan particulier */
+   /** Sï¿½lection d'un plan particulier */
    protected void selectPlan(Plan p) {
       unSelectAllPlan();
       if( p!=null ) {
@@ -1230,7 +1228,7 @@ public final class Calque extends JPanel implements Runnable {
       select.showSelectedPlan();
    }
 
-   /** Spécifie le plan sous la souris */
+   /** Spï¿½cifie le plan sous la souris */
    protected void selectPlanUnderMouse(Plan p) {
       unSelectUnderMouse();
       if( p!=null ) p.underMouse=true;
@@ -1259,16 +1257,16 @@ public final class Calque extends JPanel implements Runnable {
    }
 	}*/
 
-   /** Change le nom d'un plan et réaffiche le tout */
+   /** Change le nom d'un plan et rï¿½affiche le tout */
    protected void rename(Plan p,String name) {
       p.setLabel(name);
       repaintAll();
    }
 
-   /** Activation du plan p avec éventuellement scrolling sur
-    * la première vue qui le montre.
-    * @param p Plan à activer
-    * @param flagPaint true si on réaffiche après
+   /** Activation du plan p avec ï¿½ventuellement scrolling sur
+    * la premiï¿½re vue qui le montre.
+    * @param p Plan ï¿½ activer
+    * @param flagPaint true si on rï¿½affiche aprï¿½s
     */
    protected void showPlan(Plan p) { showPlan(p,true); }
    protected void showPlan(Plan p,boolean flagPaint) {
@@ -1279,7 +1277,7 @@ public final class Calque extends JPanel implements Runnable {
       if( flagPaint ) repaintAll();
    }
    
-   /** Désactivation de tous les plans BG au-dessus du plan passé en paramètre qui le cache */
+   /** Dï¿½sactivation de tous les plans BG au-dessus du plan passï¿½ en paramï¿½tre qui le cache */
    protected void switchOffBGOver(Plan p) {
       Plan [] plan = getPlans();
       int n = getIndex(p);
@@ -1292,21 +1290,21 @@ public final class Calque extends JPanel implements Runnable {
       p.setActivated(true);
    }
 
-   private boolean memoClinDoeil=false; // Vrai si on a mémorisé un état via le clin d'oeil
+   private boolean memoClinDoeil=false; // Vrai si on a mï¿½morisï¿½ un ï¿½tat via le clin d'oeil
    
    protected boolean hasClinDoeil() { return memoClinDoeil; }
 
    /** Pour "oublier" qu'on utilisait l'oeil */
    protected void resetClinDoeil() { memoClinDoeil=false; }
 
-   /** Lorsque l'oeil est cliqué, il y aura mémorisation de l'état d'activation
-    * ou non des plans (qui ne sont pas de référence), puis désactivation de ces
+   /** Lorsque l'oeil est cliquï¿½, il y aura mï¿½morisation de l'ï¿½tat d'activation
+    * ou non des plans (qui ne sont pas de rï¿½fï¿½rence), puis dï¿½sactivation de ces
     * plans.
-    * Si on reclique sur l'oeil, ce sera l'état préalablement mémorisé qui sera
-    * restitué.
-    * Utilise la variable Claque.memoClinDoeil pour savoir si on a déjà
-    * mémorisé un état antérieur. Et Plan.memoClinDoeil pour mémoriser individuellement
-    * chaque état de plan.
+    * Si on reclique sur l'oeil, ce sera l'ï¿½tat prï¿½alablement mï¿½morisï¿½ qui sera
+    * restituï¿½.
+    * Utilise la variable Claque.memoClinDoeil pour savoir si on a dï¿½jï¿½
+    * mï¿½morisï¿½ un ï¿½tat antï¿½rieur. Et Plan.memoClinDoeil pour mï¿½moriser individuellement
+    * chaque ï¿½tat de plan.
     */
    protected void clinDoeil() {
       Plan [] plan = getPlans();
@@ -1351,7 +1349,7 @@ public final class Calque extends JPanel implements Runnable {
    }
    */
 
-   /** Retourne l'index d'un plan, -1 si non trouvé */
+   /** Retourne l'index d'un plan, -1 si non trouvï¿½ */
    protected int getIndex(Plan p) {
       return getIndex(plan,p);
    }
@@ -1365,8 +1363,8 @@ public final class Calque extends JPanel implements Runnable {
    /**
     * Retourne l'index du premier plan dont le label correspond
     * au masque passe en parametre
-    * @param mask le pattern de recherche avec jokers à la msdos
-    * @param mode 0-avec jokers, 1-simple égalité stricte des chaines
+    * @param mask le pattern de recherche avec jokers ï¿½ la msdos
+    * @param mode 0-avec jokers, 1-simple ï¿½galitï¿½ stricte des chaines
     * @return le numero du plan correspondant, -1 si aucun
     */
    protected int getIndexPlan(String mask) { return getIndexPlan(mask,0); }
@@ -1381,8 +1379,8 @@ public final class Calque extends JPanel implements Runnable {
    /**
     * Retourne le premier plan dont le label correspond
     * au masque passe en parametre
-    * @param mask le pattern de recherche avec jokers à la msdos
-    * @param mode 0-avec jokers, 1-simple égalité stricte des chaines
+    * @param mask le pattern de recherche avec jokers ï¿½ la msdos
+    * @param mode 0-avec jokers, 1-simple ï¿½galitï¿½ stricte des chaines
     * @return le plan correspondant, null si aucun
     */
    public Plan getPlan(String mask) { return getPlan(mask,0); }
@@ -1414,16 +1412,16 @@ public final class Calque extends JPanel implements Runnable {
    }
 
    static final int COLIMG  = 0x0100;  // Images couleurs
-   static final int CALIB   = 0x0200;  // calibrées astrométriquement
+   static final int CALIB   = 0x0200;  // calibrï¿½es astromï¿½triquement
    static final int TRUEIMG = 0x0400;  // Images avec vrais pixels accessibles
    static final int IMG     = 0x0800;  // Tous les types d'images
-   static final int SELECTED= 0x0F00;  // Plan sélectionné
+   static final int SELECTED= 0x0F00;  // Plan sï¿½lectionnï¿½
 
-   /** Retourne true si le paramètre est une masque de bits indiquant un type
-    * spécial de plan  (càd > à 0xFF - on n'utilise pas le premier octet à droite) */
+   /** Retourne true si le paramï¿½tre est une masque de bits indiquant un type
+    * spï¿½cial de plan  (cï¿½d > ï¿½ 0xFF - on n'utilise pas le premier octet ï¿½ droite) */
    private boolean isSpecialType(int type) { return type>0xFF; }
 
-   /** Détermine le masque de bits en fonction du type de plan et de ses propriétés */
+   /** Dï¿½termine le masque de bits en fonction du type de plan et de ses propriï¿½tï¿½s */
    private int getSpecialType(Plan p) {
       int type = 0x0000;
       if( p instanceof PlanImage )    type |= IMG;
@@ -1447,12 +1445,12 @@ public final class Calque extends JPanel implements Runnable {
          Plan pc = plan[i];
          if( pc.hasError() ) continue;
 
-         // Sélection par type "spécial" de plan
+         // Sï¿½lection par type "spï¿½cial" de plan
          if( isSpecialType(type) )  {
             int planSpecialType = getSpecialType(pc);
             if( (type & planSpecialType) == 0 ) continue;
 
-         // Sélection "à l'ancienne" des images (SANS DOUTE A VIRER)
+         // Sï¿½lection "ï¿½ l'ancienne" des images (SANS DOUTE A VIRER)
          } else if( type==Plan.IMAGE ) {
             if( pc.type!=Plan.IMAGE
                   && pc.type!=Plan.IMAGEHUGE
@@ -1460,7 +1458,7 @@ public final class Calque extends JPanel implements Runnable {
                   && pc.type!=Plan.IMAGEALGO
                   && pc.type!=Plan.IMAGEMOSAIC ) continue;
 
-            // Sélectin par types simple de plan
+            // Sï¿½lectin par types simple de plan
          } else if( pc.type!=type ) continue;
 
          if( v==null ) v = new Vector<Plan>(plan.length);
@@ -1534,10 +1532,10 @@ public final class Calque extends JPanel implements Runnable {
    /** Recupere la liste des plans catalogues valides */
    protected Vector<Plan> getPlanCat() { return getPlans(Plan.CATALOG); }
 
-   /** Recupère la liste de tous les plans images */
+   /** Recupï¿½re la liste de tous les plans images */
    protected Vector<Plan> getPlanAllImg() { return getPlans(IMG); }
 
-   /** Récupère la liste des plans sélectionnés */
+   /** Rï¿½cupï¿½re la liste des plans sï¿½lectionnï¿½s */
    protected Vector<Plan> getPlanSelected() { return getPlans(SELECTED); }
 
 
@@ -1562,7 +1560,7 @@ public final class Calque extends JPanel implements Runnable {
       return p!=null && p.isPixel() ? p: null;
    }
    
-   /** true si le plan de référence est un plan en mode Allsky 
+   /** true si le plan de rï¿½fï¿½rence est un plan en mode Allsky 
     * => changement de centre de projection */
    public boolean isModeAllSky() {
       Plan p = getPlanRef();
@@ -1590,7 +1588,7 @@ public final class Calque extends JPanel implements Runnable {
       return i;
   }
 
-   /** Retourne la liste des labels des plans en commençant par celui du
+   /** Retourne la liste des labels des plans en commenï¿½ant par celui du
     * bas de la pile */
    protected String [] getStackLabels() {
       Vector v = new Vector();
@@ -1604,8 +1602,8 @@ public final class Calque extends JPanel implements Runnable {
       return s;
    }
 
-   /** Découpage du chaine de mesures d'info statistiques sur les pixels
-    * afin de préparer une entrée dans le plan "Photometry" */
+   /** Dï¿½coupage du chaine de mesures d'info statistiques sur les pixels
+    * afin de prï¿½parer une entrï¿½e dans le plan "Photometry" */
 //   private String [] splitVal(String id,Position o) {
 //      String [] r = new String[9];
 //      Coord c = new Coord(o.raj,o.dej);
@@ -1623,7 +1621,7 @@ public final class Calque extends JPanel implements Runnable {
 //   }
    
    
-   /** Met à jour le plan "Photometry" en fonction des paramètres de iqe */
+   /** Met ï¿½ jour le plan "Photometry" en fonction des paramï¿½tres de iqe */
    protected void updatePhotometryPlane(Repere r, double [] iqe) {
       
       final PlanTool p = selectPlanTool();
@@ -1639,7 +1637,7 @@ public final class Calque extends JPanel implements Runnable {
       });
    }
    
-   /** Met à jour le plan "Tag" */
+   /** Met ï¿½ jour le plan "Tag" */
    protected void updateTagPlane(Tag tag) {
       
       final PlanTool p = selectPlanTool();
@@ -1656,13 +1654,13 @@ public final class Calque extends JPanel implements Runnable {
    }
    
 
-   Plan planRotCenter=null; // mémorise le PlanField donc on déplace uniquement le centre de rotation
+   Plan planRotCenter=null; // mï¿½morise le PlanField donc on dï¿½place uniquement le centre de rotation
 
   /** Recalcul les plans FoV en fonction de leur centre en x,y,al,del
    * et de leur rotation
    *  Necessaire apres une translation par la souris
    * @param flag ViewSimple.MOVE | ViewSimple.ROLL | ViewSimple.MOVECENTER
-   * @param aperture la liste des plans apertures concernés
+   * @param aperture la liste des plans apertures concernï¿½s
    * @param n nombre de plans dans aperture
    */
    protected void resetPlanField(int flag,PlanField[] plan,int n) {
@@ -1675,7 +1673,7 @@ public final class Calque extends JPanel implements Runnable {
   /** Cree un nouveau plan Filter
    * @param aladinLabel Le nom du plan
    * @param script le code initial du script
-   * @return le plan créé
+   * @return le plan crï¿½ï¿½
    */
    protected Plan newPlanFilter() { return newPlanFilter(null,null); }
    protected Plan newPlanFilter(String label,String script) {
@@ -1693,7 +1691,7 @@ public final class Calque extends JPanel implements Runnable {
   /** Cree un nouveau plan Folder
    * @param label Le nom du plan
    * @param le niveau de folder
-   * @param Etendue des prorpriétés du folder
+   * @param Etendue des prorpriï¿½tï¿½s du folder
    * @return le numero du plan dans la pile
    */
    protected int newFolder(String label,int folderNiv,boolean localScope) {
@@ -1704,7 +1702,7 @@ public final class Calque extends JPanel implements Runnable {
    
    static final String  DMAPGLU = "getDMap";
    
-   /** Chargement de la carte de densité associée à un catalogue */
+   /** Chargement de la carte de densitï¿½ associï¿½e ï¿½ un catalogue */
    protected int newPlanDMap(String catID) throws Exception {
       String u = ""+aladin.glu.getURL(DMAPGLU,aladin.glu.quote(catID));
       String label = "DMAP "+catID;
@@ -1725,7 +1723,7 @@ public final class Calque extends JPanel implements Runnable {
    * @param g le plan Green
    * @param b le plan Blue
    * @param ref le plan de reference du reechantillonage
-   * @param label le nom du futur plan , ou null si défaut
+   * @param label le nom du futur plan , ou null si dï¿½faut
    * @param diff true s'il s'agit d'une difference sur 2 plans
    */
    protected int newPlanImageRGB(PlanImage r,PlanImage g,PlanImage b,
@@ -1745,7 +1743,7 @@ public final class Calque extends JPanel implements Runnable {
       PlanImage p2 = greyPlan(porig);
 
       // Je substitue la vue sur le plan d'origine par la vue sur
-      // le plan resamplé
+      // le plan resamplï¿½
       ViewSimple v = aladin.view.getFirstSelectedView(porig);
       if( v!=null ) { v.pref=p2; v.repaint(); }
 
@@ -1753,17 +1751,17 @@ public final class Calque extends JPanel implements Runnable {
       return 1;
    }
 
-   /** Créé (ou modifie) un plan resamp
-    * @param porig Le plan original (ou déjà resamplé)
+   /** Crï¿½ï¿½ (ou modifie) un plan resamp
+    * @param porig Le plan original (ou dï¿½jï¿½ resamplï¿½)
     * @param p Le plan dont on utilise l'astronomie
     * @param methode PPV ou BIL
     * @param fullPixel true si on travaille sur les vrais pixels
-    * @param keepOrig true si on doit garder l'image d'origine (si non déjà résamplée)
+    * @param keepOrig true si on doit garder l'image d'origine (si non dï¿½jï¿½ rï¿½samplï¿½e)
     */
    protected int newPlanImageResamp(PlanImage porig, PlanImage p,
          String label,int methode,boolean fullPixel,boolean keepOrig) {
 
-      // Faut-il créer un clone du plan ou travailler directement sur
+      // Faut-il crï¿½er un clone du plan ou travailler directement sur
       // le plan ?
       PlanImageResamp p2;
       if( porig.type != Plan.IMAGERSP ) {
@@ -1777,7 +1775,7 @@ public final class Calque extends JPanel implements Runnable {
          if( label==null ) p2.setLabel("Rsp " + p2.label);
 
          // Je substitue la vue sur le plan d'origine par la vue sur
-         // le plan resamplé
+         // le plan resamplï¿½
          ViewSimple v = aladin.view.getFirstSelectedView(porig);
          if( v!=null ) { v.pref=p2; v.repaint(); }
 
@@ -1786,7 +1784,7 @@ public final class Calque extends JPanel implements Runnable {
       return 1;
    }
    
-   /** Crée un plan MOC en faisant un crop */
+   /** Crï¿½e un plan MOC en faisant un crop */
    protected int newPlanMoc(String label,PlanMoc source,Coord [] coo) {
       int n;
       PlanMoc pa;
@@ -1806,7 +1804,7 @@ public final class Calque extends JPanel implements Runnable {
 
 
    
-   /** Crée un plan MOC en fonction d'un ou plusieurs plans MOCs et d'un opérateur */
+   /** Crï¿½e un plan MOC en fonction d'un ou plusieurs plans MOCs et d'un opï¿½rateur */
    protected int newPlanMoc(String label,PlanMoc [] pList,int op,int order) {
       int n;
       PlanMoc pa;
@@ -1824,7 +1822,7 @@ public final class Calque extends JPanel implements Runnable {
       return n;
    }
    
-   /** Crée un plan MOC à la résolution indiquée à partir d'une liste d'images et de catalogues. */
+   /** Crï¿½e un plan MOC ï¿½ la rï¿½solution indiquï¿½e ï¿½ partir d'une liste d'images et de catalogues. */
    protected int newPlanMocColl(Aladin aladin,String label,String directory,int order,
          boolean strict,boolean recursive,double blank,int [] hdu) {
       int n;
@@ -1839,7 +1837,7 @@ public final class Calque extends JPanel implements Runnable {
    }
 
 
-   /** Crée un plan MOC à la résolution indiquée à partir d'une liste d'images et de catalogues. */
+   /** Crï¿½e un plan MOC ï¿½ la rï¿½solution indiquï¿½e ï¿½ partir d'une liste d'images et de catalogues. */
    protected int newPlanMoc(String label,Plan [] p,int res,double radius, double pixMin, double pixMax) {
       int n;
       PlanMoc pa;
@@ -1855,16 +1853,16 @@ public final class Calque extends JPanel implements Runnable {
    }
 
 
-   /** Crée une image Algo sur la pile avec l'algo suivant : "p1 fct p2" ou "p1 fct coef" si p2
-    * est nul. Si p1 est nul, la première opérande sera le plan de base lui-même et le résultat
-    * sera affecté au plan de base (pas de création de plan dans la pile)
-    * @param p1 le plan correspondant à la première opérande ou nul si plan de base
-    * @param p2 le plan corresondant à la deuxième opérande
+   /** Crï¿½e une image Algo sur la pile avec l'algo suivant : "p1 fct p2" ou "p1 fct coef" si p2
+    * est nul. Si p1 est nul, la premiï¿½re opï¿½rande sera le plan de base lui-mï¿½me et le rï¿½sultat
+    * sera affectï¿½ au plan de base (pas de crï¿½ation de plan dans la pile)
+    * @param p1 le plan correspondant ï¿½ la premiï¿½re opï¿½rande ou nul si plan de base
+    * @param p2 le plan corresondant ï¿½ la deuxiï¿½me opï¿½rande
     * @param fct 0:add, 1:sub, 2:mul, 3:div, 4:norm
-    * @param coef si p2 est nul, opérande 2 constante
-    * @param conv nom de la convolution ou null si inutilisé
+    * @param coef si p2 est nul, opï¿½rande 2 constante
+    * @param conv nom de la convolution ou null si inutilisï¿½
     * @param methode 0:PPV, 1:BILINEAR
-    * @return le numéro du plan dans la pile
+    * @return le numï¿½ro du plan dans la pile
     */
    protected int newPlanImageAlgo(String label,PlanImage p1, PlanImage p2,int fct,double coef,String conv,int methode) {
       int n;
@@ -1875,7 +1873,7 @@ public final class Calque extends JPanel implements Runnable {
          p1 = (PlanImage)getPlanBase();
          if( label==null ) label = "="+p1.getLabel();
 
-      // Va créer un nouveau plan pour le résultat
+      // Va crï¿½er un nouveau plan pour le rï¿½sultat
       } else if( label==null ) label = "="+p1.getUniqueLabel("["+p1.getLabel()+"]");
 
       n=getStackIndex(label);
@@ -1886,14 +1884,14 @@ public final class Calque extends JPanel implements Runnable {
       return n;
    }
 
-   /** Crée une image HealpixAlgo sur la pile avec l'algo suivant : "p1 fct p2" ou "p1 fct coef" si p2
-    * est nul. Si p1 est nul, la première opérande sera le plan de base lui-même et le résultat
-    * sera affecté au plan de base (pas de création de plan dans la pile)
-    * @param p1 le plan correspondant à la première opérande ou nul si plan de base
-    * @param p2 le plan corresondant à la deuxième opérande
+   /** Crï¿½e une image HealpixAlgo sur la pile avec l'algo suivant : "p1 fct p2" ou "p1 fct coef" si p2
+    * est nul. Si p1 est nul, la premiï¿½re opï¿½rande sera le plan de base lui-mï¿½me et le rï¿½sultat
+    * sera affectï¿½ au plan de base (pas de crï¿½ation de plan dans la pile)
+    * @param p1 le plan correspondant ï¿½ la premiï¿½re opï¿½rande ou nul si plan de base
+    * @param p2 le plan corresondant ï¿½ la deuxiï¿½me opï¿½rande
     * @param fct 0:add, 1:sub, 2:mul, 3:div, 4:norm
-    * @param coef si p2 est nul, opérande 2 constante
-    * @return le numéro du plan dans la pile
+    * @param coef si p2 est nul, opï¿½rande 2 constante
+    * @return le numï¿½ro du plan dans la pile
     */
    protected int newPlanHealpixAlgo(String label,PlanHealpix p1, PlanHealpix p2,int fct,double coef) {
       int n;
@@ -1904,7 +1902,7 @@ public final class Calque extends JPanel implements Runnable {
          p1 = (PlanHealpix)getPlanBase();
          if( label==null ) label = "="+p1.getLabel();
 
-      // Va créer un nouveau plan pour le résultat
+      // Va crï¿½er un nouveau plan pour le rï¿½sultat
       } else if( label==null ) label = "="+p1.getUniqueLabel("["+p1.getLabel()+"]");
 
       n=getStackIndex(label);
@@ -1936,7 +1934,7 @@ public final class Calque extends JPanel implements Runnable {
    }
 
    /** Enregistre une image Mosaic dans le prochain plan libre.
-    * Remplace la vue passée en paramètre si != null
+    * Remplace la vue passï¿½e en paramï¿½tre si != null
     * */
    protected int newPlanImageMosaic(PlanImage p[],String label,ViewSimple v) {
       int n=getStackIndex(label);
@@ -1968,7 +1966,7 @@ public final class Calque extends JPanel implements Runnable {
     * @param param les parametres de l'image (SERC J MAMA...)
     * @param fmt   le format de l'image (JPEG, FITS...)
     * @param res La resolution de l'image (FULL, PLATE...)
-    * @param imgNode noeud image décrivant l'image à charger
+    * @param imgNode noeud image dï¿½crivant l'image ï¿½ charger
     */
     protected int newPlanImage(URL u,int orig, String label, String objet,
                                      String param,String from,
@@ -2057,7 +2055,7 @@ public final class Calque extends JPanel implements Runnable {
          for( i=plan.length-1; i>=0; i-- ) {
             if( plan[i].type!=Plan.ALLSKYIMG ) break;
          }
-         if( i+1==n ) return n; // inutile, c'est moi-même
+         if( i+1==n ) return n; // inutile, c'est moi-mï¿½me
          if( i!=n ) permute(plan[n],plan[i]);
          p.folder=folder;
          return i;
@@ -2105,18 +2103,18 @@ public final class Calque extends JPanel implements Runnable {
       p.folder=folder;
    }
 
-   /** Duplique le plan courant en insérant la copie juste au-dessus
+   /** Duplique le plan courant en insï¿½rant la copie juste au-dessus
     * du plan original dans le stack.
     * NE MARCHE POUR LE MOMENT QUE POUR
     * LES IMAGES simple. IL FAUDRAIT AJOUTER LES METHODES copy() POUR LES
     * PLANS CATALOGUES... POUR QUE CELA MARCHE POUR TOUT TYPE
     * DE PLAN.
     * JE N'EN AI PAS BESOIN POUR LE MOMENT
-    * @param p le plan à copier
+    * @param p le plan ï¿½ copier
     * @param label le label du nouveau plan (si null, ancien_nom~nn)
     * @param type le type de la classe du Plan (PlanImage, PlanImageResamp...), ou -1
-    *     si même classe que le type d'origine
-    * @param flagIns Insertion du plan juste au-dessus, sans création de nouvelle vue
+    *     si mï¿½me classe que le type d'origine
+    * @param flagIns Insertion du plan juste au-dessus, sans crï¿½ation de nouvelle vue
     */
    protected Plan dupPlan(PlanImage p,String label,int type,boolean flagIns) throws Exception {
       if( !(p.isImage() || p instanceof PlanBG) ) throw new Exception("Not yet supported for this kind of plane");
@@ -2128,7 +2126,7 @@ public final class Calque extends JPanel implements Runnable {
           int n = getStackIndex(label);
           int m = getIndex(p);
 
-          // Insertion du plan juste au-dessus, sans création de nouvelle vue
+          // Insertion du plan juste au-dessus, sans crï¿½ation de nouvelle vue
           if( flagIns ) {
              for( int i=n; i<m-1; i++ ) plan[i]=plan[i+1];
              n = m-1;
@@ -2170,7 +2168,7 @@ public final class Calque extends JPanel implements Runnable {
              if( label==null ) label="["+p.label+"]";
              pc.setLabel(label);
              
-             // VOIR MODIF PF JAN 12 ci-dessous (ligne à supprimer pour revenir à l'état antérieur)
+             // VOIR MODIF PF JAN 12 ci-dessous (ligne ï¿½ supprimer pour revenir ï¿½ l'ï¿½tat antï¿½rieur)
 //             pc.isOldPlan=false;
 
           }  else {
@@ -2181,7 +2179,7 @@ public final class Calque extends JPanel implements Runnable {
 
        suiteNew(pc);
 
-       // MODIF PF JAN 12 pour que le nouveau plan deviennent celui de référence
+       // MODIF PF JAN 12 pour que le nouveau plan deviennent celui de rï¿½fï¿½rence
        if( flagIns ) {
           pc.selected=false;
           pc.active=false;
@@ -2223,7 +2221,7 @@ public final class Calque extends JPanel implements Runnable {
       p2.npix=1;
       p2.setBufPixels8(p2.getPix8Bits(null, p2.pixelsOrigin, 8, p.width, p.height, p.dataMinFits, p.dataMaxFits, false));
       p2.calculPixelsZoom();
-      p2.fmt=PlanImage.JPEG;   // Comme ça on n'inverse pas les pixels à la sauvegarde !!
+      p2.fmt=PlanImage.JPEG;   // Comme ï¿½a on n'inverse pas les pixels ï¿½ la sauvegarde !!
       p2.video=PlanImage.VIDEO_NORMAL;
       p2.cm = ColorMap.getCM(0,128,255,p2.video==PlanImage.VIDEO_INVERSE, 
             aladin.configuration.getCMMap(),aladin.configuration.getCMFct());
@@ -2261,12 +2259,12 @@ public final class Calque extends JPanel implements Runnable {
     }
 
    /**
-    * Interprétation de numéros d'extensions fits qui auraient été indiqués
+    * Interprï¿½tation de numï¿½ros d'extensions fits qui auraient ï¿½tï¿½ indiquï¿½s
     * en suffixe du nom du fichier suivant la syntaxe suivante
-    * [a1,a2,a3-a4...] (la virgule peut être remplacé par un ;
+    * [a1,a2,a3-a4...] (la virgule peut ï¿½tre remplacï¿½ par un ;
     * @param file le nom du fichier
-    * @return le tableau contenant les numéros d'extension ou null si pas d'indication
-    * ATTENTION, le tableau n'est pas nécessairement trié et il peut y avoir des
+    * @return le tableau contenant les numï¿½ros d'extension ou null si pas d'indication
+    * ATTENTION, le tableau n'est pas nï¿½cessairement triï¿½ et il peut y avoir des
     * redondances.
     */
    protected int [] getNumExt(String file) {
@@ -2303,7 +2301,7 @@ public final class Calque extends JPanel implements Runnable {
    }
 
 
-   /** Création des plans associés à un flux FITSEXTENSION.
+   /** Crï¿½ation des plans associï¿½s ï¿½ un flux FITSEXTENSION.
     * Utilise un PlanFolder qui contiendra toutes les extensions
     */
    protected void newFitsExt(String file,MyInputStream in,String label,Obj o,String target,String radius) {
@@ -2362,9 +2360,9 @@ public final class Calque extends JPanel implements Runnable {
    public void run() { newFitsExtThread(); }
 
    /**
-    * Indique si l'extension n doit être retenue. Pour cela, soit numext==null
-    * ou n est présent dans le tableau. Si c'est le cas, la valeur est mise à -1 pour pouvoir
-    * détecter lorsque l'on aura trouvé toutes les extensions souhaitées (voir allFitsExt())
+    * Indique si l'extension n doit ï¿½tre retenue. Pour cela, soit numext==null
+    * ou n est prï¿½sent dans le tableau. Si c'est le cas, la valeur est mise ï¿½ -1 pour pouvoir
+    * dï¿½tecter lorsque l'on aura trouvï¿½ toutes les extensions souhaitï¿½es (voir allFitsExt())
     */
    private boolean keepFitsExt(int n,int numext[] ) {
       if( numext==null ) return true;
@@ -2373,10 +2371,10 @@ public final class Calque extends JPanel implements Runnable {
    }
 
    /**
-    * Retourne true si on a récupéré toutes les extensions fits souhaitées,
-    * soit numext==null soit toutes ses valeurs sont à -1
-    * @param numext la liste des extensions souhaitées
-    * @return true si toutes les extensions ont été trouvées
+    * Retourne true si on a rï¿½cupï¿½rï¿½ toutes les extensions fits souhaitï¿½es,
+    * soit numext==null soit toutes ses valeurs sont ï¿½ -1
+    * @param numext la liste des extensions souhaitï¿½es
+    * @return true si toutes les extensions ont ï¿½tï¿½ trouvï¿½es
     */
    private boolean allFitsExt(int numext[] ) {
       if( numext==null ) return false;   // si null, on va jusqu'au bout
@@ -2386,14 +2384,14 @@ public final class Calque extends JPanel implements Runnable {
 
    /**
     * Chargement d'un fichier Fits extension.
-    * Crée un folder (clignotant le temps du chargement) qui contient
-    * tous les élements.
+    * Crï¿½e un folder (clignotant le temps du chargement) qui contient
+    * tous les ï¿½lements.
     * 1) Se fait dans un thread particulier (inhibition du threading interne
-    * à PlanImage() et PlanCatalog()) pour séquentialiser le chargement.
-    * 2) Le stream n'est pas fermé dans PlanImage() et PlanCatalog().
-    * 3) Le traitement des erreurs est particulier dans le sens où une erreur
-    * n'empêche pas le chargement du plan suivant. Il a donc fallu utiliser
-    * une ruse pour détecter correctement la fin du flux (via le champ
+    * ï¿½ PlanImage() et PlanCatalog()) pour sï¿½quentialiser le chargement.
+    * 2) Le stream n'est pas fermï¿½ dans PlanImage() et PlanCatalog().
+    * 3) Le traitement des erreurs est particulier dans le sens oï¿½ une erreur
+    * n'empï¿½che pas le chargement du plan suivant. Il a donc fallu utiliser
+    * une ruse pour dï¿½tecter correctement la fin du flux (via le champ
     * error du dernier plan qui prend alors la valeur _END-XFITS_).
     */
    private void newFitsExtThread() {
@@ -2467,8 +2465,8 @@ public final class Calque extends JPanel implements Runnable {
 
             if( p!=null ) {
 
-               // Pas terrible: pour détecter la fin de fichier on passe par
-               // le p.error avec une chaine particulière
+               // Pas terrible: pour dï¿½tecter la fin de fichier on passe par
+               // le p.error avec une chaine particuliï¿½re
                if( p.error!=null && p.error.equals("_END_XFITS_") ) break;
 
                if( keepIt ) {
@@ -2477,7 +2475,7 @@ public final class Calque extends JPanel implements Runnable {
                   p.selected = false;
                   v.add(p);
 
-                  // Placement d'un label si ce n'est déjà fait
+                  // Placement d'un label si ce n'est dï¿½jï¿½ fait
                   if( p.label==null || p.label.equals("") || p.label.startsWith("~")) {
                      p.setLabel(label+ (v.size()>0?"["+nExt+"]":""));
                   }
@@ -2514,15 +2512,15 @@ public final class Calque extends JPanel implements Runnable {
       // Aucun plan dans ce fits extension
       if( v.size()==0 ) return;
 
-      // Plan actif par défaut
+      // Plan actif par dï¿½faut
       p = (Plan)v.elementAt(0);
       if( v.size()==1 ) {
          if( label.charAt(0)=='=' ) label=label.substring(1);
-         p.label = label; // On récupère le label du folder
+         p.label = label; // On rï¿½cupï¿½re le label du folder
       }
       p.planReady(true);
 
-      // On met tout ça dans la pile
+      // On met tout ï¿½a dans la pile
       if( v.size()>1 ) {
          Enumeration e = v.elements();
          while( e.hasMoreElements() ) {
@@ -2537,9 +2535,9 @@ public final class Calque extends JPanel implements Runnable {
    }
 
    /**
-    * Positionnement un flux au début d'une extension FITS particulière
-    * @param in Le flux non encore entamé
-    * @param numExt le numéro d'extension (commence à 0)
+    * Positionnement un flux au dï¿½but d'une extension FITS particuliï¿½re
+    * @param in Le flux non encore entamï¿½
+    * @param numExt le numï¿½ro d'extension (commence ï¿½ 0)
     * @throws Exception
     */
    public void seekFitsExt(MyInputStream in, int numExt) throws Exception {
@@ -2559,8 +2557,8 @@ public final class Calque extends JPanel implements Runnable {
             break;
          }
 
-         // Pas terrible: pour détecter la fin de fichier on passe par
-         // le p.error avec une chaine particulière
+         // Pas terrible: pour dï¿½tecter la fin de fichier on passe par
+         // le p.error avec une chaine particuliï¿½re
          if( p!=null && p.error!=null && p.error.equals("_END_XFITS_") ){
             throw new EOFException();
          }
@@ -2604,14 +2602,14 @@ public final class Calque extends JPanel implements Runnable {
 
     /** Retourne true si le label indique que l'on veut un nouveau plan
      * (ne commence pas par =)
-     * ou au contraire réutiliser un plan du même nom déjà existant */
+     * ou au contraire rï¿½utiliser un plan du mï¿½me nom dï¿½jï¿½ existant */
     static protected boolean isNewPlan(String label) {
        return !(label!=null && label.length()>0 && label.charAt(0)=='=');
     }
 
-    /** Crée un plan Image sur la pile avec le label indiqué.
-     * Cette méthode est dédiée au plugin (voir Aladin.createAladinImage()
-     * @param name nom du plan proposé
+    /** Crï¿½e un plan Image sur la pile avec le label indiquï¿½.
+     * Cette mï¿½thode est dï¿½diï¿½e au plugin (voir Aladin.createAladinImage()
+     * @param name nom du plan proposï¿½
      * @return nom du plan effectif
      */
     protected String newPlanPlugImg(String name) {
@@ -2625,9 +2623,9 @@ public final class Calque extends JPanel implements Runnable {
        return p.getLabel();
     }
 
-    /** Crée un plan Catalogue sur la pile avec le label indiqué.
-     * Cette méthode est dédiée au plugin (voir Aladin.createAladinCatalog()
-     * @param name nom du plan proposé
+    /** Crï¿½e un plan Catalogue sur la pile avec le label indiquï¿½.
+     * Cette mï¿½thode est dï¿½diï¿½e au plugin (voir Aladin.createAladinCatalog()
+     * @param name nom du plan proposï¿½
      * @return nom du plan effectif
      */
     protected String newPlanPlugCat(String name) {
@@ -2671,7 +2669,7 @@ public final class Calque extends JPanel implements Runnable {
 
     /** Enregistre une image RGB/FITS dans le prochain plan libre.
      * @param file   Le nom du fichier
-     * @param imgNode noeud décrivant l'image
+     * @param imgNode noeud dï¿½crivant l'image
      */
      protected int newPlanImageRGB(String file,URL u, MyInputStream inImg,ResourceNode imgNode) {
         int n=getStackIndex();
@@ -2684,10 +2682,10 @@ public final class Calque extends JPanel implements Runnable {
 
      /** Enregistre un Allsky HEALPIX dans le prochain plan libre.
       * @param file   Le nom du fichier
-      * @param imgNode noeud décrivant l'image
+      * @param imgNode noeud dï¿½crivant l'image
       * @param label le label du plan, null sinon
       * @param mode PlanBG.[DRAWPIXEL|DRAWPOLARISATION|DRAWANGLE]
-      * @param indice champ à lire
+      * @param indice champ ï¿½ lire
       */
      protected int newPlanHealpix(String file,MyInputStream inImg, String label,
            int mode, int idxFieldToRead, boolean fromProperties) {
@@ -2731,7 +2729,7 @@ public final class Calque extends JPanel implements Runnable {
 
     /** Enregistre une image COLOR dans le prochain plan libre.
      * @param file   Le nom du fichier
-     * @param imgNode noeud décrivant l'image
+     * @param imgNode noeud dï¿½crivant l'image
      */
      protected int newPlanImageColor(String file,URL u, MyInputStream inImg,ResourceNode imgNode) {
         int n=getStackIndex();
@@ -2742,15 +2740,15 @@ public final class Calque extends JPanel implements Runnable {
         return n;
      }
      
-     // Retourne true si le plan passé en paramètre peut servir à ajouter des outils draws
+     // Retourne true si le plan passï¿½ en paramï¿½tre peut servir ï¿½ ajouter des outils draws
      protected boolean planToolOk(Plan p, boolean flagWithFoV) {
         return (p.type==Plan.TOOL || flagWithFoV && p.type==Plan.APERTURE) && p.isReady() && p.isSelectable();
      }
      
-     /** sélectionne et retourne le plan tool le plus adéquat, où le crée si nécessaire */
+     /** sï¿½lectionne et retourne le plan tool le plus adï¿½quat, oï¿½ le crï¿½e si nï¿½cessaire */
      protected PlanTool selectPlanTool() { return (PlanTool)selectPlanTool1(false); }
      
-     /** sélectionne et retourne le plan tool ou FoV (APERTURE), où crée un plan tool si nécessaire */
+     /** sï¿½lectionne et retourne le plan tool ou FoV (APERTURE), oï¿½ crï¿½e un plan tool si nï¿½cessaire */
      protected Plan selectPlanToolOrFoV() { return selectPlanTool1(true); }
      
      private Plan selectPlanTool1(boolean flagWithFoV) {
@@ -2909,7 +2907,7 @@ public final class Calque extends JPanel implements Runnable {
 //      pi.setBufPixels8( cube.getFrame(n) );
    }
    
-   /** Création d'un plan image à partir des pixels visibles dans la vue passée en paramètre */
+   /** Crï¿½ation d'un plan image ï¿½ partir des pixels visibles dans la vue passï¿½e en paramï¿½tre */
    protected void newPlanImageByCrop(final ViewSimple v,final RectangleD rcrop,final double resMult,final boolean fullRes) {
       final double zoom = v.zoom;
       (new Thread("crop"){
@@ -2921,10 +2919,10 @@ public final class Calque extends JPanel implements Runnable {
       }).start();
    }
 
-   /** Création d'un nouveau plan catalogue en concatenant toutes les tables des plans
-    * passés en paramètres, ou à défaut ceux sélectionnés dans la pile.
-    * @param pList : liste des plans concernés ou null pour ceux sélectionnés dans la pile
-    * @param uniqTable : true si concaténation dans une unique table homogène
+   /** Crï¿½ation d'un nouveau plan catalogue en concatenant toutes les tables des plans
+    * passï¿½s en paramï¿½tres, ou ï¿½ dï¿½faut ceux sï¿½lectionnï¿½s dans la pile.
+    * @param pList : liste des plans concernï¿½s ou null pour ceux sï¿½lectionnï¿½s dans la pile
+    * @param uniqTable : true si concatï¿½nation dans une unique table homogï¿½ne
     */
    protected void newPlanCatalogByCatalogs(Plan []pList,boolean uniqTable) {
       Plan [] p = pList!=null ? pList : getPlans();
@@ -2944,8 +2942,8 @@ public final class Calque extends JPanel implements Runnable {
       repaintAll();
    }
 
-   /** Création d'un nouveau plan catalogue avec les sources
-    *  sélectionnées. Je sélectionne tous les nouveaux objets
+   /** Crï¿½ation d'un nouveau plan catalogue avec les sources
+    *  sï¿½lectionnï¿½es. Je sï¿½lectionne tous les nouveaux objets
    */
    protected void newPlanCatalogBySelectedObjet(boolean uniqTable) {newPlanCatalogBySelectedObjet("Select.src",uniqTable); }
    protected void newPlanCatalogBySelectedObjet(String name,boolean uniqTable) {
@@ -2963,7 +2961,7 @@ public final class Calque extends JPanel implements Runnable {
 
       // Cas simple et rapide
       if( !uniqTable ) {
-         Vector legs = new Vector(10);      // Juste pour compter le nombre de tables différentes
+         Vector legs = new Vector(10);      // Juste pour compter le nombre de tables diffï¿½rentes
          Enumeration e = vSources.elements();
          while( e.hasMoreElements() ) {
             Obj o = (Obj)e.nextElement();
@@ -2978,10 +2976,10 @@ public final class Calque extends JPanel implements Runnable {
          }
          p.pcat.nbTable= legs.size();
 
-         // Fusion en une table unique homogène
+         // Fusion en une table unique homogï¿½ne
       } else {
 
-         // Génération d'une légende générique
+         // Gï¿½nï¿½ration d'une lï¿½gende gï¿½nï¿½rique
          ArrayList leg = new ArrayList(10);
          Enumeration e = vSources.elements();
          while( e.hasMoreElements() ) {
@@ -2999,7 +2997,7 @@ public final class Calque extends JPanel implements Runnable {
             if( !(o instanceof Source) ) continue;
             s = (Source)o;
 
-            // Création de la nouvelle ligne de mesures en fonction de la légende générique
+            // Crï¿½ation de la nouvelle ligne de mesures en fonction de la lï¿½gende gï¿½nï¿½rique
             String info = createInfo(s,legGen);
 
             p.pcat.setObjetFast(newSource = new Source(p, s.raj, s.dej, s.id, info));
@@ -3015,7 +3013,7 @@ public final class Calque extends JPanel implements Runnable {
       return p;
    }
 
-   // Creation d'une chaine de mesures issues d'une source en fonction d'une légende générique particulière
+   // Creation d'une chaine de mesures issues d'une source en fonction d'une lï¿½gende gï¿½nï¿½rique particuliï¿½re
    // (remettre les valeurs dans les bonnes colonnes)
    private String createInfo(Source s,Legende leg) {
       String [] v = new String[leg.getSize()];
@@ -3029,7 +3027,7 @@ public final class Calque extends JPanel implements Runnable {
          start=offset+1;
       }
 
-      StringBuffer info = new StringBuffer("<&_X|X>");   // le premier élément ne sert à rien, juste pour compatibilité
+      StringBuffer info = new StringBuffer("<&_X|X>");   // le premier ï¿½lï¿½ment ne sert ï¿½ rien, juste pour compatibilitï¿½
       for( int i=0; i<v.length; i++ ) {
          info.append( "\t" +(v[i]==null ? " " : v[i]) );
       }
@@ -3074,7 +3072,7 @@ public final class Calque extends JPanel implements Runnable {
       return plan[n];
    }
    
-   /** Ajoute un plan déjà préparé dans la pile */
+   /** Ajoute un plan dï¿½jï¿½ prï¿½parï¿½ dans la pile */
    protected int newPlan(Plan p) {
       int n=getStackIndex();
       plan[n] = p;
@@ -3101,12 +3099,12 @@ public final class Calque extends JPanel implements Runnable {
       return n;
    }
    
-   /** Subtilité. Si le nom du plan désigne commence par =, Aladin
-    * doit réutiliser une case de la pile.
-    * Si le plan désigné est un numéro (=@nn), je retourne le label du plan
-    * pré-existant au null si cela correspong à une case vide dans la pile
-    * S'il s'avère que le plan désigné n'existe pas =XXXX, je supprime
-    * simplement le "=" pour qu'Aladin en crée un nouveau
+   /** Subtilitï¿½. Si le nom du plan dï¿½signe commence par =, Aladin
+    * doit rï¿½utiliser une case de la pile.
+    * Si le plan dï¿½signï¿½ est un numï¿½ro (=@nn), je retourne le label du plan
+    * prï¿½-existant au null si cela correspong ï¿½ une case vide dans la pile
+    * S'il s'avï¿½re que le plan dï¿½signï¿½ n'existe pas =XXXX, je supprime
+    * simplement le "=" pour qu'Aladin en crï¿½e un nouveau
     */
    protected String prepareLabel(String label) {
       if( !isNewPlan(label) ) {
@@ -3125,7 +3123,7 @@ public final class Calque extends JPanel implements Runnable {
       return label;
    }
 
-   // Procédure interne de découpage d'un plan Catalogue en plusieurs Plan, ou
+   // Procï¿½dure interne de dï¿½coupage d'un plan Catalogue en plusieurs Plan, ou
    // pour chaque table
    private Vector<Plan> splitCatalog1(PlanCatalog p) {
       Vector<Plan> v = new Vector<Plan>(10);
@@ -3171,7 +3169,7 @@ public final class Calque extends JPanel implements Runnable {
       return v;
    }
    
-   /** Découpage d'un catalogue : une table par plan */
+   /** Dï¿½coupage d'un catalogue : une table par plan */
    protected void splitCatalog(PlanCatalog p) {
       if( p.getNbTable()==1 ) return;
       Vector v = splitCatalog1(p);
@@ -3244,7 +3242,7 @@ public final class Calque extends JPanel implements Runnable {
 //      return true;
 //   }
    
-   // Détermination du target de démarrage pour un plan BG
+   // Dï¿½termination du target de dï¿½marrage pour un plan BG
    private Coord getTargetBG(String target,TreeNodeAllsky gSky) {
       Coord c=null;
       if( target!=null && target.length()>0) {
@@ -3262,7 +3260,7 @@ public final class Calque extends JPanel implements Runnable {
       return c;
    }
    
-   // Détermination du radius de démarrage pour un plan BG
+   // Dï¿½termination du radius de dï¿½marrage pour un plan BG
    private double getRadiusBG(String target,String radius,TreeNodeAllsky gSky) {
       double rad=-1;
       if( radius!=null && radius.length()>0 ) {
@@ -3279,7 +3277,7 @@ public final class Calque extends JPanel implements Runnable {
       return rad;
    }
    
-   /** Création d'un plan Healpix Multi-Order Coverage Map à partir d'un flux */
+   /** Crï¿½ation d'un plan Healpix Multi-Order Coverage Map ï¿½ partir d'un flux */
    protected int newPlanMOC(MyInputStream in,String label) {
       int n=getStackIndex(label);
       label = prepareLabel(label);
@@ -3291,7 +3289,7 @@ public final class Calque extends JPanel implements Runnable {
       return n;
    }
    
-   /** Création d'un plan Healpix Multi-Order Coverage Map à partir d'un MOC */
+   /** Crï¿½ation d'un plan Healpix Multi-Order Coverage Map ï¿½ partir d'un MOC */
    protected int newPlanMOC(HealpixMoc moc,String label) {
       int n=getStackIndex(label);
       label = prepareLabel(label);
@@ -3303,7 +3301,7 @@ public final class Calque extends JPanel implements Runnable {
       return n;
    }
    
-   /** Création d'un plan BG */
+   /** Crï¿½ation d'un plan BG */
    public int newPlanBG(String path, String label, String target,String radius) { return newPlanBG(null,path,null,label,target,radius); }
    public int newPlanBG(TreeNodeAllsky gSky, String label, String target,String radius) { return newPlanBG(gSky,null,null,label,target,radius); }
    public int newPlanBG(URL url, String label, String target,String radius) { return newPlanBG(null,null,url,label,target,radius); }
@@ -3332,15 +3330,15 @@ public final class Calque extends JPanel implements Runnable {
    }
    
    
-//   /** Création d'un plan BG à partir d'un répertoire local */
+//   /** Crï¿½ation d'un plan BG ï¿½ partir d'un rï¿½pertoire local */
 //   public int newPlanBG(String path,String label) {
 //	   return newPlanBG(path, label,null,-1);
 //   }
 //   /**
 //    *
 //    * @param path
-//    * @param coo coordonnées de la position centrale de la vue en J2000, ou null si non spécifiée
-//    * @param radius taille du champ en degrés ou <=0 si non spécifié
+//    * @param coo coordonnï¿½es de la position centrale de la vue en J2000, ou null si non spï¿½cifiï¿½e
+//    * @param radius taille du champ en degrï¿½s ou <=0 si non spï¿½cifiï¿½
 //    * @return
 //    */
 //   public int newPlanBG(String path, String label, Coord coo, double radius) {
@@ -3356,7 +3354,7 @@ public final class Calque extends JPanel implements Runnable {
 //      return n;
 //   }
 
-   /** Creation d'un plan à partir d'un nom de fichier ou d'une url
+   /** Creation d'un plan ï¿½ partir d'un nom de fichier ou d'une url
     * issu d'une source */
    protected int newPlan(String filename,String label,String origin,Obj o) {
       return ((ServerFile)aladin.dialog.localServer).creatLocalPlane(filename,label,origin,o,null,null,null,null,null);
@@ -3367,7 +3365,7 @@ public final class Calque extends JPanel implements Runnable {
       return plan[n];
    }
 
-   /** Creation d'un plan à partir d'un nom de fichier ou d'une url */
+   /** Creation d'un plan ï¿½ partir d'un nom de fichier ou d'une url */
    protected int newPlan(String filename,String label,String origin) {
       return newPlan(filename,label,origin,null,null);
    }
@@ -3375,15 +3373,15 @@ public final class Calque extends JPanel implements Runnable {
       return ((ServerFile)aladin.dialog.localServer).creatLocalPlane(filename,label,origin,null,null,null,null,target,radius);
    }
 
-   /** Creation d'un plan à partir d'un stream ouvert */
+   /** Creation d'un plan ï¿½ partir d'un stream ouvert */
    protected int newPlan(InputStream inputStream, String label,String origin) {
       return ((ServerFile)aladin.dialog.localServer).creatLocalPlane(null,label,origin,null,null,inputStream,null,null,null);
    }
 
-   /** Creation d'un plan à partir d'un stream ouvert */
+   /** Creation d'un plan ï¿½ partir d'un stream ouvert */
    protected Plan createPlan(InputStream inputStream, String label,String origin) throws Exception {
       int n = ((ServerFile)aladin.dialog.localServer).creatLocalPlane(null,label,origin,null,null,inputStream,null,null,null);
-      if( n==-2 ) return null;   // De fait aucune création de plan (cas du FOV)
+      if( n==-2 ) return null;   // De fait aucune crï¿½ation de plan (cas du FOV)
       if( n<0 ) throw new Exception("plane creation error");
       return plan[n];
    }
@@ -3393,8 +3391,8 @@ public final class Calque extends JPanel implements Runnable {
       if( p==null ) return;
 //      bestPlacePost(p);
 
-      // Affectation du plan aux vues qui utilisaient son prédécesseur
-      // dans le cas d'une réutilisation de plan
+      // Affectation du plan aux vues qui utilisaient son prï¿½dï¿½cesseur
+      // dans le cas d'une rï¿½utilisation de plan
       aladin.view.adjustViews(p);
       
       select.repaint();
@@ -3433,7 +3431,7 @@ public final class Calque extends JPanel implements Runnable {
    }
 
    /** Permutation des plans avec ajustement des niveaux de folder
-    * et expansion du folder d'arrivée s'il est collapsé
+    * et expansion du folder d'arrivï¿½e s'il est collapsï¿½
     * @param source Le plan a deplacer
     * @param target Le nouvel emplacement
     */
@@ -3469,7 +3467,7 @@ public final class Calque extends JPanel implements Runnable {
           }
           permute(k,m,n);
 
-          // Si le target était un folder collapsé, on le décollapse
+          // Si le target ï¿½tait un folder collapsï¿½, on le dï¿½collapse
           if( isCollapsed ) {
              Plan p[] = getFolderPlan( getFolder(target) );
              for( i=0; i<p.length; i++ ) p[i].collapse=false;
@@ -3514,14 +3512,14 @@ public final class Calque extends JPanel implements Runnable {
        return -1;
     }
 
-   /** Retourne le premier plan sélectionné, ou null si aucun */
+   /** Retourne le premier plan sï¿½lectionnï¿½, ou null si aucun */
     protected Plan getFirstSelectedPlan() {
        int n = getFirstSelected();
        if( n<0 ) return null;
        return plan[n];
     }
 
-   /** Retourne le premier plan Catalog sélectionné, ou null si aucun */
+   /** Retourne le premier plan Catalog sï¿½lectionnï¿½, ou null si aucun */
     protected PlanCatalog getFirstSelectedPlanCatalog() {
        for( int i=0; i<plan.length; i++ ) {
           if( plan[i].selected && plan[i].isSimpleCatalog() ) return (PlanCatalog)plan[i];
@@ -3529,7 +3527,7 @@ public final class Calque extends JPanel implements Runnable {
        return null;
    }
 
-   /** Retourne le premier plan Image sélectionné, ou null si aucun */
+   /** Retourne le premier plan Image sï¿½lectionnï¿½, ou null si aucun */
     protected PlanImage getFirstSelectedPlanImage() {
        for( int i=0; i<plan.length; i++ ) {
           if( plan[i].selected
@@ -3538,7 +3536,7 @@ public final class Calque extends JPanel implements Runnable {
        return null;
    }
 
-    /** Retourne le premier plan Image simple sélectionné, ou null si aucun */
+    /** Retourne le premier plan Image simple sï¿½lectionnï¿½, ou null si aucun */
     protected PlanImage getFirstSelectedSimpleImage() {
        for( int i=0; i<plan.length; i++ ) {
           if( plan[i].selected && plan[i].isImage() ) return (PlanImage)plan[i];
@@ -3546,7 +3544,7 @@ public final class Calque extends JPanel implements Runnable {
        return null;
    }
 
-    /** Retourne le premier plan Image sélectionné, ou null si aucun */
+    /** Retourne le premier plan Image sï¿½lectionnï¿½, ou null si aucun */
     protected PlanImage getFirstSelectedImage() {
        for( int i=0; i<plan.length; i++ ) {
           if( plan[i].selected && plan[i].isPixel() ) return (PlanImage)plan[i];
@@ -3565,7 +3563,7 @@ public final class Calque extends JPanel implements Runnable {
        return -1;
     }
 
-    /** Retourne la liste des plans sélectionnés */
+    /** Retourne la liste des plans sï¿½lectionnï¿½s */
     protected Vector getSelectedPlanes() {
        Vector v = new Vector(10);
 
@@ -3577,7 +3575,7 @@ public final class Calque extends JPanel implements Runnable {
        return v;
     }
 
-    /** Retourne la liste des plans sélectionnés */
+    /** Retourne la liste des plans sï¿½lectionnï¿½s */
     protected Vector getSelectedSimpleImage() {
        Vector v = new Vector(10);
 
@@ -3589,7 +3587,7 @@ public final class Calque extends JPanel implements Runnable {
        return v;
     }
 
-    /** Sélectionne tous les plans images simples et en retourne la liste */
+    /** Sï¿½lectionne tous les plans images simples et en retourne la liste */
     protected Vector setSelectedSimpleImage() {
        Vector v = new Vector(10);
 
@@ -3602,7 +3600,7 @@ public final class Calque extends JPanel implements Runnable {
        return v;
     }
 
-    /** Change pour toute la pile le niveau d'opacité des images */
+    /** Change pour toute la pile le niveau d'opacitï¿½ des images */
     protected void setOpacityLevelImage(float opacity) {
        Plan [] plan = getPlans();
        for( int i=0; i<plan.length; i++ ) {
@@ -3613,7 +3611,7 @@ public final class Calque extends JPanel implements Runnable {
     }
     
     
-    /** Change pour tous les plans sélectionnés le niveau d'opacité */
+    /** Change pour tous les plans sï¿½lectionnï¿½s le niveau d'opacitï¿½ */
     protected void setOpacityLevel(float opacity) {
        Plan [] plan = getPlans();
        for( int i=0; i<plan.length; i++ ) {
@@ -3624,7 +3622,7 @@ public final class Calque extends JPanel implements Runnable {
        }
     }
 
-    /** Change pour tous les plans sélectionnés le facteur de taille des sources */
+    /** Change pour tous les plans sï¿½lectionnï¿½s le facteur de taille des sources */
     protected void setScalingFactor(float scalingFactor) {
        Plan [] plan = getPlans();
        for( int i=0; i<plan.length; i++ ) {
@@ -3634,14 +3632,14 @@ public final class Calque extends JPanel implements Runnable {
        }
     }
 
-    /** Détermine si le plan doit être activé comme un plan de référence ou simplement afficher en overlay */
+    /** Dï¿½termine si le plan doit ï¿½tre activï¿½ comme un plan de rï¿½fï¿½rence ou simplement afficher en overlay */
     protected boolean mustBeSetPlanRef(Plan p) {
        boolean setRef=false;
        
-       // prochaine vue à utiliser
+       // prochaine vue ï¿½ utiliser
        ViewSimple v = aladin.view.viewSimple[ aladin.view.getLastNumView(p) ];
        
-       // Juste pour du débuging
+       // Juste pour du dï¿½buging
        String sDebug=null;
 
        // La pile est vide => ref
@@ -3650,7 +3648,7 @@ public final class Calque extends JPanel implements Runnable {
        // Il s'agit d'un simple remplacement de plan => activate 
        else if( p.isOldPlan ) { setRef=false; sDebug="Flag IsOldPlan=true"; }
 
-       // Dans une case vide sans être un simple overlay => ref
+       // Dans une case vide sans ï¿½tre un simple overlay => ref
        else if( v.isFree() && !p.isOverlay() ) { setRef=true; sDebug="Image dans la prochaine view vide"; }
 
        // Le plan de ref est une image normal et on charge une autre image => ref
@@ -3662,7 +3660,7 @@ public final class Calque extends JPanel implements Runnable {
        // Le plan de ref n'est pas allsky et le catalogue n'est pas visible
        else if( v.pref!=null && !(v.pref instanceof PlanBG) && p.isSimpleCatalog() && !p.isViewable() ) { setRef=true; sDebug="Catalogue non visible autrement"; }
        
-       // Dans le cas d'un multiview on priviligiera la création du plan
+       // Dans le cas d'un multiview on priviligiera la crï¿½ation du plan
        else if( aladin.view.isMultiView() && p.isImage() ) { setRef=true; sDebug="Image sur multivue"; }
        
        aladin.trace(4,"Calque.mustBeSetPlanRef("+p.label+") => "+setRef+(sDebug!=null?" ("+sDebug+")":""));
@@ -3670,8 +3668,8 @@ public final class Calque extends JPanel implements Runnable {
     }
 
 
-    /** Retourne true si le plan passé en paramètre peut être transparent
-     *  Vérifie que la compatibilité des projections
+    /** Retourne true si le plan passï¿½ en paramï¿½tre peut ï¿½tre transparent
+     *  Vï¿½rifie que la compatibilitï¿½ des projections
      */
     protected boolean canBeTransparent(Plan p) {
        boolean isRefForVisibleView = p!=null && p.isRefForVisibleView();
@@ -3705,7 +3703,7 @@ public final class Calque extends JPanel implements Runnable {
        return false;
     }
 
-    /** Vérifie si un plan peut etre transparent (vérification uniquement au niveau du type du plan)
+    /** Vï¿½rifie si un plan peut etre transparent (vï¿½rification uniquement au niveau du type du plan)
      */
     protected boolean planeTypeCanBeTrans(Plan p) {
        if( p instanceof PlanFolder ) return false;
@@ -3717,17 +3715,17 @@ public final class Calque extends JPanel implements Runnable {
        aladin.calque.plan[n]=p;
     }
 
-  /** Retourne l'emplacement à utiliser dans la pile. Si on passe un label préfixé
-   * par le caractère "=", on cherchera l'emplacement d'un éventuel plan pré-existant
-   * ayant le même label, sinon on utilise un plan libre.
-   * Si on passe un nombre, s'assure qu'il y a au-moins autant de plan libre que demandé
+  /** Retourne l'emplacement ï¿½ utiliser dans la pile. Si on passe un label prï¿½fixï¿½
+   * par le caractï¿½re "=", on cherchera l'emplacement d'un ï¿½ventuel plan prï¿½-existant
+   * ayant le mï¿½me label, sinon on utilise un plan libre.
+   * Si on passe un nombre, s'assure qu'il y a au-moins autant de plan libre que demandï¿½
    */
     private int getStackIndex() { return getStackIndex(null,1); }
     private int getStackIndex(String label) { return getStackIndex(label,1); }
     private int getStackIndex(String label,int nombre) {
        int i;
-       // Remplacement d'un plan déjà utilisé ?
-       // Le label doit commencer par '='( ex: =toto). Il peut également s'agir d'un numéro
+       // Remplacement d'un plan dï¿½jï¿½ utilisï¿½ ?
+       // Le label doit commencer par '='( ex: =toto). Il peut ï¿½galement s'agir d'un numï¿½ro
        // de plan dans la pile suivant la syntaxe "=@nnn"
        if( !isNewPlan(label) ) {
           int n;
