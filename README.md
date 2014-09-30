@@ -8,7 +8,9 @@ SOFIA Aladin
 ### Build From Source
 * Requires JDK 1.7 or greater
 
-* To build with [Apache Ant](http://ant.apache.org/) `cd` to the application's top directory (contains `build.xml` and `src/`) then run ant:
+* To build with [Apache Ant](http://ant.apache.org/) 
+ * Unzip and `cd` to the new directory `SOFIA_Aladin-master/`
+ * Run `build.xml` with Ant
  
- `SOFIA_Aladin$ ant`
-  * This will do a clean compile and create the executable `SOFIA_Aladin.jar` in a new directory `dist/`
+   `$ ant`
+    * This will do a clean compile and create the executable `SOFIA_Aladin.jar` in a new directory `dist/`
