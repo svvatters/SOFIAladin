@@ -5884,7 +5884,7 @@ testx1=x1; testy1=y1; testw=w; testh=h;
                vs.drawSize(g,dx,dy);
                vs.drawNE(g,proj,dx,dy);
                
-               // SOFIA-extension
+               // @SOFIA_Aladin-extension in paintOverlays()
                // Draw the SOFIA Rotation of Field value in degrees
                SOFIA_Aladin.drawSOFIAROFValue(this, g);        
                // Draw SOFIA imager outlines

@@ -487,9 +487,9 @@ public class Aladin extends JApplet
            CONV,NORM,BITPIX,PIXEXTR,HEAD,FLIP,TOPBOTTOM,RIGHTLEFT,SEARCH,ALADIN_IMG_SERVER,GLUTOOL,GLUINFO,
            REGISTER,UNREGISTER,BROADCAST,BROADCASTTABLE,BROADCASTIMAGE,SAMPPREFS,STARTINTERNALHUB,STOPINTERNALHUB,
            HPXCREATE,HPXGRID,HPXDUMP,FOVEDITOR,HPXGENERATE,GETOBJ;
-    // SOFIA-extension menu
+    // @SOFIA_Aladin-extension menu
     String MSOFIA;   
-    // SOFIA-extension sub-menus
+    // @SOFIA_Aladin-extension sub-menus
     String MSOFIAOPENPOS, MSOFIASAVEPOS, MSOFIAFOV, MSOFIACREATEPLANE, 
     		MSOFIATAGGEDPLANE, MSOFIAUNTAGGEDPLANE, MSOFIAPARAMPLANE,
     		MSOFIASETTINGS, MSOFIASETROF,MSOFIAIMAGERS,MSOFIAWFI,MSOFIAFFI,
@@ -938,7 +938,7 @@ public class Aladin extends JApplet
        MPLUGS = chaine.getString("MPLUGS");
        MINTEROP = chaine.getString("MINTEROP");
        
-       // SOFIA-extension menus
+       // @SOFIA_Aladin-extension menus
        MSOFIA = chaine.getString("MSOFIA");
        MSOFIASAVEPOS = chaine.getString("MSOFIASAVEPOS");
        MSOFIAIMAGERS = chaine.getString("MSOFIAIMAGERS");
@@ -1147,7 +1147,7 @@ public class Aladin extends JApplet
                 {},{"?"+NORTHUP+"|"+alt+" X"},{"?"+SYNC+"|"+alt+" S"},{"?"+SYNCPROJ+"|"+alt+" Q"},
              },
              
-             // SOFIA-extension
+             // @SOFIA_Aladin-extension in createMenu()
              { {MSOFIA},
 //               {MSOFIAOPENPOS},
                {MSOFIASAVEPOS+"|"+alt+" S"},
@@ -2763,11 +2763,6 @@ public class Aladin extends JApplet
    private void saveG() {
       save.show();
    }
-
-   // SOFIA-extension
-   private void savePOS() {
-	   SOFIA_Aladin.openExportPosDialog(this);
-   }
    
    protected boolean save(String s) {
       String fmt[] = Save.getFormat();
@@ -3027,10 +3022,16 @@ public class Aladin extends JApplet
       } else if( isMenu(s,RETICLEL)) { reticle(2);
       } else if( isMenu(s,NORETICLE)){ reticle(0);
       
-      // SOFIA-extension
-      } else if( isMenu(s,MSOFIAIMAGERS))  { sofiaImagers(); 
-      } else if( isMenu(s,MSOFIASAVEPOS) ) { savePOS();
-      } else if( isMenu(s,MSOFIASETROF)) { sofiaROF();
+      // @SOFIA_Aladin-extension in execute()
+      } else if( isMenu(s,MSOFIAIMAGERS))  { 
+          calque.toggleSOFIAImagers();
+          calque.repaintAll(); 
+      } else if( isMenu(s,MSOFIASAVEPOS) ) { 
+          SOFIA_Aladin.openExportPosDialog(this);
+      } else if( isMenu(s,MSOFIASETROF)) { 
+          // Prompt the User for a SOFIA-ROF and set the selected 
+          // ViewSimple's rotation to the corresponding Astro-PA
+          SOFIA_Aladin.setViewSimpleSOFIAROF(this);
       } else if( isMenu(s,MSOFIAMOPSREVIEW)) { ;
 
       } else if( isMenu(s,TARGET)) { target();
@@ -3488,22 +3489,6 @@ public class Aladin extends JApplet
        calque.repaintAll();
     }
 
-    /** SOFIA-extension */
-    protected void sofiaImagers() {
-    		calque.toggleSOFIAImagers();
-    		calque.repaintAll();
-    }
-
-    /** SOFIA-extension */
-    protected void sofiaROF() {
-    	
-    		// TODO Check the results
-    		
-    		// Prompt the User for a SOFIA-ROF and set the selected 
-    		// ViewSimple's rotation to the corresponding Astro-PA
-        SOFIA_Aladin.setViewSimpleSOFIAROF(this);
-    }
-    
     /** Activation ou d�sactivation du r�ticule via la Jbar */
     protected void target() {
        calque.setOverlayFlag("target", miTarget.isSelected() );

@@ -21,7 +21,7 @@ import java.awt.event.MouseEvent;
 
 /**
  * @author shannon.watters@gmail.com
- *
+ * @SOFIA_Aladin-extension class
  */
 final class ExportPosLog extends JFrame {
 
