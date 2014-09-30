@@ -31,7 +31,6 @@
 			<!-- <compilerarg value="-Xlint"/> -->
 			
 			<classpath>
-  	 			<pathelement path="${java.class.path}/"/>
     			<pathelement path="${src.dir}/jsamp.jar"/>
     			<pathelement path="${src.dir}/microhub.jar"/>
     			<pathelement path="${src.dir}/Moc.jar"/>
@@ -49,10 +48,10 @@
 
 		<!-- TODO: Figure out a better way to handle this - Copy non-java files 
 		in src.dir to build.dir so Eclipse can run the project during development -->
-    <copy todir="${build.dir}">
+<!--    <copy todir="${build.dir}">
       <fileset dir="${src.dir}" excludes="**/*.java, **/*.jar, .DS_Store"/>
     </copy>
-
+-->
 	</target>
 		
   <!-- Create a runnable jar file  -->
