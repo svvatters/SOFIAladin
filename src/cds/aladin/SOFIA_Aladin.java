@@ -942,7 +942,7 @@ public abstract class SOFIA_Aladin {
     }
 
     public static void main(String[] args) {
-         Aladin a = Aladin.launch("");
+         Aladin.launch("");
     }
 
 }
