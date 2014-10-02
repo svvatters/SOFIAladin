@@ -16,7 +16,8 @@
   <target name="compile">
     <echo message="Source file directory:  ${src.dir}" />
     <mkdir dir="${build.dir}" />
-    <javac srcdir="${src.dir}" destdir="${build.dir}" encoding="Cp1252" source="1.7" target="1.7" deprecation="off" includeantruntime="false">
+    <javac srcdir="${src.dir}" destdir="${build.dir}" encoding="Cp1252" 
+      source="1.7" target="1.7" deprecation="off" includeantruntime="false">
       <!--	 Output deprecation info during compilation -->
       <!-- <compilerarg value="-Xlint"/> -->
       <classpath>
@@ -52,7 +53,8 @@
       <zipfileset src="${src.dir}/cds.savot.sax.jar" />
       <zipfileset src="${src.dir}/cds.savot.writer.jar" />
       <zipfileset src="${src.dir}/kxml2-2.3.0.jar" />
-      <fileset dir="${src.dir}" includes="*.gif,*.jpg, Ala*.*" excludes="**/*.java, AladinSrc*.jar, .DS_Store" />
+      <fileset dir="${src.dir}" includes="*.gif,*.jpg, Ala*.*" 
+        excludes="**/*.java, AladinSrc*.jar, .DS_Store" />
       <manifest>
         <attribute name="Main-Class" value="cds.aladin.SOFIA_Aladin" />
       </manifest>
