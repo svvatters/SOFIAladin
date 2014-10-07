@@ -18,7 +18,7 @@
     <mkdir dir="${build.dir}" />
     <javac srcdir="${src.dir}" destdir="${build.dir}" encoding="Cp1252" 
       source="1.7" target="1.7" deprecation="off" includeantruntime="false">
-      <!--	 Output deprecation info during compilation -->
+      <!-- Output deprecation info during compilation -->
       <!-- <compilerarg value="-Xlint"/> -->
       <classpath>
         <pathelement path="${src.dir}/jsamp.jar" />

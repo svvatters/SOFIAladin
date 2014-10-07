@@ -17,6 +17,10 @@ import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -29,7 +33,6 @@ import cds.aladin.ViewSimple;
 import cds.astro.Astrocoo;
 import sofia.Imager;
 import sofia.Vizier;
-
 
 /**
  * @author shannon.watters@gmail.com
@@ -513,328 +516,328 @@ public abstract class SOFIA_Aladin {
         dialog.setVisible(true);
     }
     
-//    /**
-//     * @param a
-//     * @param target
-//     * @param catalog
-//     * @param radius
-//     * @param maxMag
-//     */
-//    public static String queryVizier(Aladin a, Pointing target, Vizier catalog, 
-//            double radius, double maxMag) {
-//        
-//        String catName = catalog.getName();
-//        String tempName = "vizier_" + catName;
-//        String filterName = "MaxVMag_" + maxMag; 
-//        
-//        System.out.println("Querying vizier for " + catName
-//                + " objects with (optical magnitude < " + maxMag
-//                + "; sky separation < " + radius + " degs)");
-//
-//        // Create a simple stdout indeterminate progress bar
-//        ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);       
-//        @SuppressWarnings("unused")
-//        ScheduledFuture<?> sf = ses.scheduleWithFixedDelay(new Runnable() {
-//                public void run() {
-//                    System.out.print(".");
-//                }
-//            }, 
-//            0, 500, TimeUnit.MILLISECONDS);
-//        
-//        //
-//        a.execCommand(tempName + " = get vizier(" + catName + ") " +
-//                       target.getLon() + " " + target.getLat() + " " + 
-//                       radius + "deg");
-//        
-//        //
-//        a.execCommand("filter " + filterName +
-//                        " { ${" + catalog.getVisMagCol() + "} <" + maxMag + 
-//                        " {draw white square}}");
-//        a.execCommand("filter " + filterName + " on");
-//        a.execCommand("select " + tempName);
-//        a.execCommand("cplane " + catName);
-//        a.execCommand("rm " + tempName);
-//        a.execCommand("rm " + filterName);
-//        
-//        // Shutdown the ScheduledExecutorService (indeterminate progress bar)
-//        ses.shutdown();        
-//        System.out.print("\r"); // Clear the progress markings
-//        
-//        return catName;
-//    }
-//
-//    /**
-//     * @param a
-//     * @param planeLabel
-//     * @param refCoord
-//     * @throws AladinException
-//     * @throws IOException 
-//     */
-//    public static AladinData[] selectTrackStars(Aladin a, String planeLabel, 
-//            Pointing refCoord) throws AladinException, IOException {
-//    
-//        System.out.println("Searching " + planeLabel + 
-//                                " for potential SOFIA tracking objects...");
-//        /*
-//         *  RA and Dec of a reference point on the celestial sphere 
-//         *  (Pointing).  The distance to all the catalog objects will be part 
-//         *  of the criteria for the objects potential use as a tracking object. 
-//         */
-//        double refRA = refCoord.getLon();
-//        double refDec = refCoord.getLat();
-//    
-//        // The catalog data
-//        /*
-//         * TODO: make sure all the columns are the same for the catalog plane
-//         * or learn how to make a mixed plane and then won't have to rely on 
-//         * obj[0]
-//         */
-//        AladinData planeData = a.getAladinData(planeLabel);
-//        
-//        /*
-//         *  Insert a column into the catalog plane data for the sky separation 
-//         *  between each catalog Obj and the Pointing
-//         */
-//        Obj[] objects = planeData.seeObj();
-//    
-//        String[] dataTypes = SwattersUtils.concatStringLists("D", 
-//                objects[0].getDataTypes());
-//        String[] names = SwattersUtils.concatStringLists("_SkySep", 
-//                objects[0].getNames());
-//        String[] units = SwattersUtils.concatStringLists("arcmin", 
-//                objects[0].getUnits());
-//        String[] ucds = SwattersUtils.concatStringLists(
-//                "pos.angDistance;pos.ang.separation", objects[0].getUCDs());
-//        String[] widths = SwattersUtils.concatStringLists("10", 
-//                objects[0].getWidths());
-//        String[] arraySizes = SwattersUtils.concatStringLists("null", 
-//                objects[0].getArraysizes());
-//        String[] precisions = SwattersUtils.concatStringLists("6", 
-//                objects[0].getPrecisions());       
-//
-//        // TODO: Check if catalog already exists
-//        
-//        /*
-//         *  Create the new catalog planes for each imager and set the column 
-//         *  info
-//         */
-//        // WFI
-//        AladinData wfi = 
-//                Aladin.aladin.createAladinCatalog("WFI_" + planeLabel);
-//        wfi.setDatatype(dataTypes);
-//        wfi.setName(names);
-//        wfi.setUnit(units);
-//        wfi.setUCD(ucds);
-//        wfi.setWidth(widths);
-//        wfi.setArraysize(arraySizes);
-//        wfi.setPrecision(precisions);
-//        // FFI
-//        AladinData ffi = 
-//                Aladin.aladin.createAladinCatalog("FFI_" + planeLabel);
-//        ffi.setDatatype(dataTypes);
-//        ffi.setName(names);
-//        ffi.setUnit(units);
-//        ffi.setUCD(ucds);
-//        ffi.setWidth(widths);
-//        ffi.setArraysize(arraySizes);
-//        ffi.setPrecision(precisions);
-//        // FPI
-//        AladinData fpi = 
-//                Aladin.aladin.createAladinCatalog("FPI_" + planeLabel);
-//        fpi.setDatatype(dataTypes);
-//        fpi.setName(names);
-//        fpi.setUnit(units);
-//        fpi.setUCD(ucds);
-//        fpi.setWidth(widths);
-//        fpi.setArraysize(arraySizes);
-//        fpi.setPrecision(precisions);
-//    
-//        // Iterate through each object
-//        for (int k = 0; k < planeData.getNbObj(); k++) {
-//            Obj obj = objects[k];
-//            
-//            // Determine the column for the optical Magnitude
-//            int objMagCol = -1;        
-//            for (int i = 0; i < ucds.length; i++) {
-//                if (ucds[i].toLowerCase().equals("phot.mag;em.opt.v")) {
-//                    int oldObjMagCol = i; 
-//                    /*
-//                     *  A Column was inserted at col 0 of ucds[] earlier in 
-//                     *  this method but the number of columns in the objects 
-//                     *  values list hasn't increased so the column number 
-//                     *  needs to be adjusted by -1
-//                     */
-//                    objMagCol = oldObjMagCol - 1; 
-//                }
-//            }        
-//            if (objMagCol < 0) { 
-//                // TODO: Error finding the optical magnitude column!
-//            };
-//            
-//            // Get the data from the catalog Obj
-//            String objID = obj.id;
-//            double objRA = obj.getRa();
-//            double objDec = obj.getDec();   
-//            
-//            // Get the visual magnitude from the catalog Obj values
-//            String[] catObjValues = obj.getValues();
-//            double objMag = Double.parseDouble(catObjValues[objMagCol]);
-//    
-//            // The distance to the target Pointing in degrees
-//            double distance = Pointing.distance(refRA, refDec, objRA, objDec);
-//            
-//            // Format the distance number for printing in ARCMINUTES
-//            DecimalFormat myFormatter = new DecimalFormat("###.####");
-//            String skySep = myFormatter.format(distance* 60.0);
-//
-//            // Add the distance to column 0 of the Obj values
-//            String[] objValues = 
-//                    SwattersUtils.concatStringLists(skySep, catObjValues);            
-//                    
-////            // Categorize objects as possible SOFIA track objects based on
-////            // visual magnitude and proximity to the target Coo                                  
-////            if (distance <= Imager.FPI.getFOVRadius() && 
-////                                (objMag < Imager.FPI.getMaxOptMag()) ) {  
-////                
-////                // Potential FPI track objects
-////                fpi.addSource(objID, objRA, objDec, objValues);
-////                fpi.objModified();                    
-////                
-////                System.out.println("Potential FPI track object " + 
-////                                    "(ID, V magnitude, distance):");
-////                System.out.println("\t" + objID + "\t" + 
-////                                    objMag + "\t" + skySep);     
-////                
-////            } else if ( (distance <= Imager.FFI.getMaxFOVDiagonal()) && 
-////                                (objMag < Imager.FFI.getMaxOptMag()) ) {
-////                
-////                // Potential FFI track objects
-////                ffi.addSource(objID, objRA, objDec, objValues);
-////                ffi.objModified();    
-////                
-////                System.out.println("Potential FFI track object " +
-////                                    "(ID, V magnitude, distance):");
-////                System.out.println("\t" + objID + "\t" + 
-////                                    objMag + "\t" + skySep);
-////                
-////            } else if ( (distance <= Imager.WFI.getMaxFOVDiagonal()) && 
-////                                (objMag < Imager.WFI.getMaxOptMag()) ) {                    
-////                // Potential WFI objects
-////                wfi.addSource(objID, objRA, objDec, objValues);
-////                wfi.objModified();
-////                
-////                System.out.println("Potential WFI object " +
-////                                    "(ID, V magnitude, distance):");
-////                System.out.println("\t" + objID + "\t" +
-////                                    objMag + "\t" + skySep);               
-////            } 
-//            
-//            // TODO: add else statement (no tracking category) ?                
-//
-//            // TODO: Testing selection algorithm 
-//            /*
-//             *  Categorize objects as possible SOFIA track objects based on
-//             *  visual magnitude and proximity to the target Coo 
-//             */                                  
-//            if ( (Imager.FFI.getMaxOptMag() < objMag) 
-//                    && (objMag <= Imager.FPI.getMaxOptMag())) {                
+    /**
+     * @param a
+     * @param target
+     * @param catalog
+     * @param radius
+     * @param maxMag
+     */
+    public static String queryVizier(Aladin a, Pointing target, Vizier catalog, 
+            double radius, double maxMag) {
+        
+        String catName = catalog.getName();
+        String tempName = "vizier_" + catName;
+        String filterName = "MaxVMag_" + maxMag; 
+        
+        System.out.println("Querying vizier for " + catName
+                + " objects with (optical magnitude < " + maxMag
+                + "; sky separation < " + radius + " degs)");
+
+        // Create a simple stdout indeterminate progress bar
+        ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);       
+        @SuppressWarnings("unused")
+        ScheduledFuture<?> sf = ses.scheduleWithFixedDelay(new Runnable() {
+                public void run() {
+                    System.out.print(".");
+                }
+            }, 
+            0, 500, TimeUnit.MILLISECONDS);
+        
+        //
+        a.execCommand(tempName + " = get vizier(" + catName + ") " +
+                       target.getLon() + " " + target.getLat() + " " + 
+                       radius + "deg");
+        
+        //
+        a.execCommand("filter " + filterName +
+                        " { ${" + catalog.getVisMagCol() + "} <" + maxMag + 
+                        " {draw white square}}");
+        a.execCommand("filter " + filterName + " on");
+        a.execCommand("select " + tempName);
+        a.execCommand("cplane " + catName);
+        a.execCommand("rm " + tempName);
+        a.execCommand("rm " + filterName);
+        
+        // Shutdown the ScheduledExecutorService (indeterminate progress bar)
+        ses.shutdown();        
+        System.out.print("\r"); // Clear the progress markings
+        
+        return catName;
+    }
+
+    /**
+     * @param a
+     * @param planeLabel
+     * @param refCoord
+     * @throws AladinException
+     * @throws IOException 
+     */
+    public static AladinData[] selectTrackStars(Aladin a, String planeLabel, 
+            Pointing refCoord) throws AladinException, IOException {
+    
+        System.out.println("Searching " + planeLabel + 
+                                " for potential SOFIA tracking objects...");
+        /*
+         *  RA and Dec of a reference point on the celestial sphere 
+         *  (Pointing).  The distance to all the catalog objects will be part 
+         *  of the criteria for the objects potential use as a tracking object. 
+         */
+        double refRA = refCoord.getLon();
+        double refDec = refCoord.getLat();
+    
+        // The catalog data
+        /*
+         * TODO: make sure all the columns are the same for the catalog plane
+         * or learn how to make a mixed plane and then won't have to rely on 
+         * obj[0]
+         */
+        AladinData planeData = a.getAladinData(planeLabel);
+        
+        /*
+         *  Insert a column into the catalog plane data for the sky separation 
+         *  between each catalog Obj and the Pointing
+         */
+        Obj[] objects = planeData.seeObj();
+    
+        String[] dataTypes = SwattersUtils.concatStringLists("D", 
+                objects[0].getDataTypes());
+        String[] names = SwattersUtils.concatStringLists("_SkySep", 
+                objects[0].getNames());
+        String[] units = SwattersUtils.concatStringLists("arcmin", 
+                objects[0].getUnits());
+        String[] ucds = SwattersUtils.concatStringLists(
+                "pos.angDistance;pos.ang.separation", objects[0].getUCDs());
+        String[] widths = SwattersUtils.concatStringLists("10", 
+                objects[0].getWidths());
+        String[] arraySizes = SwattersUtils.concatStringLists("null", 
+                objects[0].getArraysizes());
+        String[] precisions = SwattersUtils.concatStringLists("6", 
+                objects[0].getPrecisions());       
+
+        // TODO: Check if catalog already exists
+        
+        /*
+         *  Create the new catalog planes for each imager and set the column 
+         *  info
+         */
+        // WFI
+        AladinData wfi = 
+                Aladin.aladin.createAladinCatalog("WFI_" + planeLabel);
+        wfi.setDatatype(dataTypes);
+        wfi.setName(names);
+        wfi.setUnit(units);
+        wfi.setUCD(ucds);
+        wfi.setWidth(widths);
+        wfi.setArraysize(arraySizes);
+        wfi.setPrecision(precisions);
+        // FFI
+        AladinData ffi = 
+                Aladin.aladin.createAladinCatalog("FFI_" + planeLabel);
+        ffi.setDatatype(dataTypes);
+        ffi.setName(names);
+        ffi.setUnit(units);
+        ffi.setUCD(ucds);
+        ffi.setWidth(widths);
+        ffi.setArraysize(arraySizes);
+        ffi.setPrecision(precisions);
+        // FPI
+        AladinData fpi = 
+                Aladin.aladin.createAladinCatalog("FPI_" + planeLabel);
+        fpi.setDatatype(dataTypes);
+        fpi.setName(names);
+        fpi.setUnit(units);
+        fpi.setUCD(ucds);
+        fpi.setWidth(widths);
+        fpi.setArraysize(arraySizes);
+        fpi.setPrecision(precisions);
+    
+        // Iterate through each object
+        for (int k = 0; k < planeData.getNbObj(); k++) {
+            Obj obj = objects[k];
+            
+            // Determine the column for the optical Magnitude
+            int objMagCol = -1;        
+            for (int i = 0; i < ucds.length; i++) {
+                if (ucds[i].toLowerCase().equals("phot.mag;em.opt.v")) {
+                    int oldObjMagCol = i; 
+                    /*
+                     *  A Column was inserted at col 0 of ucds[] earlier in 
+                     *  this method but the number of columns in the objects 
+                     *  values list hasn't increased so the column number 
+                     *  needs to be adjusted by -1
+                     */
+                    objMagCol = oldObjMagCol - 1; 
+                }
+            }        
+            if (objMagCol < 0) { 
+                // TODO: Error finding the optical magnitude column!
+            };
+            
+            // Get the data from the catalog Obj
+            String objID = obj.id;
+            double objRA = obj.getRa();
+            double objDec = obj.getDec();   
+            
+            // Get the visual magnitude from the catalog Obj values
+            String[] catObjValues = obj.getValues();
+            double objMag = Double.parseDouble(catObjValues[objMagCol]);
+    
+            // The distance to the target Pointing in degrees
+            double distance = Pointing.distance(refRA, refDec, objRA, objDec);
+            
+            // Format the distance number for printing in ARCMINUTES
+            DecimalFormat myFormatter = new DecimalFormat("###.####");
+            String skySep = myFormatter.format(distance* 60.0);
+
+            // Add the distance to column 0 of the Obj values
+            String[] objValues = 
+                    SwattersUtils.concatStringLists(skySep, catObjValues);            
+                    
+//            // Categorize objects as possible SOFIA track objects based on
+//            // visual magnitude and proximity to the target Coo                                  
+//            if (distance <= Imager.FPI.getFOVRadius() && 
+//                                (objMag < Imager.FPI.getMaxOptMag()) ) {  
 //                
-//                // Bright enough for the FPI only
-//
-//                if (inFPI(distance)) {
-//                    // FPI
-//                    fpi.addSource(objID, objRA, objDec, objValues);
-//                    fpi.objModified();                    
-//
-//                    System.out.println("FPI");
-//                } else {                
-//                    // TODO:
-//                    System.out.println("none");
-//                }
+//                // Potential FPI track objects
+//                fpi.addSource(objID, objRA, objDec, objValues);
+//                fpi.objModified();                    
 //                
-//            } else if ((Imager.WFI.getMaxOptMag() < objMag) 
-//                    && (objMag <= Imager.FFI.getMaxOptMag())) {                
+//                System.out.println("Potential FPI track object " + 
+//                                    "(ID, V magnitude, distance):");
+//                System.out.println("\t" + objID + "\t" + 
+//                                    objMag + "\t" + skySep);     
 //                
-//                // Bright enough for the FPI and FFI
-//
-//                if (inFFIDonut(distance)) {
-//                    // FFI
-//                    ffi.addSource(objID, objRA, objDec, objValues);
-//                    ffi.objModified();                    
-//                    System.out.println("FFI");
-//                } else if (inFFICorner(distance)) {
-//                    // FFI-corner
-//                    System.out.println("FFI-corner");
-//                } else if (inFPI(distance)) {
-//                    // FFI and FPI
-//                    System.out.println("FFI and FPI");
-//                } else {                
-//                    // TODO:
-//                    System.out.println("none");
-//                }
+//            } else if ( (distance <= Imager.FFI.getMaxFOVDiagonal()) && 
+//                                (objMag < Imager.FFI.getMaxOptMag()) ) {
 //                
-//            } else if (objMag <= Imager.WFI.getMaxOptMag()) {
-//
-//                // Bright enough for the FPI, FFI, and WFI
+//                // Potential FFI track objects
+//                ffi.addSource(objID, objRA, objDec, objValues);
+//                ffi.objModified();    
 //                
-//                if (inWFIDonut(distance)) {
-//                    // WFI
-//                    wfi.addSource(objID, objRA, objDec, objValues);
-//                    wfi.objModified();                    
-//                    System.out.println("WFI");
-//                } else if (inWFICorner(distance)) {
-//                    // WFI-corner
-//                    System.out.println("WFI and WFI-corner");
-//                } else if (inFFIDonut(distance)) {
-//                    // WFI and FFI
-//                    System.out.println("WFI and FFI");
-//                } else if (inFFICorner(distance)) {
-//                    // WFI and FFI-corner
-//                    System.out.println("WFI and FFI-corner");
-//                } else if (inFPI(distance)) {
-//                    // WFI, FFI, and FPI
-//                    System.out.println("WFI, FFI, and FPI");
-//                } else {                
-//                    // TODO:
-//                    System.out.println("none");
-//                }     
+//                System.out.println("Potential FFI track object " +
+//                                    "(ID, V magnitude, distance):");
+//                System.out.println("\t" + objID + "\t" + 
+//                                    objMag + "\t" + skySep);
 //                
-//            } else {     
+//            } else if ( (distance <= Imager.WFI.getMaxFOVDiagonal()) && 
+//                                (objMag < Imager.WFI.getMaxOptMag()) ) {                    
+//                // Potential WFI objects
+//                wfi.addSource(objID, objRA, objDec, objValues);
+//                wfi.objModified();
 //                
-//                // TODO:                
-//                System.out.println("none");
-//            }                            
-//        }
-//        
-//        // TODO: Remove the empty planes
-//        
-//        AladinData[] planes = {fpi, ffi, wfi};
-//        return planes;
-//    }
-//
-//    private static boolean inWFIDonut(double skySep_degs) {
-//        return ( (Imager.FFI.getMaxFOVDiagonal() < skySep_degs)
-//                && (skySep_degs <= Imager.WFI.getFOVRadius()) );
-//    }
-//            
-//    private static boolean inWFICorner(double skySep_degs) {
-//        return ( (Imager.WFI.getFOVRadius() < skySep_degs) 
-//                && (skySep_degs <= Imager.WFI.getMaxFOVDiagonal()) );   
-//    }
-//    
-//    private static boolean inFFIDonut(double skySep_degs) {
-//        return ( (Imager.FPI.getFOVRadius() < skySep_degs) 
-//            && (skySep_degs <= Imager.FFI.getFOVRadius()) );   
-//    }
-//    
-//    private static boolean inFFICorner(double skySep_degs) { 
-//        return ( (Imager.FFI.getFOVRadius() < skySep_degs) 
-//            && (skySep_degs <= Imager.FFI.getMaxFOVDiagonal()) );  
-//    }
-//    
-//    private static boolean inFPI(double skySep_degs) {
-//        return (skySep_degs <= Imager.FPI.getFOVRadius());        
-//    }
+//                System.out.println("Potential WFI object " +
+//                                    "(ID, V magnitude, distance):");
+//                System.out.println("\t" + objID + "\t" +
+//                                    objMag + "\t" + skySep);               
+//            } 
+            
+            // TODO: add else statement (no tracking category) ?                
+
+            // TODO: Testing selection algorithm 
+            /*
+             *  Categorize objects as possible SOFIA track objects based on
+             *  visual magnitude and proximity to the target Coo 
+             */                                  
+            if ( (Imager.FFI.getMaxOptMag() < objMag) 
+                    && (objMag <= Imager.FPI.getMaxOptMag())) {                
+                
+                // Bright enough for the FPI only
+
+                if (inFPI(distance)) {
+                    // FPI
+                    fpi.addSource(objID, objRA, objDec, objValues);
+                    fpi.objModified();                    
+
+                    System.out.println("FPI");
+                } else {                
+                    // TODO:
+                    System.out.println("none");
+                }
+                
+            } else if ((Imager.WFI.getMaxOptMag() < objMag) 
+                    && (objMag <= Imager.FFI.getMaxOptMag())) {                
+                
+                // Bright enough for the FPI and FFI
+
+                if (inFFIDonut(distance)) {
+                    // FFI
+                    ffi.addSource(objID, objRA, objDec, objValues);
+                    ffi.objModified();                    
+                    System.out.println("FFI");
+                } else if (inFFICorner(distance)) {
+                    // FFI-corner
+                    System.out.println("FFI-corner");
+                } else if (inFPI(distance)) {
+                    // FFI and FPI
+                    System.out.println("FFI and FPI");
+                } else {                
+                    // TODO:
+                    System.out.println("none");
+                }
+                
+            } else if (objMag <= Imager.WFI.getMaxOptMag()) {
+
+                // Bright enough for the FPI, FFI, and WFI
+                
+                if (inWFIDonut(distance)) {
+                    // WFI
+                    wfi.addSource(objID, objRA, objDec, objValues);
+                    wfi.objModified();                    
+                    System.out.println("WFI");
+                } else if (inWFICorner(distance)) {
+                    // WFI-corner
+                    System.out.println("WFI and WFI-corner");
+                } else if (inFFIDonut(distance)) {
+                    // WFI and FFI
+                    System.out.println("WFI and FFI");
+                } else if (inFFICorner(distance)) {
+                    // WFI and FFI-corner
+                    System.out.println("WFI and FFI-corner");
+                } else if (inFPI(distance)) {
+                    // WFI, FFI, and FPI
+                    System.out.println("WFI, FFI, and FPI");
+                } else {                
+                    // TODO:
+                    System.out.println("none");
+                }     
+                
+            } else {     
+                
+                // TODO:                
+                System.out.println("none");
+            }                            
+        }
+        
+        // TODO: Remove the empty planes
+        
+        AladinData[] planes = {fpi, ffi, wfi};
+        return planes;
+    }
+
+    private static boolean inWFIDonut(double skySep_degs) {
+        return ( (Imager.FFI.getMaxFOVDiagonal() < skySep_degs)
+                && (skySep_degs <= Imager.WFI.getFOVRadius()) );
+    }
+            
+    private static boolean inWFICorner(double skySep_degs) {
+        return ( (Imager.WFI.getFOVRadius() < skySep_degs) 
+                && (skySep_degs <= Imager.WFI.getMaxFOVDiagonal()) );   
+    }
+    
+    private static boolean inFFIDonut(double skySep_degs) {
+        return ( (Imager.FPI.getFOVRadius() < skySep_degs) 
+            && (skySep_degs <= Imager.FFI.getFOVRadius()) );   
+    }
+    
+    private static boolean inFFICorner(double skySep_degs) { 
+        return ( (Imager.FFI.getFOVRadius() < skySep_degs) 
+            && (skySep_degs <= Imager.FFI.getMaxFOVDiagonal()) );  
+    }
+    
+    private static boolean inFPI(double skySep_degs) {
+        return (skySep_degs <= Imager.FPI.getFOVRadius());        
+    }
 
     /**
      * Removes duplicates from a Collection and preserves it's order
