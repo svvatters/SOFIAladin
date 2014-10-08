@@ -733,9 +733,7 @@ public abstract class SOFIA_Aladin {
 //                                    objMag + "\t" + skySep);               
 //            } 
             
-            // TODO: add else statement (no tracking category) ?                
-
-            // TODO: Testing selection algorithm 
+            // TODO: Test selection algorithm 
             /*
              *  Categorize objects as possible SOFIA track objects based on
              *  visual magnitude and proximity to the target Coo 
@@ -753,6 +751,7 @@ public abstract class SOFIA_Aladin {
                     System.out.println("FPI");
                 } else {                
                     // TODO:
+                	
                     System.out.println("none");
                 }
                 
@@ -764,16 +763,24 @@ public abstract class SOFIA_Aladin {
                 if (inFFIDonut(distance)) {
                     // FFI
                     ffi.addSource(objID, objRA, objDec, objValues);
-                    ffi.objModified();                    
+                    ffi.objModified();         
+                    
                     System.out.println("FFI");
                 } else if (inFFICorner(distance)) {
-                    // FFI-corner
+                    // TODO: give FFI-corner its own classification                    
+                	ffi.addSource(objID, objRA, objDec, objValues);
+                    ffi.objModified(); 
+                    
                     System.out.println("FFI-corner");
                 } else if (inFPI(distance)) {
-                    // FFI and FPI
+                    // TODO: give FFI and FPI its own classification
+                	ffi.addSource(objID, objRA, objDec, objValues);
+                    ffi.objModified(); 
+
                     System.out.println("FFI and FPI");
                 } else {                
                     // TODO:
+                	
                     System.out.println("none");
                 }
                 
@@ -785,27 +792,41 @@ public abstract class SOFIA_Aladin {
                     // WFI
                     wfi.addSource(objID, objRA, objDec, objValues);
                     wfi.objModified();                    
+ 
                     System.out.println("WFI");
                 } else if (inWFICorner(distance)) {
-                    // WFI-corner
+                    // TODO: give WFI-corner its own classification
+                    wfi.addSource(objID, objRA, objDec, objValues);
+                    wfi.objModified();                    
+                    
                     System.out.println("WFI and WFI-corner");
                 } else if (inFFIDonut(distance)) {
-                    // WFI and FFI
+                    // TODO: give WFI and FFI its own classification
+                    wfi.addSource(objID, objRA, objDec, objValues);
+                    wfi.objModified();                    
+
                     System.out.println("WFI and FFI");
                 } else if (inFFICorner(distance)) {
-                    // WFI and FFI-corner
+                    // TODO: give WFI and FFI-corner its own classification
+                    wfi.addSource(objID, objRA, objDec, objValues);
+                    wfi.objModified();                    
+
                     System.out.println("WFI and FFI-corner");
                 } else if (inFPI(distance)) {
-                    // WFI, FFI, and FPI
+                    // TODO: give WFI, FFI, and FPI its own classification
+                    wfi.addSource(objID, objRA, objDec, objValues);
+                    wfi.objModified();                    
+
                     System.out.println("WFI, FFI, and FPI");
                 } else {                
                     // TODO:
+                	
                     System.out.println("none");
                 }     
                 
-            } else {     
-                
-                // TODO:                
+            } else {                     
+                // TODO:       
+            	
                 System.out.println("none");
             }                            
         }
