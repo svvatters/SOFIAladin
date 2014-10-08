@@ -13,5 +13,7 @@
 	<classpathentry kind="lib" path="src/kxml2-2.3.0.jar"/>
 	<classpathentry kind="lib" path="src/microhub.jar"/>
 	<classpathentry kind="lib" path="src/Moc.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/utils"/>
+	<classpathentry kind="lib" path="src/jsoup-1.7.3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

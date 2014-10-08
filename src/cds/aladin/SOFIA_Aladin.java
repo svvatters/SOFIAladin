@@ -33,6 +33,8 @@ import cds.aladin.ViewSimple;
 import cds.astro.Astrocoo;
 import sofia.Imager;
 import sofia.Vizier;
+import sofia.dcs.Pointing;
+import swatters.SwattersUtils;
 
 /**
  * @author shannon.watters@gmail.com
@@ -64,18 +66,18 @@ public abstract class SOFIA_Aladin {
     //
     enum Shapes {CIRCLE, SQUARE}
 
-//    /**
-//     * @param a
-//     * @param p
-//     * @return 
-//     * @throws AladinException
-//     */
-//    public static Obj addObjToStack(Aladin a, Pointing p) 
-//            throws AladinException {
-//        HashMap<String, String[]> colInfo = p.getObjColInfo();
-//        String[] vals = p.getObjValues();
-//        return(addObjToStack(a, colInfo, vals));
-//    }    
+    /**
+     * @param a
+     * @param p
+     * @return 
+     * @throws AladinException
+     */
+    public static Obj addObjToStack(Aladin a, Pointing p) 
+            throws AladinException {
+        HashMap<String, String[]> colInfo = p.getObjColInfo();
+        String[] vals = p.getObjValues();
+        return(addObjToStack(a, colInfo, vals));
+    }    
 
     /**
      * @param a
