@@ -34,7 +34,6 @@ import cds.astro.Astrocoo;
 import sofia.Imager;
 import sofia.Vizier;
 import sofia.dcs.Pointing;
-import swatters.SwattersUtils;
 
 /**
  * @author shannon.watters@gmail.com
@@ -602,19 +601,19 @@ public abstract class SOFIA_Aladin {
          */
         Obj[] objects = planeData.seeObj();
     
-        String[] dataTypes = SwattersUtils.concatStringLists("D", 
+        String[] dataTypes = SOFIA_Aladin.concatStringLists("D", 
                 objects[0].getDataTypes());
-        String[] names = SwattersUtils.concatStringLists("_SkySep", 
+        String[] names = SOFIA_Aladin.concatStringLists("_SkySep", 
                 objects[0].getNames());
-        String[] units = SwattersUtils.concatStringLists("arcmin", 
+        String[] units = SOFIA_Aladin.concatStringLists("arcmin", 
                 objects[0].getUnits());
-        String[] ucds = SwattersUtils.concatStringLists(
+        String[] ucds = SOFIA_Aladin.concatStringLists(
                 "pos.angDistance;pos.ang.separation", objects[0].getUCDs());
-        String[] widths = SwattersUtils.concatStringLists("10", 
+        String[] widths = SOFIA_Aladin.concatStringLists("10", 
                 objects[0].getWidths());
-        String[] arraySizes = SwattersUtils.concatStringLists("null", 
+        String[] arraySizes = SOFIA_Aladin.concatStringLists("null", 
                 objects[0].getArraysizes());
-        String[] precisions = SwattersUtils.concatStringLists("6", 
+        String[] precisions = SOFIA_Aladin.concatStringLists("6", 
                 objects[0].getPrecisions());       
 
         // TODO: Check if catalog already exists
@@ -694,7 +693,7 @@ public abstract class SOFIA_Aladin {
 
             // Add the distance to column 0 of the Obj values
             String[] objValues = 
-                    SwattersUtils.concatStringLists(skySep, catObjValues);            
+            		SOFIA_Aladin.concatStringLists(skySep, catObjValues);            
                     
 //            // Categorize objects as possible SOFIA track objects based on
 //            // visual magnitude and proximity to the target Coo                                  
@@ -878,6 +877,30 @@ public abstract class SOFIA_Aladin {
         outWriter.flush();
         outWriter.close();     
     }
+
+
+    /**
+     * @param str
+     * @param B
+     * @return
+     */
+    public static String[] concatStringLists(String str, String[] B) {
+        String[] list = {str};
+        return(concatStringLists(list, B));
+    }   
+    /**
+     * @param A
+     * @param B
+     * @return
+     */
+    public static String[] concatStringLists(String[] A, String[] B) {
+        int aLen = A.length;
+        int bLen = B.length;
+        String[] C= new String[aLen+bLen];
+        System.arraycopy(A, 0, C, 0, aLen);
+        System.arraycopy(B, 0, C, aLen, bLen);
+        return C;
+     }
 
     /**
      * @param parent

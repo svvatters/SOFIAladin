@@ -13,10 +13,10 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
+import cds.aladin.SOFIA_Aladin;
 import sofia.dcs.obsplan.FixedTarget;
 import sofia.dcs.obsplan.Observation;
 import sofia.dcs.obsplan.ObservingPlan;
-import swatters.SwattersUtils;
 
 /**
  * @author shannon.watters@gmail.com
@@ -98,7 +98,7 @@ public abstract class DCSUtils {
         ArrayList<Pointing> pointings = 
                                 getSiderealPointings(fileList);            
         // Remove the duplicates
-        Set<Pointing> uniquePointings = SwattersUtils.removeDups(pointings);
+        Set<Pointing> uniquePointings = SOFIA_Aladin.removeDups(pointings);
         System.out.println(uniquePointings.size() + " unique pointings:");
         for (Pointing p : uniquePointings) {
             System.out.println(p);
