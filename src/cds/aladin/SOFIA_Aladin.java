@@ -737,37 +737,37 @@ public abstract class SOFIA_Aladin {
             /*
              *  Categorize objects as possible SOFIA track objects based on
              *  visual magnitude and proximity to the target Coo 
-             */                                  
+             */
             if ( (Imager.FFI.getMaxOptMag() < objMag) 
-                    && (objMag <= Imager.FPI.getMaxOptMag())) {                
+                    && (objMag <= Imager.FPI.getMaxOptMag())) {
                 
                 // Bright enough for the FPI only
 
                 if (inFPI(distance)) {
                     // FPI
                     fpi.addSource(objID, objRA, objDec, objValues);
-                    fpi.objModified();                    
+                    fpi.objModified();
 
                     System.out.println("FPI");
-                } else {                
+                } else {
                     // TODO:
                 	
                     System.out.println("none");
                 }
                 
             } else if ((Imager.WFI.getMaxOptMag() < objMag) 
-                    && (objMag <= Imager.FFI.getMaxOptMag())) {                
+                    && (objMag <= Imager.FFI.getMaxOptMag())) {
                 
                 // Bright enough for the FPI and FFI
 
                 if (inFFIDonut(distance)) {
                     // FFI
                     ffi.addSource(objID, objRA, objDec, objValues);
-                    ffi.objModified();         
+                    ffi.objModified();
                     
                     System.out.println("FFI");
                 } else if (inFFICorner(distance)) {
-                    // TODO: give FFI-corner its own classification                    
+                    // TODO: give FFI-corner its own classification
                 	ffi.addSource(objID, objRA, objDec, objValues);
                     ffi.objModified(); 
                     
@@ -778,7 +778,7 @@ public abstract class SOFIA_Aladin {
                     ffi.objModified(); 
 
                     System.out.println("FFI and FPI");
-                } else {                
+                } else {
                     // TODO:
                 	
                     System.out.println("none");
@@ -791,44 +791,44 @@ public abstract class SOFIA_Aladin {
                 if (inWFIDonut(distance)) {
                     // WFI
                     wfi.addSource(objID, objRA, objDec, objValues);
-                    wfi.objModified();                    
+                    wfi.objModified();
  
                     System.out.println("WFI");
                 } else if (inWFICorner(distance)) {
                     // TODO: give WFI-corner its own classification
                     wfi.addSource(objID, objRA, objDec, objValues);
-                    wfi.objModified();                    
+                    wfi.objModified();
                     
                     System.out.println("WFI and WFI-corner");
                 } else if (inFFIDonut(distance)) {
                     // TODO: give WFI and FFI its own classification
                     wfi.addSource(objID, objRA, objDec, objValues);
-                    wfi.objModified();                    
+                    wfi.objModified();
 
                     System.out.println("WFI and FFI");
                 } else if (inFFICorner(distance)) {
                     // TODO: give WFI and FFI-corner its own classification
                     wfi.addSource(objID, objRA, objDec, objValues);
-                    wfi.objModified();                    
+                    wfi.objModified();
 
                     System.out.println("WFI and FFI-corner");
                 } else if (inFPI(distance)) {
                     // TODO: give WFI, FFI, and FPI its own classification
                     wfi.addSource(objID, objRA, objDec, objValues);
-                    wfi.objModified();                    
+                    wfi.objModified();
 
                     System.out.println("WFI, FFI, and FPI");
-                } else {                
+                } else {
                     // TODO:
                 	
                     System.out.println("none");
-                }     
-                
-            } else {                     
+                }
+
+            } else {
                 // TODO:       
             	
                 System.out.println("none");
-            }                            
+            }
         }
         
         // TODO: Remove the empty planes
