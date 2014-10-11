@@ -69,9 +69,9 @@ public enum Imager {
                 + "<td>" + wfiMag + "</td>" 
                 + "</tr><tr>"
                 + "<td>Max Sky Separation from Pointing</td>" 
-                + "<td>" + fpiArcmin + "\"</td>" 
-                + "<td>" + ffiArcmin + "\"</td>" 
-                + "<td>" + wfiArcmin + "\"</td>"
+                + "<td>" + fpiArcmin + "\'</td>" 
+                + "<td>" + ffiArcmin + "\'</td>" 
+                + "<td>" + wfiArcmin + "\'</td>"
                 + "</tr></tbody>";
         return limits;
     }

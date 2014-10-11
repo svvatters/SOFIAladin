@@ -694,46 +694,8 @@ public abstract class SOFIA_Aladin {
             // Add the distance to column 0 of the Obj values
             String[] objValues = 
             		SOFIA_Aladin.concatStringLists(skySep, catObjValues);            
-                    
-//            // Categorize objects as possible SOFIA track objects based on
-//            // visual magnitude and proximity to the target Coo                                  
-//            if (distance <= Imager.FPI.getFOVRadius() && 
-//                                (objMag < Imager.FPI.getMaxOptMag()) ) {  
-//                
-//                // Potential FPI track objects
-//                fpi.addSource(objID, objRA, objDec, objValues);
-//                fpi.objModified();                    
-//                
-//                System.out.println("Potential FPI track object " + 
-//                                    "(ID, V magnitude, distance):");
-//                System.out.println("\t" + objID + "\t" + 
-//                                    objMag + "\t" + skySep);     
-//                
-//            } else if ( (distance <= Imager.FFI.getMaxFOVDiagonal()) && 
-//                                (objMag < Imager.FFI.getMaxOptMag()) ) {
-//                
-//                // Potential FFI track objects
-//                ffi.addSource(objID, objRA, objDec, objValues);
-//                ffi.objModified();    
-//                
-//                System.out.println("Potential FFI track object " +
-//                                    "(ID, V magnitude, distance):");
-//                System.out.println("\t" + objID + "\t" + 
-//                                    objMag + "\t" + skySep);
-//                
-//            } else if ( (distance <= Imager.WFI.getMaxFOVDiagonal()) && 
-//                                (objMag < Imager.WFI.getMaxOptMag()) ) {                    
-//                // Potential WFI objects
-//                wfi.addSource(objID, objRA, objDec, objValues);
-//                wfi.objModified();
-//                
-//                System.out.println("Potential WFI object " +
-//                                    "(ID, V magnitude, distance):");
-//                System.out.println("\t" + objID + "\t" +
-//                                    objMag + "\t" + skySep);               
-//            } 
             
-            // TODO: Test selection algorithm 
+            // TODO: Test selection algorithm more
             /*
              *  Categorize objects as possible SOFIA track objects based on
              *  visual magnitude and proximity to the target Coo 
@@ -842,7 +804,7 @@ public abstract class SOFIA_Aladin {
                 && (skySep_degs <= Imager.WFI.getFOVRadius()) );
     }
             
-    private static boolean inWFICorner(double skySep_degs) {
+    public static boolean inWFICorner(double skySep_degs) {
         return ( (Imager.WFI.getFOVRadius() < skySep_degs) 
                 && (skySep_degs <= Imager.WFI.getMaxFOVDiagonal()) );   
     }
@@ -852,7 +814,7 @@ public abstract class SOFIA_Aladin {
             && (skySep_degs <= Imager.FFI.getFOVRadius()) );   
     }
     
-    private static boolean inFFICorner(double skySep_degs) { 
+    public static boolean inFFICorner(double skySep_degs) { 
         return ( (Imager.FFI.getFOVRadius() < skySep_degs) 
             && (skySep_degs <= Imager.FFI.getMaxFOVDiagonal()) );  
     }
