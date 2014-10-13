@@ -25,15 +25,9 @@ import java.util.concurrent.TimeUnit;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import cds.aladin.Aladin;
-import cds.aladin.AladinData;
-import cds.aladin.AladinException;
-import cds.aladin.Obj;
-import cds.aladin.ViewSimple;
 import cds.astro.Astrocoo;
 import sofia.Imager;
 import sofia.Vizier;
-import sofia.dcs.Pointing;
 
 /**
  * @author shannon.watters@gmail.com
@@ -65,18 +59,18 @@ public abstract class SOFIA_Aladin {
     //
     enum Shapes {CIRCLE, SQUARE}
 
-    /**
-     * @param a
-     * @param p
-     * @return 
-     * @throws AladinException
-     */
-    public static Obj addObjToStack(Aladin a, Pointing p) 
-            throws AladinException {
-        HashMap<String, String[]> colInfo = p.getObjColInfo();
-        String[] vals = p.getObjValues();
-        return(addObjToStack(a, colInfo, vals));
-    }    
+//    /**
+//     * @param a
+//     * @param p
+//     * @return 
+//     * @throws AladinException
+//     */
+//    public static Obj addObjToStack(Aladin a, Pointing p) 
+//            throws AladinException {
+//        HashMap<String, String[]> colInfo = p.getObjColInfo();
+//        String[] vals = p.getObjValues();
+//        return(addObjToStack(a, colInfo, vals));
+//    }    
 
     /**
      * @param a
@@ -85,7 +79,7 @@ public abstract class SOFIA_Aladin {
      * @return
      * @throws AladinException
      */
-    private static Obj addObjToStack(Aladin a, 
+    public static Obj addObjToStack(Aladin a, 
             HashMap<String, String[]> colInfo, String[] vals) 
             throws AladinException {
         //
@@ -524,7 +518,7 @@ public abstract class SOFIA_Aladin {
      * @param radius
      * @param maxMag
      */
-    public static String queryVizier(Aladin a, Pointing target, Vizier catalog, 
+    public static String queryVizier(Aladin a, double ra, double dec, Vizier catalog, 
             double radius, double maxMag) {
         
         String catName = catalog.getName();
@@ -547,7 +541,7 @@ public abstract class SOFIA_Aladin {
         
         //
         a.execCommand(tempName + " = get vizier(" + catName + ") " +
-                       target.getLon() + " " + target.getLat() + " " + 
+                       ra + " " + dec + " " + 
                        radius + "deg");
         
         //
@@ -575,7 +569,7 @@ public abstract class SOFIA_Aladin {
      * @throws IOException 
      */
     public static AladinData[] selectTrackStars(Aladin a, String planeLabel, 
-            Pointing refCoord) throws AladinException, IOException {
+            double ra, double dec) throws AladinException, IOException {
     
         System.out.println("Searching " + planeLabel + 
                                 " for potential SOFIA tracking objects...");
@@ -584,8 +578,8 @@ public abstract class SOFIA_Aladin {
          *  (Pointing).  The distance to all the catalog objects will be part 
          *  of the criteria for the objects potential use as a tracking object. 
          */
-        double refRA = refCoord.getLon();
-        double refDec = refCoord.getLat();
+        double refRA = ra;
+        double refDec = dec;
     
         // The catalog data
         /*
@@ -685,7 +679,7 @@ public abstract class SOFIA_Aladin {
             double objMag = Double.parseDouble(catObjValues[objMagCol]);
     
             // The distance to the target Pointing in degrees
-            double distance = Pointing.distance(refRA, refDec, objRA, objDec);
+            double distance = Astrocoo.distance(refRA, refDec, objRA, objDec);
             
             // Format the distance number for printing in ARCMINUTES
             DecimalFormat myFormatter = new DecimalFormat("###.####");
