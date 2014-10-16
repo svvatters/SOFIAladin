@@ -59,19 +59,6 @@ public abstract class SOFIA_Aladin {
     //
     enum Shapes {CIRCLE, SQUARE}
 
-//    /**
-//     * @param a
-//     * @param p
-//     * @return 
-//     * @throws AladinException
-//     */
-//    public static Obj addObjToStack(Aladin a, Pointing p) 
-//            throws AladinException {
-//        HashMap<String, String[]> colInfo = p.getObjColInfo();
-//        String[] vals = p.getObjValues();
-//        return(addObjToStack(a, colInfo, vals));
-//    }    
-
     /**
      * @param a
      * @param colInfo
@@ -231,10 +218,6 @@ public abstract class SOFIA_Aladin {
         if (ad.getNbObj() == 0) return sb.toString();
         
         Obj[] objects = ad.seeObj();
-//        if (objects == null) return sb;
-        
-        // Write the header for the whole table
-//        sb.append("<h5>" + ad.getLabel() + "</h5>");
         
         // Write the table headers names row
         sb.append("\t<table id=\"" + ad.getLabel().toLowerCase()
@@ -248,14 +231,6 @@ public abstract class SOFIA_Aladin {
             sb.append("<th>" + names[i]+ "</th>");
         }
         sb.append("</tr>\n");   
-
-        // Write the table headers units row
-//        sb.append("<tr>");   
-//        String[] units = objects[0].getUnits();
-//        for (int i=0; i < units.length; i++) {
-//            sb.append("<th>" + units[i]+ "</th>");
-//        }        
-//        sb.append("</tr>");   
 
         sb.append("\t\t</thead>\n");
         
@@ -336,17 +311,20 @@ public abstract class SOFIA_Aladin {
     public static Astrocoo createAstrocoo(String ra, String dec) {
         Astrocoo ac = null;
         
-        // Check that the coord strings are in a format Astrocoo can
-        // take for initialization
+        /* 
+         * Check that the coord strings are in a format Astrocoo can
+         * take for initialization
+         */
         ra = SOFIA_Aladin.formatCoord(ra);
         dec = SOFIA_Aladin.formatCoord(dec);
         
-        // Use an Astrocoo to handle different "ra dec" input formats.
-        // Examples:
-        // 335.852333  -9.982667   (degs)
-        // 22 23 24.56 -9 58 57.6  (hrs min sec degs arcmin arcsec)
-        // 22:23:24.56 -9:58:57.6
-        // (Note: leading zeros and "+" are also allowed for dec degs)
+        /* Use an Astrocoo to handle different "ra dec" input formats.
+         * Examples:
+         * 335.852333  -9.982667   (degs)
+         * 22 23 24.56 -9 58 57.6  (hrs min sec degs arcmin arcsec)
+         * 22:23:24.56 -9:58:57.6
+         * (Note: leading zeros and "+" are also allowed for dec degs)
+         */
         try {                           
             ac = new Astrocoo("(ICRS) " + ra + " " + dec);
         } catch (ParseException pe) {
@@ -378,7 +356,7 @@ public abstract class SOFIA_Aladin {
         double sofiaROF = 0.0;
         double astroPA = viewSimple.getProj().rot;
         
-        // Convert 'astronomical position angle' to 'SOFIA position angle'
+        		// Convert 'astronomical position angle' to 'SOFIA position angle'
             if (astroPA != 0.0) {sofiaROF = 360.0 - (astroPA);}
         
             return sofiaROF;        
@@ -568,9 +546,12 @@ public abstract class SOFIA_Aladin {
      * @throws AladinException
      * @throws IOException 
      */
-    public static AladinData[] selectTrackStars(Aladin a, String planeLabel, 
-            double ra, double dec) throws AladinException, IOException {
+    public static AladinData[] selectTrackStars(Aladin a, double ra, double dec, Vizier catalog, 
+            double radius, double maxMag) throws AladinException, IOException {
     
+    		//
+    		String planeLabel = SOFIA_Aladin.queryVizier(a, ra, dec, catalog, radius, maxMag);
+    				
         System.out.println("Searching " + planeLabel + 
                                 " for potential SOFIA tracking objects...");
         /*
@@ -755,7 +736,7 @@ public abstract class SOFIA_Aladin {
                     wfi.addSource(objID, objRA, objDec, objValues);
                     wfi.objModified();
                     
-                    System.out.println("WFI and WFI-corner");
+                    System.out.println("WFI-corner");
                 } else if (inFFIDonut(distance)) {
                     // TODO: give WFI and FFI its own classification
                     wfi.addSource(objID, objRA, objDec, objValues);
@@ -787,6 +768,8 @@ public abstract class SOFIA_Aladin {
             }
         }
         
+        a.execCommand("rm " + planeLabel);
+
         // TODO: Remove the empty planes
         
         AladinData[] planes = {fpi, ffi, wfi};
@@ -855,27 +838,26 @@ public abstract class SOFIA_Aladin {
         outWriter.close();     
     }
 
-
     /**
-     * @param str
-     * @param B
+     * @param string
+     * @param listB
      * @return
      */
-    public static String[] concatStringLists(String str, String[] B) {
-        String[] list = {str};
-        return(concatStringLists(list, B));
+    public static String[] concatStringLists(String string, String[] listB) {
+        String[] list = {string};
+        return(concatStringLists(list, listB));
     }   
     /**
-     * @param A
-     * @param B
+     * @param listA
+     * @param listB
      * @return
      */
-    public static String[] concatStringLists(String[] A, String[] B) {
-        int aLen = A.length;
-        int bLen = B.length;
+    public static String[] concatStringLists(String[] listA, String[] listB) {
+        int aLen = listA.length;
+        int bLen = listB.length;
         String[] C= new String[aLen+bLen];
-        System.arraycopy(A, 0, C, 0, aLen);
-        System.arraycopy(B, 0, C, aLen, bLen);
+        System.arraycopy(listA, 0, C, 0, aLen);
+        System.arraycopy(listB, 0, C, aLen, bLen);
         return C;
      }
 
@@ -949,5 +931,4 @@ public abstract class SOFIA_Aladin {
     public static void main(String[] args) {
          Aladin.launch("");
     }
-
 }
