@@ -209,50 +209,49 @@ public abstract class SOFIA_Aladin {
             e.printStackTrace();
         }
     }
-    
-    public static String toHTMLTable(AladinData ad) 
-            throws AladinException {
-        StringBuilder sb = new StringBuilder();
-
-        //
-        if (ad.getNbObj() == 0) return sb.toString();
-        
-        Obj[] objects = ad.seeObj();
-        
-        // Write the table headers names row
-        sb.append("\t<table id=\"" + ad.getLabel().toLowerCase()
-                + "\" class=\"display table table-striped table-bordered " 
-                + "table-hover table-condensed\" " 
-                + "cellspacing=\"0\" border=\"1\">\n");
-        sb.append("\t\t<thead>\n");
-        sb.append("\t\t\t<tr>");  
-        String[] names = objects[0].getNames();
-        for (int i=0; i < names.length; i++) {
-            sb.append("<th>" + names[i]+ "</th>");
-        }
-        sb.append("</tr>\n");   
-
-        sb.append("\t\t</thead>\n");
-        
-        //
-        sb.append("\t\t<tbody>\n");
-        for (int row=0; row < ad.getNbObj(); row++) {
-            sb.append("\t\t\t<tr>");   
-            objects[row].getNames();
-            String[] vals = objects[row].getValues();
-            for (int col=0; col < vals.length; col++) {              
-                sb.append("<td>");
-                sb.append(vals[col]);
-                sb.append("</td>");
-            }
-            sb.append("</tr>\n");
-        }
-        sb.append("\t\t</tbody>\n");
-        sb.append("\t</table>\n");
-        
-        return sb.toString();
-    }
-   
+//    
+//    public static String toHTMLTable(AladinData ad)  throws AladinException {
+//        StringBuilder sb = new StringBuilder();
+//
+//        //
+//        if (ad.getNbObj() == 0) return sb.toString();
+//        
+//        Obj[] objects = ad.seeObj();
+//        
+//        // Write the table headers names row
+//        sb.append("\t<table id=\"" + ad.getLabel().toLowerCase()
+//                + "\" class=\"display table table-striped table-bordered " 
+//                + "table-hover table-condensed\" " 
+//                + "cellspacing=\"0\" border=\"1\">\n");
+//        sb.append("\t\t<thead>\n");
+//        sb.append("\t\t\t<tr>");  
+//        String[] names = objects[0].getNames();
+//        for (int i=0; i < names.length; i++) {
+//            sb.append("<th>" + names[i]+ "</th>");
+//        }
+//        sb.append("</tr>\n");   
+//
+//        sb.append("\t\t</thead>\n");
+//        
+//        //
+//        sb.append("\t\t<tbody>\n");
+//        for (int row=0; row < ad.getNbObj(); row++) {
+//            sb.append("\t\t\t<tr>");   
+//            objects[row].getNames();
+//            String[] vals = objects[row].getValues();
+//            for (int col=0; col < vals.length; col++) {              
+//                sb.append("<td>");
+//                sb.append(vals[col]);
+//                sb.append("</td>");
+//            }
+//            sb.append("</tr>\n");
+//        }
+//        sb.append("\t\t</tbody>\n");
+//        sb.append("\t</table>\n");
+//        
+//        return sb.toString();
+//    }
+//   
     /**
      * Returns a String with only alpha-numeric, underscore, dot (.), or
      * dash (-) chars
