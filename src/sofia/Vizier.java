@@ -2,11 +2,10 @@ package sofia;
 
 // Sources of Astronomical Objects
 public enum Vizier {
-    OTHER("", ""),
-    HIP2("hip2", "Hpmag"),
     UCAC4("ucac4", "Vmag"),
-    TYCHO2("Tycho-2", "VTmag"),
-    SIMBAD("simbad", "V");
+    HIP2("hip2", "Hpmag");
+//    TYCHO2("Tycho-2", "VTmag"),
+//    SIMBAD("simbad", "V");
 
     private String name;
     private String visMagCol;
@@ -23,5 +22,4 @@ public enum Vizier {
     public String getVisMagCol() {
         return this.visMagCol;       
     }
-
 }
