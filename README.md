@@ -7,7 +7,7 @@ SOFIA Aladin
 ####[SOFIA_Aladin Executables](../../releases)
 
 ####Build From Source
-* Requires JDK 1.7 or greater
+* Requires JDK 1.8 or greater
 
 * Download and unzip [`SOFIA_Aladin-master.zip`](https://github.com/svvatters/SOFIA_Aladin/archive/master.zip)
 * Build with [Apache Ant](http://ant.apache.org/) 
