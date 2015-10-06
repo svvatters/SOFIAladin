@@ -1,0 +1,35 @@
+/* ==========================================================================
+   swatters' custom styles
+   ========================================================================== */
+
+@import 'bootstrap.min.css';
+@import 'dataTables.bootstrap.css';
+  
+body { 
+  font-size: 140%;
+  margin: 60px;
+}
+
+table thead th {
+  padding: 5px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.navbar-inverse .navbar-brand {
+  color: white;
+}
+
+.corner {
+  color: grey;
+}
+
+table#obsPlan{
+  border-collapse: collapse;
+  table-layout: fixed;
+  padding: 5px;
+}
+
+.ucds, .precisions, .no-display {
+  display: none;
+}

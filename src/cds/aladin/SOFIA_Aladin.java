@@ -570,6 +570,20 @@ public abstract class SOFIA_Aladin {
     }
 
     public static void main(String[] args) {
-         Aladin.launch("");
+        for( int i=0; i<args.length; i++ ) {
+        		if ( args[i].equals("-mopsreport") ){
+        			try {
+						sofia.ObsPlanTrackReporter.main(new String[0]);
+					} catch (IOException | ParseException | AladinException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+        		} else  {
+        			Aladin.launch("");
+        		}
+
+        }
+//		Aladin.launch("");
+
     }
 }

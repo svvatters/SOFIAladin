@@ -2,6 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry exported="true" kind="lib" path="src/jsoup-1.7.3.jar"/>
 	<classpathentry exported="true" kind="lib" path="src/cds.astro.jar"/>
 	<classpathentry kind="lib" path="src/cds.savot.common.jar"/>
 	<classpathentry kind="lib" path="src/cds.savot.model.jar"/>
@@ -13,6 +14,5 @@
 	<classpathentry kind="lib" path="src/kxml2-2.3.0.jar"/>
 	<classpathentry kind="lib" path="src/microhub.jar"/>
 	<classpathentry kind="lib" path="src/Moc.jar"/>
-	<classpathentry kind="lib" path="/MOPSReview/src/jsoup-1.7.3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
