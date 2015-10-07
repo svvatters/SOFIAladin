@@ -581,9 +581,7 @@ public abstract class SOFIA_Aladin {
         		} else  {
         			Aladin.launch("");
         		}
-
         }
-//		Aladin.launch("");
-
+		Aladin.launch("");
     }
 }

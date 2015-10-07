@@ -2,6 +2,10 @@ package sofia;
 
 import java.text.DecimalFormat;
 
+/**
+ * @author shannon.watters@gmail.com
+ * @SOFIA_Aladin-extension class
+ */
 public enum Imager {
 
     WFI (3.0, 7.0),

@@ -37,6 +37,7 @@ import sofia.dcs.SciObs;
 
 /**
  * @author shannon.watters@gmail.com
+ * @SOFIA_Aladin-extension class
  */
 public final class ObsPlanTrackReporter {
 
@@ -60,75 +61,75 @@ public final class ObsPlanTrackReporter {
 	private File[] parseArg(String[] arg) throws IOException {
 
 	    //
-	File inFile = null;
-	File outDir = null;
-
-	 //
-	if (arg.length > 1) {
-
-	    //
-	    inFile = new File(arg[0]);
-	    if (!inFile.exists()) {
-	        // TODO: Inform the User and prompt for an input file or directory
-	        inFile = this.openInputDialog();
-	    }
-
-	    //
-	    outDir = new File(arg[1]);
-
-	} else if (arg.length == 1) {
-	    /*
-	     *  If their is only 1 command line argument use it as the input
-	     *  file or directory and set outDir to the same directory
-	     */
-
-	    inFile = new File(arg[0]);
-	    if (!inFile.exists()) {
-	        // TODO: Inform the User and prompt for an input file or directory
-	        inFile = openInputDialog();
-	    }
-
-	    //
-	    File dir = new File(arg[0]);
-
-	    // If the command line argument is a file use its parent dir
-	    if (dir.isDirectory()) {
-	        outDir = dir;
-	    }
-
-			} else if (arg.length == 0) {
-
-	    //
-	    frame = new JFrame("Obs Plan Report Log");
-	    frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-	    frame.setSize(new Dimension(1000, 600));
-	    textArea = new JTextArea(60, 80);
-	    textArea.setEditable(false);
-	    PrintStream printStream =
-	            new PrintStream(new TextAreaOutputStream(textArea));
-
-	    // re-assigns standard output stream and error output stream
-	    System.setOut(printStream);
-	    System.setErr(printStream);
-
-	    //
-	    frame.add(new JScrollPane(textArea));
-	    frame.setVisible(true);
-
-	    // Prompt the User for the input file or directory
-	    System.out.println("Create a report of the potential SOFIA " +
-	            "tracking objects for Obsplan xml file(s).\n" +
-	            "Choose an ObsPlan xml file or a directory " +
-	            "containing the ObsPlan xml files to include in the " +
-	            "report...");
-	    inFile = openInputDialog();
-
-	    }
-
-	// TODO: Check the validity of the infile or the xml files in the directory
-
-	File[] out = {inFile, outDir};
-	return out;
+		File inFile = null;
+		File outDir = null;
+	
+		 //
+		if (arg.length > 1) {
+	
+		    //
+		    inFile = new File(arg[0]);
+		    if (!inFile.exists()) {
+		        // TODO: Inform the User and prompt for an input file or directory
+		        inFile = this.openInputDialog();
+		    }
+	
+		    //
+		    outDir = new File(arg[1]);
+	
+		} else if (arg.length == 1) {
+		    /*
+		     *  If their is only 1 command line argument use it as the input
+		     *  file or directory and set outDir to the same directory
+		     */
+	
+		    inFile = new File(arg[0]);
+		    if (!inFile.exists()) {
+		        // TODO: Inform the User and prompt for an input file or directory
+		        inFile = openInputDialog();
+		    }
+	
+		    //
+		    File dir = new File(arg[0]);
+	
+		    // If the command line argument is a file use its parent dir
+		    if (dir.isDirectory()) {
+		        outDir = dir;
+		    }
+	
+				} else if (arg.length == 0) {
+	
+		    //
+		    frame = new JFrame("Obs Plan Report Log");
+		    frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		    frame.setSize(new Dimension(1000, 600));
+		    textArea = new JTextArea(60, 80);
+		    textArea.setEditable(false);
+		    PrintStream printStream =
+		            new PrintStream(new TextAreaOutputStream(textArea));
+	
+		    // re-assigns standard output stream and error output stream
+		    System.setOut(printStream);
+		    System.setErr(printStream);
+	
+		    //
+		    frame.add(new JScrollPane(textArea));
+		    frame.setVisible(true);
+	
+		    // Prompt the User for the input file or directory
+		    System.out.println("Create a report of the potential SOFIA " +
+		            "tracking objects for Obsplan xml file(s).\n" +
+		            "Choose an ObsPlan xml file or a directory " +
+		            "containing the ObsPlan xml files to include in the " +
+		            "report...");
+		    inFile = openInputDialog();
+	
+		    }
+	
+		// TODO: Check the validity of the infile or the xml files in the directory
+	
+		File[] out = {inFile, outDir};
+		return out;
 	}
 
 	/**
@@ -136,21 +137,21 @@ public final class ObsPlanTrackReporter {
 	 */
 	private File openInputDialog() {
 
-	FileNameExtensionFilter filter =
-	        new FileNameExtensionFilter("xml", "xml");
-	fc.setFileFilter(filter);
-	fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-	fc.setDialogTitle("Choose an Obsblock file or directory");
-
-	// Open the dialog window
-	int opt = fc.showOpenDialog(null);
-	if (opt != JFileChooser.APPROVE_OPTION) {
-	    // User clicked "Cancel", dismissed it, or there was an error
-	    System.exit(0);
-	}
-
-	// User made a selection and clicked "OK"
-	return(fc.getSelectedFile());
+		FileNameExtensionFilter filter =
+		        new FileNameExtensionFilter("xml", "xml");
+		fc.setFileFilter(filter);
+		fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+		fc.setDialogTitle("Choose an Obsblock file or directory");
+	
+		// Open the dialog window
+		int opt = fc.showOpenDialog(null);
+		if (opt != JFileChooser.APPROVE_OPTION) {
+		    // User clicked "Cancel", dismissed it, or there was an error
+		    System.exit(0);
+		}
+	
+		// User made a selection and clicked "OK"
+		return(fc.getSelectedFile());
 	}
 
 	/**
@@ -209,7 +210,6 @@ public final class ObsPlanTrackReporter {
 
 	    // Shutdown the ScheduledExecutorService (indeterminate progress bar)
 	    ses.shutdown();
-
 	    
 	    // TODO: MAKE A LOOP THAT ITERATES OVER DIRECTORIES NEEDS TO CREATE
 	    // Create obsplan directory
@@ -257,23 +257,22 @@ public final class ObsPlanTrackReporter {
         // Copy the css files into cssDir
 		InputStream css_trackingReport = this.getClass().getResourceAsStream(
 				ResourceFile.$CSS_MAIN.getValue());
-		File out = new File(cssDir.toPath() + 
-				"/" +  ResourceFile.$CSS_MAIN.getFileName());
+		File out = new File(cssDir.toPath()  +  ResourceFile.$CSS_MAIN.getValue()); 
 		Files.copy(css_trackingReport, out.toPath());
+
 		InputStream css_dataTables_jquery = this.getClass().getResourceAsStream(
 				ResourceFile.$CSS_DATATABLE.getValue());
-		out = new File(cssDir.toPath()  + 
-				"/" +  ResourceFile.$CSS_DATATABLE.getFileName());
+		out = new File(cssDir.toPath() + ResourceFile.$CSS_DATATABLE.getValue());
 		Files.copy(css_dataTables_jquery, out.toPath());
+		
 		InputStream css_boot = this.getClass().getResourceAsStream(
 				ResourceFile.$CSS_BOOT.getValue());
-		out = new File(cssDir.toPath()  + 
-				"/" +  ResourceFile.$CSS_BOOT.getFileName());
+		out = new File(cssDir.toPath() + ResourceFile.$CSS_BOOT.getValue());
 		Files.copy(css_boot, out.toPath());
+		
 		InputStream css_boot_data = this.getClass().getResourceAsStream(
 				ResourceFile.$CSS_BOOT_DATA.getValue());
-		out = new File(cssDir.toPath()  + 
-				"/" +  ResourceFile.$CSS_BOOT_DATA.getFileName());
+		out = new File(cssDir.toPath() + ResourceFile.$CSS_BOOT_DATA.getValue());
 		Files.copy(css_boot_data, out.toPath());
 		
 		// Create the javascript directory under the html directory
@@ -286,19 +285,19 @@ public final class ObsPlanTrackReporter {
         // Copy the javascript files into jsDir
         InputStream js_trackingReport = this.getClass().getResourceAsStream(
 				ResourceFile.$JS_MAIN.getValue());
-		File out_js = new File(jsDir.toPath() + 
-				"/" +  ResourceFile.$JS_MAIN.getFileName());
+		File out_js = new File(jsDir.toPath() + ResourceFile.$JS_MAIN.getValue());
 		Files.copy(js_trackingReport, out_js.toPath());
+		
 		InputStream js_jquery = this.getClass().getResourceAsStream(
 				ResourceFile.$JS_JQUERY.getValue());
-		out_js = new File(jsDir.toPath() + 
-				"/" +  ResourceFile.$JS_JQUERY.getFileName());
+		out_js = new File(jsDir.toPath() + ResourceFile.$JS_JQUERY.getValue());
 		Files.copy(js_jquery, out_js.toPath());
+		
 		InputStream js_dataTables_jquery = this.getClass().getResourceAsStream(
 				ResourceFile.$JS_DATATABLE.getValue());
-		out_js = new File(jsDir.toPath() + 
-				"/" +  ResourceFile.$JS_DATATABLE.getFileName());
+		out_js = new File(jsDir.toPath() + ResourceFile.$JS_DATATABLE.getValue());
 		Files.copy(js_dataTables_jquery, out_js.toPath());
+		
 //		InputStream js_boot = this.getClass().getResourceAsStream(
 //				ResourceFile.$JS_BOOT.getValue());
 //		out_js = new File(jsDir.toPath() + 
@@ -345,7 +344,7 @@ public final class ObsPlanTrackReporter {
 	        report.writeToHtml(new File(absFile + ".html"));
 		}
         // Quit Aladin
-	    System.out.println("Shutting down");
+	    System.out.print("\nShutting down");
         aladin.execCommand("quit");
 	}
 

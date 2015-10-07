@@ -1,5 +1,9 @@
 package sofia;
 
+/**
+ * @author shannon.watters@gmail.com
+ * @SOFIA_Aladin-extension class
+ */
 // Sources of Astronomical Objects
 public enum Vizier {
     UCAC4("ucac4", "Vmag"),

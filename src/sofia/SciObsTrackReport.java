@@ -31,6 +31,7 @@ import sofia.dcs.SciObs;
 
 /**
  * @author shannon.watters@gmail.com
+ * @SOFIA_Aladin-extension class
  */
 public class SciObsTrackReport {
 
@@ -38,16 +39,16 @@ public class SciObsTrackReport {
     enum ResourceFile {
     	
     		// Resource filepaths relative to src/sofia/html/
-        $HTML_TEMPLATE("/sofia/html/SciObsTrackReport.html"),
-        $CSS_DATATABLE("/sofia/html/css/jquery.dataTables.css"),
-        $CSS_BOOT("/sofia/html/css/bootstrap.min.css"),
-        $CSS_BOOT_DATA("/sofia/html/css/dataTables.bootstrap.css"),
-        $CSS_MAIN("/sofia/html/css/styles.css"),
-        $JS_JQUERY("/sofia/html/js/jquery-1.11.1.min.js"),
-        $JS_DATATABLE("/sofia/html/js/jquery.dataTables.min.js"),
-        $JS_BOOT("/sofia/html/js/bootstrap.min.js"),
-        $JS_BOOT_DATA("/sofia/html/js/dataTables.bootstrap.js"),
-        $JS_MAIN("/sofia/html/js/sciObsTrackReport.js");
+        $HTML_TEMPLATE("/SciObsTrackReport.html"),
+        $CSS_DATATABLE("/jquery.dataTables.css"),
+        $CSS_BOOT("/bootstrap.min.css"),
+        $CSS_BOOT_DATA("/dataTables.bootstrap.css"),
+        $CSS_MAIN("/styles.css"),
+        $JS_JQUERY("/jquery-1.11.1.min.js"),
+        $JS_DATATABLE("/jquery.dataTables.min.js"),
+        $JS_BOOT("/bootstrap.min.js"),
+        $JS_BOOT_DATA("/dataTables.bootstrap.js"),
+        $JS_MAIN("/sciObsTrackReport.js");
         
         private String filepath;
         
@@ -229,9 +230,9 @@ public class SciObsTrackReport {
         String tempName = "vizier_" + catName;
         String filterName = "MaxVMag_" + maxMag;
 
-        System.out.println("Querying vizier for " + catName
+        System.out.print("\nQuerying vizier for " + catName
                 + " objects with (optical magnitude < " + maxMag
-                + "; sky separation < " + radius + " degs)");
+                + "; sky separation < " + radius + " degs)...");
 
         // Create a simple stdout indeterminate progress bar
         ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
@@ -375,15 +376,24 @@ public class SciObsTrackReport {
 				// TODO:  Handle error
 				catPlaneLabel = null;
 			}
-    			System.out.println("Searching " + catPlaneLabel +
+    			System.out.print("\nSearching " + catPlaneLabel +
                     " for potential SOFIA tracking objects...");
 
+    	        // Create a simple stdout indeterminate progress bar
+    	        ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
+    	        @SuppressWarnings("unused")
+    	        ScheduledFuture<?> sf = ses.scheduleWithFixedDelay(new Runnable() {
+    	                public void run() {
+    	                    System.out.print(".");
+    	                }
+    	            },
+    	            0, 500, TimeUnit.MILLISECONDS);
+    	        
     			// The catalog data
     			AladinData catPlaneData = aladin.getAladinData(catPlaneLabel);
 
 	        //
 	        Obj[] objects = catPlaneData.seeObj();
-
 
 	        /*
 	         *  Insert a column into the catalog plane data for the sky separation
@@ -650,7 +660,7 @@ public class SciObsTrackReport {
 	                // TODO:
 	            }
 	    		}
-
+	    		ses.shutdown();
 //	    		//
 //	    		for (Imager img : Imager.values()) {
 //	    			String name =  img.name();

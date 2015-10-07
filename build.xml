@@ -55,7 +55,7 @@
       <zipfileset src="${src.dir}/cds.savot.writer.jar" />
       <zipfileset src="${src.dir}/kxml2-2.3.0.jar" />
       <zipfileset src="${src.dir}/jsoup-1.7.3.jar" />
-      <fileset dir="${src.dir}" includes="*.gif,*.jpg, Ala*.*" 
+      <fileset dir="${src.dir}" includes="*.css,*.js,*.html,*.gif,*.jpg, Ala*.*" 
         excludes="**/*.java, AladinSrc*.jar, .DS_Store" />
       <manifest>
         <attribute name="Main-Class" value="cds.aladin.SOFIA_Aladin" />
