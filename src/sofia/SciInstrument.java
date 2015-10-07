@@ -1,5 +1,9 @@
 package sofia;
 
+/**
+ * @author shannon.watters@gmail.com
+ * @SOFIA_Aladin-extension class
+ */
 public enum SciInstrument {
 
     FORCAST_modeA (0.0, 0.0, "abc"),
