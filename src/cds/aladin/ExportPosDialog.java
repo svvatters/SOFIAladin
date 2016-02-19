@@ -321,6 +321,8 @@ final class ExportPosDialog extends JDialog {
 			for (int i = 0; i < currentResource.getTableCount(); i++) {
 				int ra_col = -1;
 				int dec_col = -1;
+				int raPM_col = -1;
+				int decPM_col = -1;
 				ArrayList<Integer> nameIndexes = new ArrayList<Integer>();
 	
 				FieldSet fs = currentResource.getFieldSet(i);
@@ -335,9 +337,14 @@ final class ExportPosDialog extends JDialog {
 						dec_col = f;
 					} else if ((ucd.equals("meta.id;meta.main"))
 							|| (ucd.equals("meta.id.part;meta.main"))) {
-						nameIndexes.add(f);						
-					}
-				}				
+						nameIndexes.add(f);		
+					} else if (ucd.equals("pos.pm;pos.eq.ra")) {
+						raPM_col = f;
+					} else if (ucd.equals("pos.pm;pos.eq.dec")) {
+						decPM_col = f;				}
+				}
+
+						
 				// If the ra, dec, and/or name aren't found
 				// alert the user and skip the current table
 				if ( (ra_col < 0) || (dec_col < 0) || 
@@ -370,6 +377,10 @@ final class ExportPosDialog extends JDialog {
 					// Variables for this row's .pos file data
 					String 		astroObjName;
 					String		COORDSYS = "J2000";	
+					String      raPM = TDs.getContent(raPM_col).toString();
+					String      decPM = TDs.getContent(decPM_col).toString();
+					
+					// TODO check proper motion is float
 					
 					// Put the full name together if it's in parts
 					StringBuilder nameBuilder = new StringBuilder();
@@ -410,7 +421,9 @@ final class ExportPosDialog extends JDialog {
 						posTable.append(astroObjName 	+ '\t'
 										+ sexCoords[0] 	+ '\t' 
 										+ sexCoords[1] 	+ '\t'
-										+ COORDSYS 		+ '\n');						
+										+ COORDSYS 		+ '\t'
+										+ raPM          + '\t'
+										+ decPM  		+ '\n');						
 					} else {
 						errLog.append("Warning:  The coords for " + astroObjName 
 									+ " (" + ac.toString(9) + ") "

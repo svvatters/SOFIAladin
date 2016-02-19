@@ -578,8 +578,8 @@ public abstract class SOFIA_Aladin {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-        		} else  {
-        			Aladin.launch("");
+//        		} else  {
+//        			Aladin.launch("");
         		}
         }
 		Aladin.launch("");
