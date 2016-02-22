@@ -377,8 +377,18 @@ final class ExportPosDialog extends JDialog {
 					// Variables for this row's .pos file data
 					String 		astroObjName;
 					String		COORDSYS = "J2000";	
-					String      raPM = TDs.getContent(raPM_col).toString();
-					String      decPM = TDs.getContent(decPM_col).toString();
+					String      raPM;
+					String      decPM;
+					if (raPM_col == -1) {
+						raPM = "";
+					} else {
+						raPM = TDs.getContent(raPM_col).toString();
+					}
+					if (decPM_col == -1) {
+						decPM = "";
+					} else {
+						decPM = TDs.getContent(decPM_col).toString();
+					}
 					
 					// TODO check proper motion is float
 					
@@ -421,9 +431,15 @@ final class ExportPosDialog extends JDialog {
 						posTable.append(astroObjName 	+ '\t'
 										+ sexCoords[0] 	+ '\t' 
 										+ sexCoords[1] 	+ '\t'
-										+ COORDSYS 		+ '\t'
-										+ raPM          + '\t'
-										+ decPM  		+ '\n');						
+										+ COORDSYS);
+						if (raPM != "") {
+							posTable.append('\t' + raPM);
+						}
+						if (decPM != "") {
+							posTable.append('\t' + decPM);		
+						}
+						posTable.append('\n');
+						
 					} else {
 						errLog.append("Warning:  The coords for " + astroObjName 
 									+ " (" + ac.toString(9) + ") "
