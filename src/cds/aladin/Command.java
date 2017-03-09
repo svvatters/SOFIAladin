@@ -93,20 +93,25 @@ public final class Command implements Runnable {
 
    PlanImage planRGBRef;   // Particularite pour traiter la commande RGB
 
+   
+   // @SOFIA_Aladin-extension branch-commandHelp added commands to Aladin script help
+   // Included command "addPos"
+   
    static final String execHelp =
       "\n" +
       "#PLANE:#                              #VIEW:#\n" +
-      "   @get servers [target] [radius]      @mview [1|2|4|9|16] [n]\n" +
-      "   @load filename                      @cview [-plot] [[x] v]\n" +
-      "   @select x1 [x2..]                   @select v1 [v2..]\n" +
-      "   @set [x1] [x2..] prop=value         @zoom ...\n" +
-      "   @hide|@show [x1] [x2..]              @northup|@unnorthup [v1] [v2..]\n" +
-      "   @mv|@copy x1 x2                      @lock|@unlock [v1] [v2..]\n" +
-      "   @rm [x1] [x2..] | -all              @match [-scale] [v|x|off]\n" +
-      "   @export [-fmt] x filename           @mv|@copy v1 v2\n" +
-      "                                      @rm [v1] [v2..] | -lock\n" +
-      "#IMAGE:#                                @save [-fmt] [-lk] [WxH] [filename]\n" +
-      "   @cm [x1|v1...] [colorMap...]        @coord|@object\n" +
+      "   @get servers [target] [radius]     @mview [1|2|4|9|16] [n]\n" +
+      "   @load filename                     @cview [-plot] [[x] v]\n" +
+      "   @select x1 [x2..]                  @select v1 [v2..]\n" +
+      "   @set [x1] [x2..] prop=value        @zoom ...\n" +
+      "   @hide|@show [x1] [x2..]             @northup|@unnorthup [v1] [v2..]\n" +
+      "   @mv|@copy x1 x2                     @lock|@unlock [v1] [v2..]\n" +
+      "   @rm [x1] [x2..] | -all             @match [-scale] [v|x|off]\n" +
+      "   @export [-fmt] x filename          @mv|@copy v1 v2\n" +
+      "   @addPos ra, dec, name, plane       @rm [v1] [v2..] | -lock\n" +
+      "   @addPosOffset ra, dec, ra-off, dec-off, name, plane\n" +
+      "#IMAGE:#                               @save [-fmt] [-lk] [WxH] [filename]\n" +
+      "   @cm [x1|v1...] [colorMap...]       @coord|@object\n" +
       "   @RGB|@RGBdiff [x1|v1...]\n" +
       "   @blink|@mosaic [x1] [x2...]          #CATALOG:#\n" +
       "   @+ | @- | @* | @/ ...                  @filter ...\n" +
