@@ -2582,7 +2582,11 @@ public class Aladin extends JApplet
          public void run() { 
             try {
                Thread.currentThread().sleep(5000);
-               testVersion();
+               
+               //@SOFIA_Aladin-extension 
+               //Commented out to supress the update version nag screen
+//               testVersion();
+               
             } catch( Exception e) { }
          }
       }).start();

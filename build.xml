@@ -4,7 +4,7 @@
   <property name="src.dir" location="src" />
   <property name="build.dir" location="bin" />
   <property name="dist.dir" location="dist" />
-  <property name="dist.file" value="SOFIA_Aladin.jar" />
+  <property name="dist.file" value="SOFIAladin.jar" />
 
   <!-- Delete the existing build and distribution directories -->
   <target name="clean">

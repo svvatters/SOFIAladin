@@ -117,6 +117,10 @@ public abstract class SOFIA_Aladin {
      * @param params
      */
     public static void addPosOffset(String params) {    
+    	
+    	//TODO: Document params
+    	//TODO: Check offset math!
+    	
         String[] args = params.split(",");  
         Astrocoo ac = createAstrocoo(args[0], args[1]);
         

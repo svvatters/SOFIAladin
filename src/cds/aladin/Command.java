@@ -2719,14 +2719,12 @@ Aladin.trace(4,"Command.execSetCmd("+param+") =>plans=["+plans+"] "
       
            if( cmd.equalsIgnoreCase("taquin") ) a.view.taquin(param);
 
-///////////////////////////////////////////////////////////////////////////////     
         // @SOFIA_Aladin-extension commands in exec()
 		else if ( (cmd.equalsIgnoreCase("addPos")) || 
 					(cmd.equalsIgnoreCase("appendSimple")) ) 
 			execSOFIAAddPos(param);
 		else if ( cmd.equalsIgnoreCase("addPosOffset") ) 
 			execSOFIAAddPosOffset(param);
-/////////////////////////////////////////////////////////////////////////////// 
 
            //      else if( cmd.equalsIgnoreCase("skygen") ) execSkyGen(param);
       else if( cmd.equalsIgnoreCase("macro") )  execMacro(param);
