@@ -9,12 +9,11 @@
 * Build SOFIAladin from Source:
   * Requires JDK 1.8 or greater
   * Download and uncompress the [source files](https://github.com/svvatters/SOFIAladin.git)
-  * Build with [Apache Ant](http://ant.apache.org/) 
-    * `cd` to the new directory `SOFIAladin-master/`
-    * Run `build.xml` using Ant:
-
-      `$ ant`
-    * Ant will do a clean compile and create the executable `SOFIAladin.jar` in `dist/`
+  * Move to the `SOFIAladin-master/` directory
+  * Run build.xml with [Apache Ant](http://ant.apache.org/) 
+  
+    `$ ant`
+  * Ant will do a clean compile and create the executable `SOFIAladin.jar` in `dist/`
 
 * Run executable SOFIAladin.jar
   * Clicking on the jar file's icon may start it (if the system is configured to do so)
