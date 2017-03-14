@@ -1,8 +1,7 @@
 # SOFIAladin
+##### Aladin Sky Atlas extended to help observation preparation at SOFIA
 
-## Aladin Sky Atlas extended to help observation preparation at SOFIA
-
-* Aladin is developed by Centre de Données astronomiques de Strasbourg: 
+* Aladin is developed by Centre de Données astronomiques de Strasbourg:
   * [Aladin Sky Atlas Home](http://aladin.u-strasbg.fr/)
   * Aladin Source [download](http://aladin.u-strasbg.fr/java/download/AladinSrc.jar)
 
