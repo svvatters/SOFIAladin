@@ -7,7 +7,7 @@ import java.awt.Point;
 
 import cds.aladin.Coord;
 import cds.aladin.ViewSimple;
-import cds.aladin.SOFIA_Aladin.Shapes;
+import cds.aladin.SOFIAladin.Shapes;
 
 /**
  * @author shannon.watters@gmail.com

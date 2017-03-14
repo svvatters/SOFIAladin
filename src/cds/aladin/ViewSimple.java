@@ -5886,9 +5886,9 @@ testx1=x1; testy1=y1; testw=w; testh=h;
                
                // @SOFIA_Aladin-extension in paintOverlays()
                // Draw the SOFIA Rotation of Field value in degrees
-               SOFIA_Aladin.drawSOFIAROFValue(this, g);        
+               SOFIAladin.drawSOFIAROFValue(this, g);        
                // Draw SOFIA imager outlines
-               SOFIA_Aladin.drawSOFIAImagers(this, g);
+               SOFIAladin.drawSOFIAImagers(this, g);
             }
          }
 

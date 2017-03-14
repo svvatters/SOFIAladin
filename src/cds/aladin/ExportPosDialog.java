@@ -401,7 +401,7 @@ final class ExportPosDialog extends JDialog {
 					// TODO clean this up
 					// Delete the last '-' and cast into a String
 					nameBuilder.deleteCharAt(nameBuilder.length() - 1);
-					astroObjName = SOFIA_Aladin.formatName(
+					astroObjName = SOFIAladin.formatName(
 												nameBuilder.toString());
 	
 					// An Astrocoo instance can parse different kinds
@@ -409,15 +409,15 @@ final class ExportPosDialog extends JDialog {
 					// in different formats as well. Using them
 					// for consistency among coordinates and possibly to
 					// use more of their functionality in the future.
-					ac = SOFIA_Aladin.createAstrocoo(
+					ac = SOFIAladin.createAstrocoo(
 									TDs.getContent(ra_col).toString(),
 									TDs.getContent(dec_col).toString());
 					
 					// Check that the resulting strings are viable 
 					// MCCS pos coordinates.  
 					// If not add info to errLog and skip this row			
-					String regex = SOFIA_Aladin.Regex.RAHMS.getValue() +
-									SOFIA_Aladin.Regex.DECDMS.getValue();
+					String regex = SOFIAladin.Regex.RAHMS.getValue() +
+									SOFIAladin.Regex.DECDMS.getValue();
 					if (ac.toString(Astroformat.SEXA3h).matches(regex)) {
 						String[] sexCoords; // Coords in sexagesimal
 						

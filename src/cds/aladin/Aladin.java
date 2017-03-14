@@ -3031,11 +3031,11 @@ public class Aladin extends JApplet
           calque.toggleSOFIAImagers();
           calque.repaintAll(); 
       } else if( isMenu(s,MSOFIASAVEPOS) ) { 
-          SOFIA_Aladin.openExportPosDialog(this);
+          SOFIAladin.openExportPosDialog(this);
       } else if( isMenu(s,MSOFIASETROF)) { 
           // Prompt the User for a SOFIA-ROF and set the selected 
           // ViewSimple's rotation to the corresponding Astro-PA
-          SOFIA_Aladin.setViewSimpleSOFIAROF(this);
+          SOFIAladin.setViewSimpleSOFIAROF(this);
       } else if( isMenu(s,MSOFIAMOPSREVIEW)) { ;
 
       } else if( isMenu(s,TARGET)) { target();

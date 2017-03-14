@@ -28,7 +28,7 @@ import sofia.Imager;
  * @author shannon.watters@gmail.com
  * @SOFIA_Aladin-extension class
  */
-public abstract class SOFIA_Aladin {
+public abstract class SOFIAladin extends Aladin {
     
     //
     enum Regex {    
@@ -119,10 +119,13 @@ public abstract class SOFIA_Aladin {
     public static void addPosOffset(String params) {    
     	
     	//TODO: Document params
-    	//TODO: Check offset math!
     	
         String[] args = params.split(",");  
+        
+        //TODO: Surround with try to check args
         Astrocoo ac = createAstrocoo(args[0], args[1]);
+        
+        //TODO: Check that args[2] and args[3] are valid offsets in arcsec
         
         // Calculate the RA Declination dependence term
         double raDecDep = 3600.0 * 
@@ -153,8 +156,8 @@ public abstract class SOFIA_Aladin {
      */
     static private void addPosToPlane(Astrocoo ac, String name, String plane) {
         // Clean up the name and plane Strings
-        name = SOFIA_Aladin.formatName(name.trim());
-        plane = SOFIA_Aladin.formatName(plane.trim());
+        name = SOFIAladin.formatName(name.trim());
+        plane = SOFIAladin.formatName(plane.trim());
 
         AladinData cat = null;
 
@@ -271,8 +274,8 @@ public abstract class SOFIA_Aladin {
          * Check that the coord strings are in a format Astrocoo can
          * take for initialization
          */
-        ra = SOFIA_Aladin.formatCoord(ra);
-        dec = SOFIA_Aladin.formatCoord(dec);
+        ra = SOFIAladin.formatCoord(ra);
+        dec = SOFIAladin.formatCoord(dec);
         
         /* Use an Astrocoo to handle different "ra dec" input formats.
          * Examples:
@@ -334,7 +337,7 @@ public abstract class SOFIA_Aladin {
         // TODO RENAME THIS METHOD!!  IT'S NOT A SETTER (PROMPTS USER)
         
         // Get currently selected SimpleView's SOFIA-Rotation-of-Field
-        double sofiaROF = SOFIA_Aladin.getViewSimpleSOFIAROF(viewSimple);
+        double sofiaROF = SOFIAladin.getViewSimpleSOFIAROF(viewSimple);
 
         // Formatting for display of current sofiaROF
         DecimalFormat df = new DecimalFormat("##0.0#");
@@ -342,7 +345,7 @@ public abstract class SOFIA_Aladin {
         // Prompt the user for a new SOFIA ROF value
         double userInput;
         try {
-            userInput = SOFIA_Aladin.showNumInputDialog(
+            userInput = SOFIAladin.showNumInputDialog(
                                             viewSimple.aladin.f,
                                             0.0, 
                                             360.0, 
@@ -579,13 +582,11 @@ public abstract class SOFIA_Aladin {
         			try {
 						sofia.ObsPlanTrackReporter.main(new String[0]);
 					} catch (IOException | ParseException | AladinException e) {
-						// TODO Auto-generated catch block
+						// TODO Return the error to the user 
 						e.printStackTrace();
 					}
-//        		} else  {
-//        			Aladin.launch("");
         		}
         }
-		Aladin.launch("");
+		launch("");
     }
 }

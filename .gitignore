@@ -2,3 +2,4 @@
 .settings/
 bin/
 dist/
+/test_script.py

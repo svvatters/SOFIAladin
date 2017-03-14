@@ -919,7 +919,7 @@ public final class Command implements Runnable {
 	   // If this cmd contains coords in the format 
 	   // 0h00m00.00s -0d00m00.0s this
 	   // will convert that to 0:00:00.00 -0:00:00.0 format
-	   cmd = SOFIA_Aladin.formatCoord(cmd);
+	   cmd = SOFIAladin.formatCoord(cmd);
 
 	   char b[]=cmd.toCharArray();
        int d,i;
@@ -3611,7 +3611,7 @@ Aladin.trace(4,"Command.execSetCmd("+param+") =>plans=["+plans+"] "
     * 				allowed for dec degs)
     */
    private void execSOFIAAddPos(String params) {
-       SOFIA_Aladin.addPos(params);
+       SOFIAladin.addPos(params);
    }  
    
    // @SOFIA_Aladin-extension method
@@ -3622,7 +3622,7 @@ Aladin.trace(4,"Command.execSetCmd("+param+") =>plans=["+plans+"] "
     * 								plane name)
     */
    private void execSOFIAAddPosOffset(String params) {
-       SOFIA_Aladin.addPosOffset(params);
+       SOFIAladin.addPosOffset(params);
    }
    
    
