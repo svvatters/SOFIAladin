@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<project name="SOFIA_Aladin" default="main" basedir=".">
+<project name="SOFIAladin" default="main" basedir=".">
   <description>Aladin Sky Atlas extended for SOFIA flight prep</description>
   <property name="src.dir" location="src" />
   <property name="build.dir" location="bin" />
@@ -58,7 +58,7 @@
       <fileset dir="${src.dir}" includes="*.css,*.js,*.html,*.gif,*.jpg, Ala*.*" 
         excludes="**/*.java, AladinSrc*.jar, .DS_Store" />
       <manifest>
-        <attribute name="Main-Class" value="cds.aladin.SOFIA_Aladin" />
+        <attribute name="Main-Class" value="cds.aladin.SOFIAladin" />
       </manifest>
     </jar>
   </target>

@@ -576,17 +576,25 @@ public abstract class SOFIAladin extends Aladin {
         }
     }
 
-    public static void main(String[] args) {
-        for( int i=0; i<args.length; i++ ) {
-        		if ( args[i].equals("-mopsreport") ){
-        			try {
-						sofia.ObsPlanTrackReporter.main(new String[0]);
-					} catch (IOException | ParseException | AladinException e) {
-						// TODO Return the error to the user 
-						e.printStackTrace();
-					}
-        		}
-        }
-		launch("");
+    public static void main(String[] args) {       		
+
+    		if (args.length == 0) {
+    			launch("");
+    			
+//    		} else if ( args[0].equals("-mopsreport") ){
+//			try {
+//				sofia.ObsPlanTrackReporter.main(new String[0]);
+//			} catch (IOException | ParseException | AladinException e) {
+//				// TODO Return the error to the user 
+//				e.printStackTrace();
+//			}
+			
+        	} else {       
+	        	String str = "";
+	        	for( int i=0; i<args.length; i++ ) {
+	        		str = str +  " " + args[i];
+	        	}
+	        	launch(str);
+        	}
     }
 }

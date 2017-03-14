@@ -1,18 +1,18 @@
-SOFIA Aladin
+SOFIAladin
 ============
 
 ######CDS Aladin Sky Atlas extended to help with SOFIA flight preparation
 
 
-####[SOFIA_Aladin Executables](../../releases)
+####[SOFIAladin Executables](../../releases)
 
 ####Build From Source
 * Requires JDK 1.8 or greater
 
-* Download and unzip [`SOFIA_Aladin-master.zip`](https://github.com/svvatters/SOFIA_Aladin/archive/master.zip)
+* Download and unzip [`SOFIA_Aladin-master.zip`](https://github.com/svvatters/SOFIAladin/archive/master.zip)
 * Build with [Apache Ant](http://ant.apache.org/) 
- * `cd` to the new directory `SOFIA_Aladin-master/`
+ * `cd` to the new directory `SOFIAladin-master/`
  * Run `build.xml` using Ant:
 
    `$ ant`
-  * Ant should do a clean compile and create the executable `SOFIA_Aladin.jar` in a new directory `dist/`
+  * Ant should do a clean compile and create the executable `SOFIAladin.jar` in a new directory `dist/`
