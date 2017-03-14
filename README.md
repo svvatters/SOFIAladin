@@ -1,12 +1,12 @@
 SOFIAladin
 ============
 
-##Aladin Sky Atlas extended to help observation preparation at SOFIA
+###Aladin Sky Atlas extended to help observation preparation at SOFIA
 
 
-###[SOFIAladin Executables](https://github.com/svvatters/SOFIAladin/releases)
+####Download SOFIAladin Executables [here](https://github.com/svvatters/SOFIAladin/releases)
 
-###Build From Source
+####Build From Source
 * Requires JDK 1.8 or greater
 * Download and uncompress the [source files](https://github.com/svvatters/SOFIAladin.git)
 * Build with [Apache Ant](http://ant.apache.org/) 
