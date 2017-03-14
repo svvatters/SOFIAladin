@@ -29,7 +29,10 @@ import sofia.Imager;
  * @SOFIAladin-extension class
  */
 public abstract class SOFIAladin extends Aladin {
-    
+   
+	//TODO: Handle versions differently (programmatically?)
+    static String version = "8.040s.4a";
+
     //
     enum Regex {    
         RAHMS("[0-9]{1,2}[h]" + 
@@ -54,6 +57,7 @@ public abstract class SOFIAladin extends Aladin {
     //
     enum Shapes {CIRCLE, SQUARE}
 
+    
     /**
      * @param a
      * @param colInfo
@@ -450,8 +454,8 @@ public abstract class SOFIAladin extends Aladin {
     
     
     static void aboutSOFIA() {
-    	//TODO: Handle versions differently (programmatically?)
-    	Aladin.info("Version 8.040s.4a");
+    	//TODO: Add more SOFIAladin extension info
+    	Aladin.info(SOFIAladin.version);
     }
     
     
