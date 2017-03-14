@@ -31,7 +31,7 @@ import sofia.Imager;
 public abstract class SOFIAladin extends Aladin {
    
 	//TODO: Handle versions differently (programmatically?)
-    static String version = "8.040s.4a";
+    static String version = "8.040s.5";
 
     //
     enum Regex {    
