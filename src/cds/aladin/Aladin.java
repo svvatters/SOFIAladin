@@ -493,7 +493,7 @@ public class Aladin extends JApplet
     String MSOFIAOPENPOS, MSOFIASAVEPOS, MSOFIAFOV, MSOFIACREATEPLANE, 
     		MSOFIATAGGEDPLANE, MSOFIAUNTAGGEDPLANE, MSOFIAPARAMPLANE,
     		MSOFIASETTINGS, MSOFIASETROF,MSOFIAIMAGERS,MSOFIAWFI,MSOFIAFFI,
-    		MSOFIAFPI, MSOFIAMOPSREVIEW;
+    		MSOFIAFPI, MSOFIAMOPSREVIEW, MSOFIAABOUT;
     
     String JUNIT=PROTOPREFIX+"*** Aladin internal code tests ***";
 
@@ -954,6 +954,7 @@ public class Aladin extends JApplet
 //       MSOFIAWFI = chaine.getString("MSOFIAWFI");
 //       MSOFIAFFI = chaine.getString("MSOFIAFFI");
 //       MSOFIAFPI = chaine.getString("MSOFIAFPI");
+       MSOFIAABOUT = chaine.getString("MSOFIAABOUT");
        
        MHELP  = chaine.getString("MHELP");
        MDCH1  = chaine.getString("MDCH1");
@@ -1179,7 +1180,10 @@ public class Aladin extends JApplet
 //                                 "Show me how to play with the metadata lists and trees"},
                   {MDOC,FAQ,TUTORIAL,MAN},
                   {},{HELPSCRIPT+"|"+(macPlateform?alt:meta)+" F5"},
-                  {},{SENDBUG}, {NEWS}, {ABOUT}
+                  {},{SENDBUG}, {NEWS}, {ABOUT}, 
+                  
+                  // @SOFIAladin-extension in createMenu()
+                  {MSOFIAABOUT}
              },
        };
 
@@ -3036,7 +3040,7 @@ public class Aladin extends JApplet
           // Prompt the User for a SOFIA-ROF and set the selected 
           // ViewSimple's rotation to the corresponding Astro-PA
           SOFIAladin.setViewSimpleSOFIAROF(this);
-      } else if( isMenu(s,MSOFIAMOPSREVIEW)) { ;
+      } else if( isMenu(s,MSOFIAABOUT)) { SOFIAladin.aboutSOFIA();
 
       } else if( isMenu(s,TARGET)) { target();
       } else if( isMenu(s,OVERLAY)){ overlay();

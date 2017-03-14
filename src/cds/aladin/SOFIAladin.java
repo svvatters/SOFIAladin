@@ -448,6 +448,13 @@ public abstract class SOFIAladin extends Aladin {
         dialog.setVisible(true);
     }
     
+    
+    static void aboutSOFIA() {
+    	//TODO: Handle versions differently (programmatically?)
+    	Aladin.info("Version 8.040s.4a");
+    }
+    
+    
     /**
      * Removes duplicates from a Collection and preserves it's order
      * @param c
