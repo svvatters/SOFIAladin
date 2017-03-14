@@ -3,7 +3,7 @@
 
 * Aladin is developed by [Centre de Données astronomiques de Strasbourg](http://cdsweb.u-strasbg.fr/):
   * [Aladin Sky Atlas Home](http://aladin.u-strasbg.fr/)
-  * [Aladin Download Page](http://aladin.u-strasbg.fr/java/nph-aladin.pl?frame=downloading)
+    * [Download Page](http://aladin.u-strasbg.fr/java/nph-aladin.pl?frame=downloading)
   * [Aladin v8.040 source code](https://github.com/svvatters/SOFIAladin/blob/master/AladinSrc.jar) was modified for this repository
   
 * SOFIAladin Executables [here](https://github.com/svvatters/SOFIAladin/releases)
