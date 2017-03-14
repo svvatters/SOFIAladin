@@ -9,7 +9,7 @@ import cds.astro.Astrocoo;
 
 /**
  * @author shannon.watters@gmail.com
- * @SOFIA_Aladin-extension class
+ * @SOFIAladin-extension class
  */
 @SuppressWarnings("serial")
 public class SciObs extends Astrocoo {

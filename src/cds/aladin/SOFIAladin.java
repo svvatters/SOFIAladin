@@ -26,7 +26,7 @@ import sofia.Imager;
 
 /**
  * @author shannon.watters@gmail.com
- * @SOFIA_Aladin-extension class
+ * @SOFIAladin-extension class
  */
 public abstract class SOFIAladin extends Aladin {
     

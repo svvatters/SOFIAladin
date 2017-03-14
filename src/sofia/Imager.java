@@ -4,7 +4,7 @@ import java.text.DecimalFormat;
 
 /**
  * @author shannon.watters@gmail.com
- * @SOFIA_Aladin-extension class
+ * @SOFIAladin-extension class
  */
 public enum Imager {
 

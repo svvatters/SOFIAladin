@@ -9,7 +9,7 @@ SOFIAladin
 ####Build From Source
 * Requires JDK 1.8 or greater
 
-* Download and unzip [`SOFIA_Aladin-master.zip`](https://github.com/svvatters/SOFIAladin/archive/master.zip)
+* Download and unzip [`SOFIAladin-master.zip`](https://github.com/svvatters/SOFIAladin/archive/master.zip)
 * Build with [Apache Ant](http://ant.apache.org/) 
  * `cd` to the new directory `SOFIAladin-master/`
  * Run `build.xml` using Ant:

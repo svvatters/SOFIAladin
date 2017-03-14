@@ -94,7 +94,7 @@ public final class Command implements Runnable {
    PlanImage planRGBRef;   // Particularite pour traiter la commande RGB
 
    
-   // @SOFIA_Aladin-extension branch-commandHelp added commands to Aladin script help
+   // @SOFIAladin-extension branch-commandHelp added commands to Aladin script help
    // Included command "addPos"
    
    static final String execHelp =
@@ -915,7 +915,7 @@ public final class Command implements Runnable {
    protected boolean splitGetCmd(StringBuffer servers, StringBuffer target,
                                StringBuffer radius,String cmd,boolean withServer) {
 
-	   // @SOFIA_Aladin-extension in splitGetCmd()
+	   // @SOFIAladin-extension in splitGetCmd()
 	   // If this cmd contains coords in the format 
 	   // 0h00m00.00s -0d00m00.0s this
 	   // will convert that to 0:00:00.00 -0:00:00.0 format
@@ -2719,7 +2719,7 @@ Aladin.trace(4,"Command.execSetCmd("+param+") =>plans=["+plans+"] "
       
            if( cmd.equalsIgnoreCase("taquin") ) a.view.taquin(param);
 
-        // @SOFIA_Aladin-extension commands in exec()
+        // @SOFIAladin-extension commands in exec()
 		else if ( (cmd.equalsIgnoreCase("addPos")) || 
 					(cmd.equalsIgnoreCase("appendSimple")) ) 
 			execSOFIAAddPos(param);
@@ -3597,7 +3597,7 @@ Aladin.trace(4,"Command.execSetCmd("+param+") =>plans=["+plans+"] "
       return "";
    }
    
-   // @SOFIA_Aladin-extension method
+   // @SOFIAladin-extension method
    /**
     * 
     * @param params Argument String (ra, dec, object name, 
@@ -3614,7 +3614,7 @@ Aladin.trace(4,"Command.execSetCmd("+param+") =>plans=["+plans+"] "
        SOFIAladin.addPos(params);
    }  
    
-   // @SOFIA_Aladin-extension method
+   // @SOFIAladin-extension method
    /**
     * 
     * @param param Argument string (ra, dec, ra offset (arcsec), 

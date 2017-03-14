@@ -37,7 +37,7 @@ import sofia.dcs.SciObs;
 
 /**
  * @author shannon.watters@gmail.com
- * @SOFIA_Aladin-extension class
+ * @SOFIAladin-extension class
  */
 public final class ObsPlanTrackReporter {
 

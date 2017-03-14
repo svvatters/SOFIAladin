@@ -11,7 +11,7 @@ import cds.aladin.SOFIAladin.Shapes;
 
 /**
  * @author shannon.watters@gmail.com
- * @SOFIA_Aladin-extension class
+ * @SOFIAladin-extension class
  */
 public final class AltAzFov {
 
