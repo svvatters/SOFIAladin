@@ -1,0 +1,52 @@
+#AJS
+#wfi_ffi_fpi.ajs
+#
+# This macro uses a parameter list that includes at least these 3 columns:
+#    $1=Name (unique object and filename)
+#    $2=RA
+#    $3=Dec
+#
+# It downloads a collection of data from hip2 & ucac4
+# around the input RA and dec and saves the data in a new stack
+
+$2 $3
+sync
+md $1
+
+$1_ucac4=get vizier(ucac4) $2 $3 0.07deg
+sync
+select $1_ucac4
+search |f.mag|<=14
+cplane fpi_$1
+select fpi_$1
+set color = yellow
+mv fpi_$1 $1
+rm $1_ucac4
+
+$1_hip2_ffi=get vizier(hip2) $2 $3 0.7deg
+sync
+select $1_hip2_ffi
+search |Hpmag|<=9.0
+cplane ffi_$1
+select ffi_$1
+set color = gray
+mv ffi_$1 $1
+rm $1_hip2_ffi
+
+$1_hip2=get vizier(hip2) $2 $3 4.2deg
+sync
+select $1_hip2
+search |Hpmag|<=7.0
+cplane wfi_$1
+select wfi_$1
+set color = magenta
+mv wfi_$1 $1
+rm $1_hip2
+
+addPos $2, $3, $1, target_$1
+select target_$1
+set color = red
+mv target_$1 $1
+collapse $1
+$2 $3
+sync
