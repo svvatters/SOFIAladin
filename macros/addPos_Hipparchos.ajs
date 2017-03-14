@@ -1,0 +1,15 @@
+#AJS
+#aladinInitPrep.ajs
+#
+# This macro uses a parameter list that includes at least these 2 columns:
+#    $1=Plane Name
+#    $2=Hipparcos ID #
+#
+# It downloads the hipparcos (hip2) data for Hipparcos $2 and adds it to
+# the Aladin plane $1
+
+$1=get vizier(hip2) hip $2 0.001deg
+sync
+select $1
+cplane $1
+rm temp_hip2

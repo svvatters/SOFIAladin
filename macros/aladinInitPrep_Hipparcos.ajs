@@ -1,0 +1,50 @@
+#AJS
+#aladinInitPrep_Hipparcos.ajs
+#
+# This macro uses a parameter list that includes at least these 2 columns:
+#    $1=Name (plane and file)
+#    $2=Hipparcos ID #
+#
+# It downloads data from simbad, hip2, ucac4, & tycho3 around Hipparcos #$2
+# and saves the stack as $1.aj
+
+rm all
+
+md Catalogs
+
+$1=get vizier(hip2) hip $2 0.001deg
+sync
+
+temp_tycho2=get vizier(Tycho-2) hip $2 1.1deg
+sync
+select temp_tycho2
+search |VTmag|<=14
+cplane tycho2
+rm temp_tycho2
+mv tycho2 Catalogs
+
+temp_ucac4=get vizier(ucac4) hip $2 1.1deg
+sync
+select temp_ucac4
+search |f.mag|<=14
+cplane ucac4
+rm temp_ucac4
+mv ucac4 Catalogs
+
+temp_hip2=get vizier(hip2) hip $2 4.23deg
+sync
+select temp_hip2
+search |Hpmag|<=14
+cplane hip2
+rm temp_hip2
+mv hip2 Catalogs
+
+temp_simbad=get simbad() hip $2 4.23deg
+sync
+select temp_simbad
+search |V|<=14
+cplane simbad
+rm temp_simbad
+mv simbad Catalogs
+
+backup ./$1.aj

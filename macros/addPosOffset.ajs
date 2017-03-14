@@ -1,0 +1,21 @@
+#AJS
+#addPosOffset.ajs
+#
+# This simple macro uses the command 'addPosOffsetPos' with a parameter
+# list that includes at least these 3 columns:
+#   $1=positionName
+#   $2=RAOffset (arcsec)
+#   $3=decOffset (arcsec)
+#
+# Command: addPosOffset (create positions offset from a base position)
+#   Arguments: RA, dec, RAOffset (arcsec), decOffset (arcsec), 
+#     positionName, planeName
+#       Note: if a plane named "planeName" exists the object will be
+#         appended to it; if not the plane will be created
+#   Example Usage:
+#     appendOffsetPos 3 46 48.50, +68 05 47.0, -7, 7, PosG, IC342
+#     appendOffsetPos 3h46m48.50s, +68d05m47.0s, -7, 7, PosG, IC342
+#     appendOffsetPos 3:46:48.50, +68:05:47.0, -7, 7, PosG, IC342
+#     appendOffsetPos 56.696871,  68.094444, -7, 7, PosG, IC342
+
+addPosOffset 0h00m00.00s, 0d00m00.0s, $2, $3, $1, planeName

@@ -1,7 +1,7 @@
 SOFIAladin
 ============
 
-######CDS Aladin Sky Atlas extended to help with SOFIA flight preparation
+######Aladin Sky Atlas extended to help observation preparation at SOFIA
 
 
 ####[SOFIAladin Executables](../../releases)

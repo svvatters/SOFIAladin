@@ -1,0 +1,52 @@
+#AJS
+#aladinInitPrep.ajs
+#
+# This macro uses a parameter list that includes at least these 3 columns:
+#    $1=Filename
+#    $2=RA
+#    $3=Dec
+#
+# It downloads a broad collection of data from simbad, hip2, ucac4, & tycho3
+# around the input RA and dec and saves the stack as an .aj file
+
+rm all
+$2 $3
+
+md Catalogs
+
+temp_tycho2=get vizier(Tycho-2) $2 $3 1.1deg
+sync
+select temp_tycho2
+search |VTmag|<=14
+cplane tycho2
+rm temp_tycho2
+mv tycho2 Catalogs
+
+temp_ucac4=get vizier(ucac4) $2 $3 1.1deg
+sync
+select temp_ucac4
+search |f.mag|<=14
+cplane ucac4
+rm temp_ucac4
+mv ucac4 Catalogs
+
+temp_hip2=get vizier(hip2) $2 $3 4.23deg
+sync
+select temp_hip2
+search |Hpmag|<=14
+cplane hip2
+rm temp_hip2
+mv hip2 Catalogs
+
+temp_simbad=get simbad() $2 $3 4.23deg
+sync
+select temp_simbad
+search |V|<=14
+cplane simbad
+rm temp_simbad
+mv simbad Catalogs
+
+addPos $2, $3, $1, $1
+
+$2 $3
+backup ./$1.aj

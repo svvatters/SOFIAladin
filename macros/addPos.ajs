@@ -1,0 +1,21 @@
+#AJS
+# addPos.ajs
+#
+# This simple macro uses the command 'addPos' with a parameter list
+# that includes at least 3 columns:
+#   $1 positionName
+#   $2 RA
+#   $3 Dec
+#   $4 Epoch (optional for the macro but not for .pos files)
+#
+# Command:  addPos
+#   Arguments: RA, Dec, positionName, planeName
+#     Note: if a plane named "planeName" exists the object will be
+#       appended to it; if not the plane will be created
+#   Example Usage:
+#     addPos 3h23m23.45s, -9d34m34.56s, Kolob, BS
+#     addPos 3:23:23.45, -9:34:34.56, Kolob, BS
+#     addPos 3 23 23.45, -9 34 34.56, Kolob, BS
+#     addPos 50.847708, -9.576267, Kolob, BS
+
+addPos $2, $3, $1, planeName	

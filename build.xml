@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <project name="SOFIAladin" default="main" basedir=".">
-  <description>Aladin Sky Atlas extended for SOFIA flight prep</description>
+  <description>Aladin Sky Atlas extended for SOFIA observation preparation</description>
   <property name="src.dir" location="src" />
   <property name="build.dir" location="bin" />
   <property name="dist.dir" location="dist" />
@@ -17,7 +17,7 @@
     <echo message="Source file directory:  ${src.dir}" />
     <mkdir dir="${build.dir}" />
     <javac srcdir="${src.dir}" destdir="${build.dir}" encoding="Cp1252" 
-      source="1.7" target="1.7" deprecation="off" includeantruntime="false">
+      source="1.8" target="1.8" deprecation="off" includeantruntime="false">
       <!-- Output deprecation info during compilation -->
       <!-- <compilerarg value="-Xlint"/> -->
       <classpath>
@@ -66,14 +66,6 @@
   <!-- Clean, compile, and create an executable jar file -->
   <target name="main" depends="clean, compile, jar">
     <description>Build All</description>
-
-    <!-- TODO: Figure out a better way to handle this - Copy non-java files 
-    in src.dir to build.dir so Eclipse can run the project during development
-    -->
-    <copy todir="${build.dir}">
-      <fileset dir="${src.dir}" excludes="**/*.java, **/*.jar, .DS_Store" />
-    </copy>
-
   </target>
 
 </project>
