@@ -5,7 +5,11 @@ SOFIAladin
 ###Aladin Sky Atlas extended to help observation preparation at SOFIA
 
 
+####[Centre de Données astronomiques de Strasbourg's Aladin Sky Atlas Home](http://aladin.u-strasbg.fr/)
+
+
 ####Download SOFIAladin Executables [here](https://github.com/svvatters/SOFIAladin/releases)
+
 
 ####Build From Source:
 * Requires JDK 1.8 or greater
