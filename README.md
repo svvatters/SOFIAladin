@@ -16,3 +16,10 @@ SOFIAladin
 
    `$ ant`
   * Ant will do a clean compile and create the executable `SOFIAladin.jar` in `dist/`
+
+
+####Command to start:
+* From the directory where `SOFIAladin.jar` is
+ 
+ `java -jar SOFIAladin.jar`
+
