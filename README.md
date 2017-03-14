@@ -19,4 +19,4 @@
   * Clicking on the jar file's icon may start it (if the system is configured to do so)
   * From the commmand-line:
   
-    `java -jar SOFIAladin.jar`
+    `$ java -jar SOFIAladin.jar`
