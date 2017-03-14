@@ -1,12 +1,11 @@
 SOFIAladin
-============
+=============
 
-
-### Aladin Sky Atlas extended to help observation preparation at SOFIA
+Aladin Sky Atlas extended to help observation preparation at SOFIA
 ------------
 
 
-#### [Centre de Données astronomiques de Strasbourg's Aladin Sky Atlas Home](http://aladin.u-strasbg.fr/)
+#### Centre de Données astronomiques de Strasbourg's [Aladin Sky Atlas Home](http://aladin.u-strasbg.fr/)
 
 
 #### Download SOFIAladin Executables [here](https://github.com/svvatters/SOFIAladin/releases)
@@ -23,8 +22,7 @@ SOFIAladin
   * Ant will do a clean compile and create the executable `SOFIAladin.jar` in `dist/`
 
 
-#### Command to start:
-* From the directory where `SOFIAladin.jar` is
+#### Run an executable jar file from the command-line:
  
  `java -jar SOFIAladin.jar`
 
